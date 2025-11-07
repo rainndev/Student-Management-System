@@ -92,9 +92,6 @@ public class LoginController implements Initializable {
             e.printStackTrace();
             txtMessage.setText("Error connecting to database.");
         }
-        
-        
-
     }
     
 }
