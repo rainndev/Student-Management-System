@@ -2,7 +2,7 @@ package studentmanagementsystem.model;
 
 import java.sql.Date; 
 
-public class Student {
+public class Student extends User{
 
     private int userId; 	
     private String program; 
@@ -11,37 +11,30 @@ public class Student {
     private Date birthDate; 	 	
     private String address;
     private String contactNumber;
-    private String profilePhotoPath; 	 	
+    private String profilePhotoPath; 
+    private int programId;
     private int isActive;
-    	
-    private String firstName;	
-    private String lastName;	
-    private String userName;	
-
-
-    public Student() {
-    }
-
-    public Student(int userId, String program, int yearLevel, String gender,	
+    private String profilePhoto;
+    
+    public Student(int roleId, String program, int yearLevel, String gender,	
                         Date birthDate, String address, String contactNumber,	
                         String profilePhotoPath, int isActive,
-                        String firstName, String lastName, String userName) {
-        this.userId = userId;
+                        String firstName, String lastName, String userName, 
+                        int programId, String profilePhoto) {
+        
+        super(userName, "123", roleId , firstName, lastName, isActive);
+        
         this.program = program;
         this.yearLevel = yearLevel;
         this.gender = gender;
-        this.birthDate = birthDate;
         this.address = address;
+        this.birthDate = birthDate;
         this.contactNumber = contactNumber;
         this.profilePhotoPath = profilePhotoPath;
-        this.isActive = isActive;
-        
-     
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
+        this.programId = programId;
+        this.profilePhoto = profilePhoto;
     }
-
+    
     
 
     public int getUserId() {
@@ -117,32 +110,19 @@ public class Student {
         this.isActive = isActive;
     }
     
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public int getProgramId() {
+        return this.programId;
     }
     
-    public String getFullName() {
-        return this.firstName + " " + this.lastName;
+    public void setProgramId(int programID) {
+       this.programId = programID;
+    }
+    
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+    
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 }

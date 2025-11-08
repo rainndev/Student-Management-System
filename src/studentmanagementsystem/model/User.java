@@ -4,7 +4,7 @@
  */
 package studentmanagementsystem.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -20,7 +20,7 @@ public class User {
     private Date createdAt;
 
     
-    public  User(String username, String password, int role, String firstName, String lastName, int isActive, Date createdAt){
+    public  User(String username, String password, int role, String firstName, String lastName, int isActive, Date createdAt ){
         this.username = username;
         this.password = password;
         this.role = role;
@@ -31,11 +31,19 @@ public class User {
     }
     
     
+    public  User(String username, String password, int role, String firstName, String lastName, int isActive){
+        this(username, password, role, firstName, lastName, isActive, null);
+    }
+       
     public String getUsername() { return username; } 
     public int getRole() { return role; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public int getIsActive() { return isActive; }
     public Date getCreatedAt() { return createdAt; }
+    public String getPassword() { return password; }
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 
 }
