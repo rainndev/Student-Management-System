@@ -14,7 +14,8 @@
             <children>
             <HBox alignment="CENTER_RIGHT" spacing="5.0">
                <children>
-                      <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#openAddStudentDialog" text="Add student" />
+                      <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#openEditStudentDialog" text="Edit student" />
+                  <Button fx:id="btnAddStudent1" mnemonicParsing="false" onAction="#openAddStudentDialog" text="Add student" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

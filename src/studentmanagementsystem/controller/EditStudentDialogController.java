@@ -5,33 +5,34 @@
 package studentmanagementsystem.controller;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import studentmanagementsystem.model.Program;
 import studentmanagementsystem.model.Student;
-import java.sql.Date;
-import java.time.LocalDate;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
-
 
 /**
  * FXML Controller class
  *
  * @author rainndev
  */
-public class AddStudentDialogController implements Initializable {
+public class EditStudentDialogController implements Initializable {
 
+    private Student student;
+    
     @FXML
     private TextField fieldFirstName;
     @FXML
@@ -39,22 +40,22 @@ public class AddStudentDialogController implements Initializable {
     @FXML
     private ComboBox<String> comboGender;
     @FXML
+    private DatePicker fieldbirthDate;
+    @FXML
     private TextField fieldAddresss;
     @FXML
     private TextField fieldContactNumber;
     @FXML
-    private TextField fieldYearLevel;
-    @FXML
-    private Button btnAddStudent;
-    @FXML
     private ComboBox<Program> comboProgram;
     @FXML
-    private DatePicker fieldbirthDate;
+    private TextField fieldYearLevel;
     @FXML
     private TextField fieldProfilePath;
     @FXML
     private Label txtMessage;
-    private StudentsViewController studentsViewController;
+    @FXML
+    private Button btnEditStudent;
+   
     /**
      * Initializes the controller class.
      */
@@ -64,12 +65,14 @@ public class AddStudentDialogController implements Initializable {
         List<Program> programList = programService.getAllPrograms();
         comboProgram.getItems().addAll(programList);
         comboGender.getItems().addAll("Male", "Female");
+    }    
+
+    @FXML
+    private void handleBirthDate(ActionEvent event) {
     }
 
- 
     @FXML
-    private void handleAddStudent(ActionEvent event) {
-        
+    private void handleEditStudent(ActionEvent event) {
         StudentService studentService = new StudentService();
         
         String firstName = fieldFirstName.getText().trim();
@@ -78,7 +81,15 @@ public class AddStudentDialogController implements Initializable {
         String address = fieldAddresss.getText();
         String contact = fieldContactNumber.getText().trim();
         
-       
+        
+        System.out.println("edit firstname value: " + firstName);
+        System.out.println("edit lastname value: " + lastName);
+        System.out.println("edit gender value: " + gender);
+        System.out.println("edit address value: " + address);
+        System.out.println("edit contact value: " + contact);
+
+        
+        
         int yearLevel;
         try {
             yearLevel = Integer.parseInt(fieldYearLevel.getText().trim());
@@ -113,39 +124,57 @@ public class AddStudentDialogController implements Initializable {
            profilePhoto     
         );
         
-       
+        if (this.student == null) {
+            System.out.println("ERROR: this.student is null!");
+            txtMessage.setText("Internal error: Student data not loaded.");
+            return;
+        }
         
-        int rowsInserted =  studentService.addStudent(student);
+       
+
+
+        // add the user id from student came from setStudent params
+        student.setUserId(this.student.getUserId());
+        
+        int rowsInserted =  studentService.editStudent(student);
         
         if (rowsInserted > 0 ) {
-            txtMessage.setText("Student  Added Succcesfully!");
-            
-            if (studentsViewController != null) {
-                    studentsViewController.loadStudents(); 
-            }
-            
+            txtMessage.setText("Student  Edit Succcesfully!");
             handleCloseDialog(event);
         } else {
-            txtMessage.setText("Student  Added failed!");
+            txtMessage.setText("Student  Edit failed!");
         }
         
         txtMessage.setVisible(true);
     }
+    
+    public void setStudent(Student student) {
+        this.student = student;
 
-    @FXML
-    private void handleBirthDate(ActionEvent event) {
-        Date birthDate = null;
-        LocalDate localDate = fieldbirthDate.getValue();
-        System.err.println("Local Date Birthdate field: " + localDate);
-        if (localDate != null) {
-            birthDate = Date.valueOf(localDate); 
-            System.err.println("SQL Date Birthdate field: " + birthDate);
+        if (student != null) {
+            fieldFirstName.setText(student.getFirstName());
+            fieldLastName.setText(student.getLastName());
+            comboGender.setValue(student.getGender());
+            
+            // Check if the BirthDate object is not null before calling toLocalDate()
+            if (student.getBirthDate() != null) {
+                fieldbirthDate.setValue(student.getBirthDate().toLocalDate());
+            } else {
+                // If it's null, explicitly clear the DatePicker
+                fieldbirthDate.setValue(null); 
+            }
+        
+            fieldAddresss.setText(student.getAddress());
+            fieldContactNumber.setText(student.getContactNumber());
+            comboProgram.setValue(student.getProgram());
+            fieldYearLevel.setText(String.valueOf(student.getYearLevel()));
+            fieldProfilePath.setText(student.getProfilePhoto());
         }
     }
-
-
-    private void handleCloseDialog(ActionEvent event) {
+    
+     private void handleCloseDialog(ActionEvent event) {
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.close();
     }
+      
 }

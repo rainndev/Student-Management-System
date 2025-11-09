@@ -55,7 +55,9 @@ public class StudentsViewController implements Initializable {
     @FXML
     private TableView<Student> studentTableView;
     @FXML
-    private Button btnAddStudent;
+    private Button btnEditStudent;
+    @FXML
+    private Button btnAddStudent1;
 
     /**
      * Initializes the controller class.
@@ -63,17 +65,12 @@ public class StudentsViewController implements Initializable {
     
     @FXML
     private void openAddStudentDialog() {
-            try {
+        
+        try {
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/AddStudentDialog.fxml"));
                 Parent root = loader.load();
                 
-                
-              
-                AddStudentDialogController dialogController = loader.getController();
-                
-                dialogController.setStudentsViewController(this);
-
                 Stage dialogStage = new Stage();
                 dialogStage.setTitle("Add New Student");
 
@@ -83,6 +80,7 @@ public class StudentsViewController implements Initializable {
                 dialogStage.setScene(scene);
 
                 dialogStage.showAndWait(); 
+                loadStudents();
 
 
 
@@ -90,8 +88,37 @@ public class StudentsViewController implements Initializable {
                 e.printStackTrace();
 
             }
+        
+      
     }
     
+    @FXML
+    private void openEditStudentDialog() {
+        Student selectedStudent = studentTableView.getSelectionModel().getSelectedItem();
+        
+        if (selectedStudent == null) {
+            System.out.println("No student selected!");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/EditStudentDialog.fxml"));
+            Parent root = loader.load();
+            EditStudentDialogController controller = loader.getController();
+            controller.setStudent(selectedStudent);
+           
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit Student");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            loadStudents();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,9 +129,11 @@ public class StudentsViewController implements Initializable {
         columnBirthDate.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getBirthDate()));
         columnAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
         columnContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactNumber()));
-        columnProgram.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram()));
+        columnProgram.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram().getProgramName()));
         columnYearLevel.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getYearLevel()));
         loadStudents();
+        
+     
     }    
     
     
@@ -116,6 +145,12 @@ public class StudentsViewController implements Initializable {
 
     private void handleRefreshTable(ActionEvent event) {
         loadStudents();
+    }
+    
+    
+    private Student getSelectedStudent() {
+        Student selectedStudent = studentTableView.getSelectionModel().getSelectedItem();
+        return selectedStudent;
     }
     
 }

@@ -5,22 +5,19 @@ import java.sql.Date;
 public class Student extends User{
 
     private int userId; 	
-    private String program; 
+    private Program program; 
     private int yearLevel;
     private String gender;
     private Date birthDate; 	 	
     private String address;
     private String contactNumber;
-    private String profilePhotoPath; 
     private int programId;
     private int isActive;
     private String profilePhoto;
     
-    public Student(int roleId, String program, int yearLevel, String gender,	
-                        Date birthDate, String address, String contactNumber,	
-                        String profilePhotoPath, int isActive,
-                        String firstName, String lastName, String userName, 
-                        int programId, String profilePhoto) {
+    public Student(int roleId, Program program, int yearLevel, String gender,	
+                        Date birthDate, String address, String contactNumber, int isActive,
+                        String firstName, String lastName, String userName, String profilePhoto) {
         
         super(userName, "123", roleId , firstName, lastName, isActive);
         
@@ -30,8 +27,6 @@ public class Student extends User{
         this.address = address;
         this.birthDate = birthDate;
         this.contactNumber = contactNumber;
-        this.profilePhotoPath = profilePhotoPath;
-        this.programId = programId;
         this.profilePhoto = profilePhoto;
     }
     
@@ -46,11 +41,11 @@ public class Student extends User{
     }
 
 
-    public String getProgram() { 
+    public Program getProgram() { 
         return program;
     }
 
-    public void setProgram(String program) { 
+    public void setProgram(Program program) { 
         this.program = program;
     }
 
@@ -93,15 +88,7 @@ public class Student extends User{
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
-
-    public String getProfilePhotoPath() {
-        return profilePhotoPath;
-    }
-
-    public void setProfilePhotoPath(String profilePhotoPath) {
-        this.profilePhotoPath = profilePhotoPath;
-    }
-
+    
     public int getIsActive() { 
         return isActive;
     }
