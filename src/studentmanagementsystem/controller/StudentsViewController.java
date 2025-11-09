@@ -23,8 +23,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import studentmanagementsystem.model.Program;
+import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
 
 /**
@@ -33,6 +36,9 @@ import studentmanagementsystem.services.StudentService;
  * @author rainndev
  */
 public class StudentsViewController implements Initializable {
+    
+    
+    
 
     @FXML
     private TableColumn<Student, Number> columnId;
@@ -58,10 +64,64 @@ public class StudentsViewController implements Initializable {
     private Button btnEditStudent;
     @FXML
     private Button btnAddStudent1;
+    @FXML
+    private TextField fieldDeleteStudent;
+    @FXML
+    private Button btnDeleteStudent;
 
     /**
      * Initializes the controller class.
      */
+    
+ 
+
+
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()));
+        columnFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
+        columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
+        columnGender.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGender()));
+        columnBirthDate.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getBirthDate()));
+        columnAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
+        columnContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactNumber()));
+        columnProgram.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram().getProgramName()));
+        columnYearLevel.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getYearLevel()));
+        loadStudents();
+        
+        
+        studentTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+               fieldDeleteStudent.setText(String.valueOf(newSelection.getUserId()));
+            }
+        });
+        
+     
+    }    
+    
+    
+    public void loadStudents() {
+        StudentService studentService = new StudentService();
+        List<Student> student = studentService.getAllStudent();
+        studentTableView.setItems(FXCollections.observableArrayList(student));
+    }
+
+    private void handleRefreshTable(ActionEvent event) {
+        loadStudents();
+    }
+    
+
+
+    @FXML
+    private void handleDeleteStudent(ActionEvent event) {
+        int studentID = Integer.parseInt(fieldDeleteStudent.getText());
+        StudentService studentService = new StudentService();
+        studentService.deleteStudent(studentID);
+        loadStudents();
+    }
+    
+    
     
     @FXML
     private void openAddStudentDialog() {
@@ -117,40 +177,5 @@ public class StudentsViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()));
-        columnFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
-        columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
-        columnGender.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGender()));
-        columnBirthDate.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getBirthDate()));
-        columnAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
-        columnContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactNumber()));
-        columnProgram.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram().getProgramName()));
-        columnYearLevel.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getYearLevel()));
-        loadStudents();
-        
-     
-    }    
-    
-    
-    public void loadStudents() {
-        StudentService studentService = new StudentService();
-        List<Student> student = studentService.getAllStudent();
-        studentTableView.setItems(FXCollections.observableArrayList(student));
-    }
-
-    private void handleRefreshTable(ActionEvent event) {
-        loadStudents();
-    }
-    
-    
-    private Student getSelectedStudent() {
-        Student selectedStudent = studentTableView.getSelectionModel().getSelectedItem();
-        return selectedStudent;
-    }
-    
+    } 
 }

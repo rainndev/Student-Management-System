@@ -22,41 +22,41 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization logic
+       switchTo("Home");
     }
 
     private final Map<String, String> fxmlMap = Map.of(
         "Home", "/studentmanagementsystem/view/HomeView.fxml",
         "Students", "/studentmanagementsystem/view/StudentsView.fxml",
-        "Teachers", "/studentmanagementsystem/view/StudentsView.fxml"
+        "Teachers", "/studentmanagementsystem/view/TeachersView.fxml"
     );
 
     @FXML
-    public void switchPage(MouseEvent event) {
+    public void handleSwitchPage(MouseEvent event) {
     
         Node source = (Node) event.getSource();
   
         String pageKey = (String) source.getUserData(); 
         String fxmlPath = fxmlMap.get(pageKey);
 
-        if (fxmlPath == null) {
-            System.err.println("Error: No FXML path found for key: " + pageKey);
-            return;
-        }
-
+       switchTo(pageKey);
+    }
+    
+    
+    private void switchTo(String pageKey) {
         try {
-            Parent newView = viewCache.get(pageKey);
+                Parent newView = viewCache.get(pageKey);
+                String fxmlPath = fxmlMap.get(pageKey);
+                if (newView == null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                    newView = loader.load();
+                    viewCache.put(pageKey, newView);
+                }
 
-            if (newView == null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                newView = loader.load();
-                viewCache.put(pageKey, newView);
-            }
-
-            mainContentPane.setCenter(newView);
+                mainContentPane.setCenter(newView);
 
         } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
     }
 }

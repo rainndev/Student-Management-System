@@ -18,7 +18,7 @@ import studentmanagementsystem.model.Program;
  * @author rainndev
  */
 public class StudentService { 	
-    public List<Student> getAllStudent() {
+   public List<Student> getAllStudent() {
         List<Student> studentList = new ArrayList<>();
         
         DatabaseConnection connection = new DatabaseConnection();
@@ -171,7 +171,7 @@ public class StudentService {
 }
    
    public int editStudent(Student student) {
-            DatabaseConnection connection = new DatabaseConnection();
+        DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
 
         PreparedStatement userStmt = null;
@@ -218,4 +218,21 @@ public class StudentService {
         }
 }
 
+   public int deleteStudent(int ID){
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+           String deleteQuery = "DELETE FROM user WHERE id = ?";
+           stmt = connectDB.prepareStatement(deleteQuery);
+           stmt.setInt(1, ID);
+           
+           return stmt.executeUpdate();
+           
+       } catch (Exception e) {
+           e.printStackTrace();
+           return 0;
+       }
+   }
 }

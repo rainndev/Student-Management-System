@@ -23,7 +23,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#switchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Home">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Home">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -36,7 +36,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#switchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Students">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Students">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#switchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Teachers">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Teachers">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
