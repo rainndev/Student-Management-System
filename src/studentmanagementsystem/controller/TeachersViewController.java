@@ -65,6 +65,14 @@ public class TeachersViewController implements Initializable {
         columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
         columnDepartment.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartment()));
         columnContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactNumber()));
+        
+        teacherTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+               fieldDeleteTeacher.setText(String.valueOf(newSelection.getUserId()));
+            }
+        });
+         
+         
         loadTeachers();
     }    
     
@@ -103,6 +111,11 @@ public class TeachersViewController implements Initializable {
 
     @FXML
     private void handleDeleteStudent(ActionEvent event) {
+        TeacherService teacherService = new TeacherService();
+        int id = Integer.parseInt(fieldDeleteTeacher.getText());
+        
+        teacherService.deleteTeacher(id);
+        loadTeachers();
     }
 
     @FXML

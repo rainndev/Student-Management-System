@@ -169,4 +169,22 @@ public class TeacherService {
         }
     }
     
+    public int deleteTeacher(int ID){
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+           String deleteQuery = "DELETE FROM user WHERE id = ?";
+           stmt = connectDB.prepareStatement(deleteQuery);
+           stmt.setInt(1, ID);
+           
+           return stmt.executeUpdate();
+           
+       } catch (Exception e) {
+           e.printStackTrace();
+           return 0;
+       }
+   }
+    
 }
