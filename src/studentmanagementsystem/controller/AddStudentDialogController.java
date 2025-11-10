@@ -36,7 +36,9 @@ public class AddStudentDialogController implements Initializable {
     private TextField fieldFirstName;
     @FXML
     private TextField fieldLastName;
+    @FXML
     private ComboBox<String> comboGender;
+    @FXML
     private TextField fieldAddresss;
     @FXML
     private TextField fieldContactNumber;
@@ -44,8 +46,11 @@ public class AddStudentDialogController implements Initializable {
     private TextField fieldYearLevel;
     @FXML
     private Button btnAddStudent;
+    @FXML
     private ComboBox<Program> comboProgram;
+    @FXML
     private DatePicker fieldbirthDate;
+    @FXML
     private TextField fieldProfilePath;
     @FXML
     private Label txtMessage;
@@ -61,6 +66,7 @@ public class AddStudentDialogController implements Initializable {
     }
 
  
+    @FXML
     private void handleAddStudent(ActionEvent event) {
         
         StudentService studentService = new StudentService();
@@ -119,6 +125,7 @@ public class AddStudentDialogController implements Initializable {
         txtMessage.setVisible(true);
     }
 
+    @FXML
     private void handleBirthDate(ActionEvent event) {
         Date birthDate = null;
         LocalDate localDate = fieldbirthDate.getValue();
