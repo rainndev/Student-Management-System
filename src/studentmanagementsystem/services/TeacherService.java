@@ -86,11 +86,6 @@ public class TeacherService {
         ResultSet generatedKeys = null;
 
         try {
-
-            String username = teacher.getUsername();
-            System.out.println("DEBUG: Attempting to insert user with username: " + username);
-
-
             String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
                     + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
@@ -137,4 +132,41 @@ public class TeacherService {
             }
         }
     }
+    
+    public int editTeacher(Teacher teacher) {
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getConnection();
+
+        PreparedStatement userStmt = null;
+        PreparedStatement teacherStmt = null;
+        ResultSet generatedKeys = null;
+        
+        
+        try {        
+            String updateUserQuery = "UPDATE user SET username = ?, password = ?, role_id = ?, first_name = ?, last_name = ?, isActive = ? WHERE id = ?";
+            userStmt = connectDB.prepareStatement(updateUserQuery);
+            userStmt.setString(1, teacher.getUsername());
+            userStmt.setString(2, teacher.getPassword());
+            userStmt.setInt(3, teacher.getRole());
+            userStmt.setString(4, teacher.getFirstName());
+            userStmt.setString(5, teacher.getLastName());
+            userStmt.setInt(6, teacher.getIsActive());
+            userStmt.setInt(7, teacher.getUserId());
+            userStmt.executeUpdate();
+            
+            String updateTeacherQuery = "UPDATE teacher SET department = ?, contact_number = ?, isActive = ? WHERE user_id = ?";
+            teacherStmt = connectDB.prepareStatement(updateTeacherQuery);
+            teacherStmt.setString(1, teacher.getDepartment());
+            teacherStmt.setString(2, teacher.getContactNumber());
+            teacherStmt.setInt(3, teacher.getIsActive());
+            teacherStmt.setInt(4, teacher.getUserId());
+
+            int rowsUpdated = teacherStmt.executeUpdate();
+            return rowsUpdated;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
 }

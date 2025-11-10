@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import studentmanagementsystem.model.Student;
 import studentmanagementsystem.model.Teacher;
 import studentmanagementsystem.services.TeacherService;
 
@@ -106,6 +107,29 @@ public class TeachersViewController implements Initializable {
 
     @FXML
     private void openEditStudentDialog(ActionEvent event) {
+        Teacher selectedTeacher = teacherTableView.getSelectionModel().getSelectedItem();
+        
+        if (selectedTeacher == null) {
+            System.out.println("No teacher selected!");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/EditTeacherDialog.fxml"));
+            Parent root = loader.load();
+            EditTeacherDialogController controller = loader.getController();
+            controller.setTeacher(selectedTeacher);
+           
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit Teacher");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            loadTeachers();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

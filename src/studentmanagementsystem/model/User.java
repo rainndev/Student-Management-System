@@ -20,6 +20,8 @@ public class User {
     private Date createdAt;
 
     
+    public User(){};
+    
     public  User(String username, String password, int role, String firstName, String lastName, int isActive, Date createdAt ){
         this.username = username;
         this.password = password;

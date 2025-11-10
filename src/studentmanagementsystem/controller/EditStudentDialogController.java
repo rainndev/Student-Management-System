@@ -80,15 +80,7 @@ public class EditStudentDialogController implements Initializable {
         String gender = comboGender.getValue().trim();
         String address = fieldAddresss.getText();
         String contact = fieldContactNumber.getText().trim();
-        
-        
-        System.out.println("edit firstname value: " + firstName);
-        System.out.println("edit lastname value: " + lastName);
-        System.out.println("edit gender value: " + gender);
-        System.out.println("edit address value: " + address);
-        System.out.println("edit contact value: " + contact);
 
-        
         
         int yearLevel;
         try {
@@ -123,15 +115,6 @@ public class EditStudentDialogController implements Initializable {
            randomUsername,
            profilePhoto     
         );
-        
-        if (this.student == null) {
-            System.out.println("ERROR: this.student is null!");
-            txtMessage.setText("Internal error: Student data not loaded.");
-            return;
-        }
-        
-       
-
 
         // add the user id from student came from setStudent params
         student.setUserId(this.student.getUserId());
@@ -172,7 +155,7 @@ public class EditStudentDialogController implements Initializable {
         }
     }
     
-     private void handleCloseDialog(ActionEvent event) {
+    private void handleCloseDialog(ActionEvent event) {
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.close();
     }
