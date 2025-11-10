@@ -36,9 +36,7 @@ public class AddStudentDialogController implements Initializable {
     private TextField fieldFirstName;
     @FXML
     private TextField fieldLastName;
-    @FXML
     private ComboBox<String> comboGender;
-    @FXML
     private TextField fieldAddresss;
     @FXML
     private TextField fieldContactNumber;
@@ -46,15 +44,11 @@ public class AddStudentDialogController implements Initializable {
     private TextField fieldYearLevel;
     @FXML
     private Button btnAddStudent;
-    @FXML
     private ComboBox<Program> comboProgram;
-    @FXML
     private DatePicker fieldbirthDate;
-    @FXML
     private TextField fieldProfilePath;
     @FXML
     private Label txtMessage;
-    private StudentsViewController studentsViewController;
     /**
      * Initializes the controller class.
      */
@@ -67,11 +61,9 @@ public class AddStudentDialogController implements Initializable {
     }
 
  
-    @FXML
     private void handleAddStudent(ActionEvent event) {
         
         StudentService studentService = new StudentService();
-        
         String firstName = fieldFirstName.getText().trim();
         String lastName = fieldLastName.getText().trim();
         String gender = comboGender.getValue().trim();
@@ -118,12 +110,7 @@ public class AddStudentDialogController implements Initializable {
         int rowsInserted =  studentService.addStudent(student);
         
         if (rowsInserted > 0 ) {
-            txtMessage.setText("Student  Added Succcesfully!");
-            
-            if (studentsViewController != null) {
-                    studentsViewController.loadStudents(); 
-            }
-            
+            txtMessage.setText("Student  Added Succcesfully!");   
             handleCloseDialog(event);
         } else {
             txtMessage.setText("Student  Added failed!");
@@ -132,7 +119,6 @@ public class AddStudentDialogController implements Initializable {
         txtMessage.setVisible(true);
     }
 
-    @FXML
     private void handleBirthDate(ActionEvent event) {
         Date birthDate = null;
         LocalDate localDate = fieldbirthDate.getValue();
@@ -148,4 +134,5 @@ public class AddStudentDialogController implements Initializable {
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.close();
     }
+
 }

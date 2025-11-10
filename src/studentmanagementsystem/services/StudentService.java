@@ -103,72 +103,72 @@ public class StudentService {
     }
     
    public int addStudent(Student student) {
-    DatabaseConnection connection = new DatabaseConnection();
-    Connection connectDB = connection.getConnection();
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getConnection();
 
-    PreparedStatement userStmt = null;
-    PreparedStatement studentStmt = null;
-    ResultSet generatedKeys = null;
+        PreparedStatement userStmt = null;
+        PreparedStatement studentStmt = null;
+        ResultSet generatedKeys = null;
 
-    try {
-        
-        String username = student.getUsername();
-        System.out.println("DEBUG: Attempting to insert user with username: " + username);
-
-
-        String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
-                + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
-
-        userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
-        userStmt.setString(1, student.getUsername());
-        userStmt.setString(2, student.getPassword());
-        userStmt.setInt(3, student.getRole());
-        userStmt.setString(4, student.getFirstName());
-        userStmt.setString(5, student.getLastName());
-        userStmt.setInt(6, student.getIsActive());
-        
-        userStmt.executeUpdate();
-
-        generatedKeys = userStmt.getGeneratedKeys();
-        System.out.println("generated kets: " + generatedKeys);
-        int userId = -1;
-        if (generatedKeys.next()) {
-            userId = generatedKeys.getInt(1);
-        }
-
-        String insertStudentQuery = "INSERT INTO student ("
-                + "user_id, program_id, year_level, gender, birth_date, address, contact_number, profile_photo, isActive"
-                + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        studentStmt = connectDB.prepareStatement(insertStudentQuery);
-        studentStmt.setInt(1, userId);
-        studentStmt.setInt(2, student.getProgram().getId());
-        studentStmt.setInt(3, student.getYearLevel());
-        studentStmt.setString(4, student.getGender());
-        studentStmt.setDate(5, student.getBirthDate());
-        studentStmt.setString(6, student.getAddress());
-        studentStmt.setString(7, student.getContactNumber());
-        studentStmt.setString(8, student.getProfilePhoto());
-        studentStmt.setBoolean(9, true);
-
-        int rowsInserted = studentStmt.executeUpdate();
-        return rowsInserted;
-       
-
-    } catch (Exception e) {
-        e.printStackTrace();
-         return 0;
-    } finally {
         try {
-            if (generatedKeys != null) generatedKeys.close();
-            if (userStmt != null) userStmt.close();
-            if (studentStmt != null) studentStmt.close();
-            if (connectDB != null) connectDB.close();
-        } catch (Exception closeEx) {
-            closeEx.printStackTrace();
+
+            String username = student.getUsername();
+            System.out.println("DEBUG: Attempting to insert user with username: " + username);
+
+
+            String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
+
+            userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
+            userStmt.setString(1, student.getUsername());
+            userStmt.setString(2, student.getPassword());
+            userStmt.setInt(3, student.getRole());
+            userStmt.setString(4, student.getFirstName());
+            userStmt.setString(5, student.getLastName());
+            userStmt.setInt(6, student.getIsActive());
+
+            userStmt.executeUpdate();
+
+            generatedKeys = userStmt.getGeneratedKeys();
+            System.out.println("generated kets: " + generatedKeys);
+            int userId = -1;
+            if (generatedKeys.next()) {
+                userId = generatedKeys.getInt(1);
+            }
+
+            String insertStudentQuery = "INSERT INTO student ("
+                    + "user_id, program_id, year_level, gender, birth_date, address, contact_number, profile_photo, isActive"
+                    + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            studentStmt = connectDB.prepareStatement(insertStudentQuery);
+            studentStmt.setInt(1, userId);
+            studentStmt.setInt(2, student.getProgram().getId());
+            studentStmt.setInt(3, student.getYearLevel());
+            studentStmt.setString(4, student.getGender());
+            studentStmt.setDate(5, student.getBirthDate());
+            studentStmt.setString(6, student.getAddress());
+            studentStmt.setString(7, student.getContactNumber());
+            studentStmt.setString(8, student.getProfilePhoto());
+            studentStmt.setBoolean(9, true);
+
+            int rowsInserted = studentStmt.executeUpdate();
+            return rowsInserted;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+             return 0;
+        } finally {
+            try {
+                if (generatedKeys != null) generatedKeys.close();
+                if (userStmt != null) userStmt.close();
+                if (studentStmt != null) studentStmt.close();
+                if (connectDB != null) connectDB.close();
+            } catch (Exception closeEx) {
+                closeEx.printStackTrace();
+            }
         }
     }
-}
    
    public int editStudent(Student student) {
         DatabaseConnection connection = new DatabaseConnection();

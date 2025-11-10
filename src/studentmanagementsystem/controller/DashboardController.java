@@ -39,7 +39,7 @@ public class DashboardController implements Initializable {
         String pageKey = (String) source.getUserData(); 
         String fxmlPath = fxmlMap.get(pageKey);
 
-       switchTo(pageKey);
+        switchTo(pageKey);
     }
     
     
