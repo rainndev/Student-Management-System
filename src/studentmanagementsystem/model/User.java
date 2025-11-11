@@ -4,6 +4,7 @@
  */
 package studentmanagementsystem.model;
 
+import java.lang.classfile.instruction.SwitchCase;
 import java.sql.Date;
 
 /**
@@ -12,6 +13,7 @@ import java.sql.Date;
  */
 public class User {
     private String  username;
+    private int UserID;
     private String  password;
     private int role;
     private String  firstName;
@@ -47,5 +49,26 @@ public class User {
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
+    public int getUserID() { return this.UserID;}
+    
+    public String getRoleFormatted(int roleID) {
+        switch (roleID) {
+            case 0:
+                return "ADMIN";
+            case 1:
+                return "STUDENT";
+            case 2:
+                return "TEACHER";
+            default:
+                throw new AssertionError();
+        }
+    }
+    
+    public String getActiveState(int activeId) {
+      return activeId == 1 ? "Active" : "Inactive";
+    }
+
+    public void setCreatedAt(Date date) { this.createdAt = date; }
+    public void setUserId(int UserID) { this.UserID = UserID; }
 
 }

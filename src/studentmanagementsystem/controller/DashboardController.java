@@ -28,7 +28,8 @@ public class DashboardController implements Initializable {
     private final Map<String, String> fxmlMap = Map.of(
         "Home", "/studentmanagementsystem/view/HomeView.fxml",
         "Students", "/studentmanagementsystem/view/StudentsView.fxml",
-        "Teachers", "/studentmanagementsystem/view/TeachersView.fxml"
+        "Teachers", "/studentmanagementsystem/view/TeachersView.fxml",
+        "Users", "/studentmanagementsystem/view/UsersView.fxml"
     );
 
     @FXML
