@@ -18,11 +18,9 @@
                   <HBox maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="429.0" spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <TextField fx:id="fieldDeleteTeacher" prefHeight="25.0" prefWidth="343.0" text="Enter User ID" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="btnDeleteTeacher" mnemonicParsing="false" onAction="#handleDeleteUser" text="Delete User" />
+                        <Button fx:id="btnSearchUser" mnemonicParsing="false" onAction="#handleSearchUser" text="Search" />
                      </children>
                   </HBox>
-                      <Button fx:id="btnEditTeacher" mnemonicParsing="false" onAction="#openEditStudentDialog" text="Edit User" />
-                  <Button fx:id="btnAddTeacher" mnemonicParsing="false" onAction="#openAddTeacherDialog" text="Add User" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

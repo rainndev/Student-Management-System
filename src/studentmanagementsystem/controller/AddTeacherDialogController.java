@@ -56,8 +56,9 @@ public class AddTeacherDialogController implements Initializable {
         String randomUsername = java.util.UUID.randomUUID().toString();
         String password = "123";
         int role = 1; //1 = Teacher in role table
+        int isActive = 1;
         
-        Teacher teacher = new Teacher(randomUsername, password, role,firstName, lastName, department, contact, 1);
+        Teacher teacher = new Teacher(randomUsername, password, role,firstName, lastName, department, contact, isActive);
         int rowsInserted = teacherService.addTeacher(teacher);
         
         if (rowsInserted > 0 ) {

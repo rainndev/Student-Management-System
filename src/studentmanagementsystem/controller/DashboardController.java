@@ -46,15 +46,12 @@ public class DashboardController implements Initializable {
     
     private void switchTo(String pageKey) {
         try {
-                Parent newView = viewCache.get(pageKey);
+                Parent view = viewCache.get(pageKey);
                 String fxmlPath = fxmlMap.get(pageKey);
-                if (newView == null) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                    newView = loader.load();
-                    viewCache.put(pageKey, newView);
-                }
-
-                mainContentPane.setCenter(newView);
+                
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                view = loader.load();
+                mainContentPane.setCenter(view);
 
         } catch (IOException e) {
                 e.printStackTrace();

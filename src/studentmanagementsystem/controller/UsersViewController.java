@@ -35,12 +35,6 @@ public class UsersViewController implements Initializable {
     @FXML
     private TextField fieldDeleteTeacher;
     @FXML
-    private Button btnDeleteTeacher;
-    @FXML
-    private Button btnEditTeacher;
-    @FXML
-    private Button btnAddTeacher;
-    @FXML
     private TableColumn<User, Number> columnId;
     @FXML
     private TableColumn<User, String> columnFirstName;
@@ -54,6 +48,8 @@ public class UsersViewController implements Initializable {
     private TableView<User> usersTableView;
     @FXML
     private TableColumn<User, Date> columnCreatedAt;
+    @FXML
+    private Button btnSearchUser;
 
     /**
      * Initializes the controller class.
@@ -77,15 +73,8 @@ public class UsersViewController implements Initializable {
     }
 
     @FXML
-    private void handleDeleteUser(ActionEvent event) {
+    private void handleSearchUser(ActionEvent event) {
     }
 
-    @FXML
-    private void openEditStudentDialog(ActionEvent event) {
-    }
-
-    @FXML
-    private void openAddTeacherDialog(ActionEvent event) {
-    }
     
 }
