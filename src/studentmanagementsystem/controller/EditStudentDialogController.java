@@ -117,7 +117,7 @@ public class EditStudentDialogController implements Initializable {
         );
 
         // add the user id from student came from setStudent params
-        student.setUserId(this.student.getUserId());
+        student.setUserId(this.student.getUserID());
         
         int rowsInserted =  studentService.editStudent(student);
         

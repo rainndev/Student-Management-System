@@ -186,7 +186,7 @@ public class StudentService {
             userStmt.setString(4, student.getFirstName());
             userStmt.setString(5, student.getLastName());
             userStmt.setInt(6, student.getIsActive());
-            userStmt.setInt(7, student.getUserId());
+            userStmt.setInt(7, student.getUserID());
             userStmt.executeUpdate();
 
             String updateStudentQuery = "UPDATE student SET program_id = ?, year_level = ?, gender = ?, birth_date = ?, address = ?, contact_number = ?, profile_photo = ?, isActive = ? WHERE user_id = ?";
@@ -199,7 +199,7 @@ public class StudentService {
             studentStmt.setString(6, student.getContactNumber());
             studentStmt.setString(7, student.getProfilePhoto());
             studentStmt.setBoolean(8, true);
-            studentStmt.setInt(9, student.getUserId());
+            studentStmt.setInt(9, student.getUserID());
 
             int rowsUpdated = studentStmt.executeUpdate();
             return rowsUpdated;

@@ -3,8 +3,6 @@ package studentmanagementsystem.model;
 import java.sql.Date; 
 
 public class Student extends User{
-
-    private int userId; 	
     private Program program; 
     private int yearLevel;
     private String gender;
@@ -30,16 +28,6 @@ public class Student extends User{
         this.profilePhoto = profilePhoto;
     }
     
-    
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
 
     public Program getProgram() { 
         return program;

@@ -73,13 +73,9 @@ public class StudentsViewController implements Initializable {
      * Initializes the controller class.
      */
     
- 
-
-
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()));
+        columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserID()));
         columnFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
         columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
         columnGender.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGender()));
@@ -93,11 +89,10 @@ public class StudentsViewController implements Initializable {
         
         studentTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-               fieldDeleteStudent.setText(String.valueOf(newSelection.getUserId()));
+               fieldDeleteStudent.setText(String.valueOf(newSelection.getUserID()));
             }
         });
         
-     
     }    
     
     
@@ -125,9 +120,7 @@ public class StudentsViewController implements Initializable {
     
     @FXML
     private void openAddStudentDialog() {
-        
         try {
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/AddStudentDialog.fxml"));
                 Parent root = loader.load();
                 
@@ -141,9 +134,6 @@ public class StudentsViewController implements Initializable {
 
                 dialogStage.showAndWait(); 
                 loadStudents();
-
-
-
             } catch (IOException e) {
                 e.printStackTrace();
 
