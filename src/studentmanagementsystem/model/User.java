@@ -56,9 +56,9 @@ public class User {
             case 0:
                 return "ADMIN";
             case 1:
-                return "STUDENT";
-            case 2:
                 return "TEACHER";
+            case 2:
+                return "STUDENT";
             default:
                 throw new AssertionError();
         }

@@ -10,7 +10,6 @@ public class Student extends User{
     private String address;
     private String contactNumber;
     private int programId;
-    private int isActive;
     private String profilePhoto;
     
     public Student(int roleId, Program program, int yearLevel, String gender,	
@@ -76,15 +75,7 @@ public class Student extends User{
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
-    
-    public int getIsActive() { 
-        return isActive;
-    }
 
-    public void setIsActive(int isActive) { 
-        this.isActive = isActive;
-    }
-    
     public int getProgramId() {
         return this.programId;
     }

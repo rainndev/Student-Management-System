@@ -94,17 +94,19 @@ public class AddStudentDialogController implements Initializable {
         Program selectedProgram = comboProgram.getValue(); 
         String profilePhoto = fieldProfilePath.getText().trim();
         String randomUsername = java.util.UUID.randomUUID().toString();
+        int roleID = 2;
+        int isActive = 1;
         
-      
+        
         Student student = new Student(
-           2,
+           roleID,
            selectedProgram,
            yearLevel,
            gender,
            birthDate, 
            address,
            contact,
-           1,
+           isActive,
            firstName,
            lastName,
            randomUsername,
