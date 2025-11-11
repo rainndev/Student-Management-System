@@ -13,7 +13,7 @@ public class Teacher extends User{
      private String department;
      private String contactNumber;
      
-     public Teacher(String username, String password, int role, String firstName, String lastName, String department, String contactNumber, int isActive){
+     public Teacher(String username, String password, Role role, String firstName, String lastName, String department, String contactNumber, int isActive){
          super(username, password, role, firstName, lastName, isActive);
          this.department = department;
          this.contactNumber = contactNumber;

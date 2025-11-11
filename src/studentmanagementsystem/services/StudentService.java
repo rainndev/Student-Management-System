@@ -10,6 +10,7 @@ import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.model.Student;
 import studentmanagementsystem.model.User;
+import studentmanagementsystem.model.Role;
 import studentmanagementsystem.model.Program;
 
 /**
@@ -23,18 +24,22 @@ public class StudentService {
         
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
-        String query = 
-            "SELECT " +
-            // User Table (U)
-            "U.id AS user_id, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
-            // Student Table (S)
-            "S.program_id, S.year_level, S.gender, S.birth_date, S.address, S.contact_number, S.profile_photo, S.isActive AS student_active, " +
-            // Program Table (P)
-            "P.program_code, P.program_name, P.description " +
-            "FROM `Student` S " +
-            "INNER JOIN `User` U ON S.user_id = U.id " +
-            "INNER JOIN `Program` P ON S.program_id = P.id " +
-            "WHERE U.role_id = 2"; //retrieved only for students
+        String query =
+           "SELECT " +
+           // User Table (U)
+           "U.id AS user_id, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
+           // ROLE Table (R) - NEW COLUMNS ADDED HERE
+           "R.role_name, " + // Use R.role_name instead of U.role_name
+           // Student Table (S)
+           "S.program_id, S.year_level, S.gender, S.birth_date, S.address, S.contact_number, S.profile_photo, S.isActive AS student_active, " +
+           // Program Table (P)
+           "P.program_code, P.program_name, P.description " +
+           "FROM `Student` S " +
+           "INNER JOIN `User` U ON S.user_id = U.id " +
+           "INNER JOIN `Program` P ON S.program_id = P.id " +
+           // NEW INNER JOIN FOR ROLE
+           "INNER JOIN `Role` R ON U.role_id = R.id " +
+           "WHERE U.role_id = 2";
 
         Statement statement = null;
         ResultSet result = null;
@@ -46,9 +51,11 @@ public class StudentService {
             
             while (result.next()) {
                 
-           
-                int userId = result.getInt("user_id");
                 int roleId = result.getInt("role_id");
+                String roleName = result.getString("role_name");
+                Role role = new Role(roleId, roleName);
+                
+                int userId = result.getInt("user_id");
                 String firstName = result.getString("first_name");
                 String lastName = result.getString("last_name");
                 String username = result.getString("username");
@@ -69,7 +76,7 @@ public class StudentService {
                 Program program = new Program(programID, programCode, programName, description);
                
                 Student student = new Student(
-                        roleId,
+                        role,
                         program, 
                         yearLevel,
                         gender, 
@@ -122,7 +129,7 @@ public class StudentService {
             userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
             userStmt.setString(1, student.getUsername());
             userStmt.setString(2, student.getPassword());
-            userStmt.setInt(3, student.getRole());
+            userStmt.setInt(3, student.getRole().getRoleID());
             userStmt.setString(4, student.getFirstName());
             userStmt.setString(5, student.getLastName());
             userStmt.setInt(6, student.getIsActive());
@@ -182,7 +189,7 @@ public class StudentService {
             userStmt = connectDB.prepareStatement(updateUserQuery);
             userStmt.setString(1, student.getUsername());
             userStmt.setString(2, student.getPassword());
-            userStmt.setInt(3, student.getRole());
+            userStmt.setInt(3, student.getRole().getRoleID());
             userStmt.setString(4, student.getFirstName());
             userStmt.setString(5, student.getLastName());
             userStmt.setInt(6, student.getIsActive());

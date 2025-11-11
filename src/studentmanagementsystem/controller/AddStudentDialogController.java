@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import studentmanagementsystem.model.Role;
 import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
 
@@ -94,12 +95,12 @@ public class AddStudentDialogController implements Initializable {
         Program selectedProgram = comboProgram.getValue(); 
         String profilePhoto = fieldProfilePath.getText().trim();
         String randomUsername = java.util.UUID.randomUUID().toString();
-        int roleID = 2;
+        Role role = new Role(2); // 2 for STUDENT
         int isActive = 1;
         
         
         Student student = new Student(
-           roleID,
+           role,
            selectedProgram,
            yearLevel,
            gender,

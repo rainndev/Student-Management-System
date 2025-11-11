@@ -59,7 +59,7 @@ public class UsersViewController implements Initializable {
         columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserID()));
         columnFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
         columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
-        columnRole.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRoleFormatted(cellData.getValue().getRole())));
+        columnRole.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole().getRoleName()));
         columnActive.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getActiveState(cellData.getValue().getIsActive())));
         columnCreatedAt.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getCreatedAt()));
 

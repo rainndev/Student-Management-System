@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.model.User;
+import studentmanagementsystem.model.Role;
+
 
 /**
  *
@@ -25,7 +27,7 @@ public class UserService {
         Connection connectDB = connection.getConnection();
         
         String query =
-        "SELECT * FROM  user";
+        "SELECT * FROM user as U INNER JOIN role as R ON U.role_id = R.id";
         
         Statement statement = null;
         ResultSet result = null;
@@ -36,16 +38,19 @@ public class UserService {
            
             
             while (result.next()) {
+                int roleId = result.getInt("role_id");
+                String roleName = result.getString("role_name");
+                Role role = new Role(roleId, roleName);
+                
                 int userID = result.getInt("id");
                 String firstName = result.getString("first_name");
                 String passWord = result.getString("password");
                 String lastName = result.getString("last_name");
                 String userName = result.getString("username");
                 int isActive = result.getInt("isActive");
-                int roleId = result.getInt("role_id");
                 Date createdAt = result.getDate("created_at");
 
-                User user = new User(userName, passWord, roleId, firstName, lastName, isActive);
+                User user = new User(userName, passWord, role, firstName, lastName, isActive);
                 user.setUserId(userID);
                 user.setCreatedAt(createdAt);
                 userList.add(user);
@@ -64,5 +69,44 @@ public class UserService {
         }
         
         return userList;
+    }
+    
+    public List<Role> getAllRole() {
+        List<Role> roleList = new ArrayList<>();
+
+           DatabaseConnection connection = new DatabaseConnection();
+           Connection connectDB = connection.getConnection();
+
+           String query =
+           "SELECT * FROM  role";
+
+           Statement statement = null;
+           ResultSet result = null;
+
+           try {
+               statement = connectDB.createStatement();
+               result = statement.executeQuery(query);
+
+
+               while (result.next()) {
+                   int roleId = result.getInt("role_id");
+                   String roleName = result.getString("role_name");
+                   Role role = new Role(roleId, roleName);
+                   roleList.add(role);
+               }
+
+           } catch (Exception e) {
+               e.printStackTrace();
+           } finally {
+               try {
+                   if (result != null) result.close();
+                   if (statement != null) statement.close();
+                   if (connectDB != null) connectDB.close();
+               } catch (Exception closeEx) {
+                   closeEx.printStackTrace();
+               }
+           }
+
+           return roleList;
     }
 }

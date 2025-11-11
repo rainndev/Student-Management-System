@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import studentmanagementsystem.model.Role;
 import studentmanagementsystem.services.TeacherService;
 import studentmanagementsystem.model.Teacher;
 
@@ -58,7 +59,7 @@ public class EditTeacherDialogController implements Initializable {
         String contactNumber = fieldContactNumber.getText();       
         String username = this.teacher.getUsername();
         String password = this.teacher.getPassword();
-        int role = this.teacher.getRole();
+        Role role = this.teacher.getRole();
         
         Teacher teacher = new Teacher(username, password, role, firstName, lastName, department, contactNumber, 1);
         teacher.setUserID(this.teacher.getUserId());

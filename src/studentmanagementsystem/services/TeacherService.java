@@ -9,6 +9,8 @@ import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.model.Student;
 import studentmanagementsystem.model.Teacher;
+import studentmanagementsystem.model.Role;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -28,11 +30,12 @@ public class TeacherService {
       String query =
         "SELECT " +
         // User Table (U)
-        "U.id AS user_id, U.first_name, U.password, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
+        "U.id AS user_id, U.first_name, U.password, U.last_name, U.username, U.isActive AS user_active, U.role_id, R.role_name, " +
         // Teacher Table (T)
         "T.department, T.contact_number " +
         "FROM Teacher T " +
         "INNER JOIN User U ON T.user_id = U.id " +
+        "INNER JOIN role R ON U.role_id = R.id " + 
         "WHERE U.role_id = 1";
 
 
@@ -45,18 +48,22 @@ public class TeacherService {
            
             
             while (result.next()) {
+                
+                int roleId = result.getInt("role_id");
+                String roleName = result.getString("role_name");
+                Role role = new Role(roleId, roleName);
+                
+                
                 int userID = result.getInt("user_id");
                 String firstName = result.getString("first_name");
                 String lastName = result.getString("last_name");
                 String userName = result.getString("username");
                 int isActive = result.getInt("user_active");
-                int roleId = result.getInt("role_id");
-                
                 String department = result.getString("department");
                 String contactNumber = result.getString("contact_number");
                 String password = result.getString("password");
 
-                Teacher teacher = new Teacher(userName, password, roleId, firstName, lastName, department, contactNumber, isActive);
+                Teacher teacher = new Teacher(userName, password, role, firstName, lastName, department, contactNumber, isActive);
                 teacher.setUserID(userID);
                 teacherList.add(teacher);
             }
@@ -92,7 +99,7 @@ public class TeacherService {
             userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
             userStmt.setString(1, teacher.getUsername());
             userStmt.setString(2, teacher.getPassword());
-            userStmt.setInt(3, teacher.getRole());
+            userStmt.setInt(3, teacher.getRole().getRoleID());
             userStmt.setString(4, teacher.getFirstName());
             userStmt.setString(5, teacher.getLastName());
             userStmt.setInt(6, teacher.getIsActive());
@@ -147,7 +154,7 @@ public class TeacherService {
             userStmt = connectDB.prepareStatement(updateUserQuery);
             userStmt.setString(1, teacher.getUsername());
             userStmt.setString(2, teacher.getPassword());
-            userStmt.setInt(3, teacher.getRole());
+            userStmt.setInt(3, teacher.getRole().getRoleID());
             userStmt.setString(4, teacher.getFirstName());
             userStmt.setString(5, teacher.getLastName());
             userStmt.setInt(6, teacher.getIsActive());

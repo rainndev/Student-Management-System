@@ -6,6 +6,7 @@ package studentmanagementsystem.model;
 
 import java.lang.classfile.instruction.SwitchCase;
 import java.sql.Date;
+import studentmanagementsystem.model.Role;
 
 /**
  *
@@ -15,7 +16,7 @@ public class User {
     private String  username;
     private int UserID;
     private String  password;
-    private int role;
+    private Role role;
     private String  firstName;
     private String  lastName;
     private int isActive;
@@ -24,7 +25,7 @@ public class User {
     
     public User(){};
     
-    public  User(String username, String password, int role, String firstName, String lastName, int isActive, Date createdAt ){
+    public  User(String username, String password, Role role, String firstName, String lastName, int isActive, Date createdAt ){
         this.username = username;
         this.password = password;
         this.role = role;
@@ -35,12 +36,12 @@ public class User {
     }
     
     
-    public  User(String username, String password, int role, String firstName, String lastName, int isActive){
+    public  User(String username, String password, Role role, String firstName, String lastName, int isActive){
         this(username, password, role, firstName, lastName, isActive, null);
     }
        
     public String getUsername() { return username; } 
-    public int getRole() { return role; }
+    public Role getRole() { return role; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public int getIsActive() { return isActive; }
@@ -50,19 +51,6 @@ public class User {
         return this.firstName + " " + this.lastName;
     }
     public int getUserID() { return this.UserID;}
-    
-    public String getRoleFormatted(int roleID) {
-        switch (roleID) {
-            case 0:
-                return "ADMIN";
-            case 1:
-                return "TEACHER";
-            case 2:
-                return "STUDENT";
-            default:
-                throw new AssertionError();
-        }
-    }
     
     public String getActiveState(int activeId) {
       return activeId == 1 ? "Active" : "Inactive";

@@ -12,11 +12,11 @@ public class Student extends User{
     private int programId;
     private String profilePhoto;
     
-    public Student(int roleId, Program program, int yearLevel, String gender,	
+    public Student(Role role, Program program, int yearLevel, String gender,	
                         Date birthDate, String address, String contactNumber, int isActive,
                         String firstName, String lastName, String userName, String profilePhoto) {
         
-        super(userName, "123", roleId , firstName, lastName, isActive);
+        super(userName, "123", role , firstName, lastName, isActive);
         
         this.program = program;
         this.yearLevel = yearLevel;

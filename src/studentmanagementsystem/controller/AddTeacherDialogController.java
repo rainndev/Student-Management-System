@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import studentmanagementsystem.model.Role;
 import studentmanagementsystem.services.TeacherService;
 import studentmanagementsystem.model.Teacher;
 
@@ -55,10 +56,10 @@ public class AddTeacherDialogController implements Initializable {
         String contact = fieldContactNumber.getText().trim();
         String randomUsername = java.util.UUID.randomUUID().toString();
         String password = "123";
-        int role = 1; //1 = Teacher in role table
+        Role role = new Role(1); // 1 for Teacher
         int isActive = 1;
         
-        Teacher teacher = new Teacher(randomUsername, password, role,firstName, lastName, department, contact, isActive);
+        Teacher teacher = new Teacher(randomUsername, password, role, firstName, lastName, department, contact, isActive);
         int rowsInserted = teacherService.addTeacher(teacher);
         
         if (rowsInserted > 0 ) {

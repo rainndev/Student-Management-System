@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Program;
+import studentmanagementsystem.model.Role;
 import studentmanagementsystem.model.Student;
 import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
@@ -99,10 +100,10 @@ public class EditStudentDialogController implements Initializable {
         Program selectedProgram = comboProgram.getValue(); 
         String profilePhoto = fieldProfilePath.getText().trim();
         String randomUsername = java.util.UUID.randomUUID().toString();
-        
+        Role role = this.student.getRole();
       
         Student student = new Student(
-           2,
+           role,
            selectedProgram,
            yearLevel,
            gender,
