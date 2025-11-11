@@ -33,8 +33,6 @@ import studentmanagementsystem.services.UserService;
 public class UsersViewController implements Initializable {
 
     @FXML
-    private TextField fieldDeleteTeacher;
-    @FXML
     private TableColumn<User, Number> columnId;
     @FXML
     private TableColumn<User, String> columnFirstName;
@@ -50,6 +48,10 @@ public class UsersViewController implements Initializable {
     private TableColumn<User, Date> columnCreatedAt;
     @FXML
     private Button btnSearchUser;
+    @FXML
+    private TextField fieldSearchUser;
+    @FXML
+    private Button btnDetails;
 
     /**
      * Initializes the controller class.
@@ -62,11 +64,10 @@ public class UsersViewController implements Initializable {
         columnRole.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole().getRoleName()));
         columnActive.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getActiveState(cellData.getValue().getIsActive())));
         columnCreatedAt.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getCreatedAt()));
-
-        loadUser();
+        loadAllUser();
     }    
     
-    private void loadUser() {
+    private void loadAllUser() {
         UserService userService = new UserService();
         List<User> userList = userService.getAllUser();
         usersTableView.setItems(FXCollections.observableArrayList(userList));
@@ -74,6 +75,14 @@ public class UsersViewController implements Initializable {
 
     @FXML
     private void handleSearchUser(ActionEvent event) {
+        UserService userService = new UserService();
+        String query = fieldSearchUser.getText();
+        List<User> userList =  userService.getSearchedUser(query);
+        usersTableView.setItems(FXCollections.observableArrayList(userList));
+    }
+
+    @FXML
+    private void handleSearchDetails(ActionEvent event) {
     }
 
     

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.model.Student;
-import studentmanagementsystem.model.User;
 import studentmanagementsystem.model.Role;
 import studentmanagementsystem.model.Program;
 
@@ -41,12 +40,10 @@ public class StudentService {
            "INNER JOIN `Role` R ON U.role_id = R.id " +
            "WHERE U.role_id = 2";
 
-        Statement statement = null;
-        ResultSet result = null;
         
-        try {
-            statement = connectDB.createStatement();
-            result = statement.executeQuery(query);
+        try(Statement statement = connectDB.createStatement();
+             ResultSet result = statement.executeQuery(query);
+                ){
             System.out.println(result);
             
             while (result.next()) {
@@ -90,43 +87,34 @@ public class StudentService {
                         profilePhoto
                 );
                 student.setUserId(userId);
-                
                 studentList.add(student);
             }
             
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (result != null) result.close();
-                if (statement != null) statement.close();
-                if (connectDB != null) connectDB.close();
-            } catch (Exception closeEx) {
-                closeEx.printStackTrace();
-            }
-        }
-        
+        }      
         return studentList;
     }
     
    public int addStudent(Student student) {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
+        String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
-        PreparedStatement userStmt = null;
-        PreparedStatement studentStmt = null;
-        ResultSet generatedKeys = null;
+        String insertStudentQuery = "INSERT INTO student ("
+                    + "user_id, program_id, year_level, gender, birth_date, address, contact_number, profile_photo, isActive"
+                    + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+       
+       
 
-        try {
+        try( PreparedStatement userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement studentStmt = connectDB.prepareStatement(insertStudentQuery);
+                ){
 
             String username = student.getUsername();
             System.out.println("DEBUG: Attempting to insert user with username: " + username);
 
-
-            String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
-
-            userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
             userStmt.setString(1, student.getUsername());
             userStmt.setString(2, student.getPassword());
             userStmt.setInt(3, student.getRole().getRoleID());
@@ -136,18 +124,15 @@ public class StudentService {
 
             userStmt.executeUpdate();
 
-            generatedKeys = userStmt.getGeneratedKeys();
-            System.out.println("generated kets: " + generatedKeys);
-            int userId = -1;
-            if (generatedKeys.next()) {
-                userId = generatedKeys.getInt(1);
+           int userId = -1;
+            try( ResultSet generatedKeys = userStmt.getGeneratedKeys();){
+                if (generatedKeys.next()) {
+                    userId = generatedKeys.getInt(1);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            String insertStudentQuery = "INSERT INTO student ("
-                    + "user_id, program_id, year_level, gender, birth_date, address, contact_number, profile_photo, isActive"
-                    + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            studentStmt = connectDB.prepareStatement(insertStudentQuery);
+            
             studentStmt.setInt(1, userId);
             studentStmt.setInt(2, student.getProgram().getId());
             studentStmt.setInt(3, student.getYearLevel());
@@ -165,28 +150,20 @@ public class StudentService {
         } catch (Exception e) {
             e.printStackTrace();
              return 0;
-        } finally {
-            try {
-                if (generatedKeys != null) generatedKeys.close();
-                if (userStmt != null) userStmt.close();
-                if (studentStmt != null) studentStmt.close();
-                if (connectDB != null) connectDB.close();
-            } catch (Exception closeEx) {
-                closeEx.printStackTrace();
-            }
-        }
+        } 
     }
    
    public int editStudent(Student student) {
         DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
-
-        PreparedStatement userStmt = null;
-        PreparedStatement studentStmt = null;
-
-        try {
-            String updateUserQuery = "UPDATE user SET username = ?, password = ?, role_id = ?, first_name = ?, last_name = ?, isActive = ? WHERE id = ?";
-            userStmt = connectDB.prepareStatement(updateUserQuery);
+        Connection connectDB = connection.getConnection(); 
+        String updateUserQuery = "UPDATE user SET username = ?, password = ?, role_id = ?, first_name = ?, last_name = ?, isActive = ? WHERE id = ?";
+        String updateStudentQuery = "UPDATE student SET program_id = ?, year_level = ?, gender = ?, birth_date = ?, address = ?, contact_number = ?, profile_photo = ?, isActive = ? WHERE user_id = ?";
+        
+       
+        try( PreparedStatement userStmt = connectDB.prepareStatement(updateUserQuery);
+             PreparedStatement studentStmt = connectDB.prepareStatement(updateStudentQuery);
+                ){
+            
             userStmt.setString(1, student.getUsername());
             userStmt.setString(2, student.getPassword());
             userStmt.setInt(3, student.getRole().getRoleID());
@@ -195,9 +172,7 @@ public class StudentService {
             userStmt.setInt(6, student.getIsActive());
             userStmt.setInt(7, student.getUserID());
             userStmt.executeUpdate();
-
-            String updateStudentQuery = "UPDATE student SET program_id = ?, year_level = ?, gender = ?, birth_date = ?, address = ?, contact_number = ?, profile_photo = ?, isActive = ? WHERE user_id = ?";
-            studentStmt = connectDB.prepareStatement(updateStudentQuery);
+           
             studentStmt.setInt(1, student.getProgram().getId());
             studentStmt.setInt(2, student.getYearLevel());
             studentStmt.setString(3, student.getGender());
@@ -214,29 +189,19 @@ public class StudentService {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
-        } finally {
-            try {
-                if (userStmt != null) userStmt.close();
-                if (studentStmt != null) studentStmt.close();
-                if (connectDB != null) connectDB.close();
-            } catch (Exception closeEx) {
-                closeEx.printStackTrace();
-            }
         }
 }
 
    public int deleteStudent(int ID){
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
-        PreparedStatement stmt = null;
+        String deleteQuery = "DELETE FROM user WHERE id = ?";
+
         
-        try {
-           String deleteQuery = "DELETE FROM user WHERE id = ?";
-           stmt = connectDB.prepareStatement(deleteQuery);
-           stmt.setInt(1, ID);
-           
-           return stmt.executeUpdate();
-           
+        try(PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);)
+        {
+           stmt.setInt(1, ID);  
+           return stmt.executeUpdate();  
        } catch (Exception e) {
            e.printStackTrace();
            return 0;

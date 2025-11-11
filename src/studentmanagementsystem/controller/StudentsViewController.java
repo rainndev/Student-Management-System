@@ -102,11 +102,6 @@ public class StudentsViewController implements Initializable {
         studentTableView.setItems(FXCollections.observableArrayList(student));
     }
 
-    private void handleRefreshTable(ActionEvent event) {
-        loadStudents();
-    }
-    
-
 
     @FXML
     private void handleDeleteStudent(ActionEvent event) {

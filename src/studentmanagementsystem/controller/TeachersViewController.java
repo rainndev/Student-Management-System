@@ -23,7 +23,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import studentmanagementsystem.model.Student;
 import studentmanagementsystem.model.Teacher;
 import studentmanagementsystem.services.TeacherService;
 
@@ -83,6 +82,7 @@ public class TeachersViewController implements Initializable {
         teacherTableView.setItems(FXCollections.observableArrayList(teacherList));
     }
     
+
     
     @FXML
     private void openAddTeacherDialog() {  
@@ -94,15 +94,11 @@ public class TeachersViewController implements Initializable {
                 Stage dialogStage = new Stage();
                 dialogStage.setTitle("Add New Teacher");
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
-
                 Scene scene = new Scene(root);
                 dialogStage.setScene(scene);
-
                 dialogStage.showAndWait(); 
                 loadTeachers();
-
-
-
+                
             } catch (IOException e) {
                 e.printStackTrace();
 
@@ -113,7 +109,6 @@ public class TeachersViewController implements Initializable {
     private void handleDeleteStudent(ActionEvent event) {
         TeacherService teacherService = new TeacherService();
         int id = Integer.parseInt(fieldDeleteTeacher.getText());
-        
         teacherService.deleteTeacher(id);
         loadTeachers();
     }
@@ -139,7 +134,6 @@ public class TeachersViewController implements Initializable {
             stage.setScene(new Scene(root));
             stage.showAndWait();
             loadTeachers();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
