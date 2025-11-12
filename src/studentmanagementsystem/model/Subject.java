@@ -16,10 +16,10 @@ public class Subject {
     private String subjectName;
     private BigDecimal subjectUnits;
 
-    public Subject(int subjectId, String subjectCode, String subjectName) {
-        this.subjectID = subjectId;
+    public Subject(String subjectCode, String subjectName, BigDecimal subjectUnits) {
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
+        this.subjectUnits = subjectUnits;
     }
     
     public int getSubjectId() { return this.subjectID; }

@@ -155,10 +155,10 @@ public class TeacherService {
         try(PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);){
            stmt.setInt(1, ID);
            return stmt.executeUpdate();         
-       } catch (Exception e) {
-           e.printStackTrace();
-           return 0;
-       }
-   }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
     
 }
