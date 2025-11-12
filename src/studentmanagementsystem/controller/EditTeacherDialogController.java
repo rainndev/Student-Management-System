@@ -37,9 +37,9 @@ public class EditTeacherDialogController implements Initializable {
     @FXML
     private TextField fieldContactNumber;
     @FXML
-    private Button btnEditStudent;
-    @FXML
     private Label txtMessage;
+    @FXML
+    private Button btnDeleteTeacher;
 
     /**
      * Initializes the controller class.
@@ -62,7 +62,7 @@ public class EditTeacherDialogController implements Initializable {
         Role role = this.teacher.getRole();
         
         Teacher teacher = new Teacher(username, password, role, firstName, lastName, department, contactNumber, 1);
-        teacher.setUserID(this.teacher.getUserId());
+        teacher.setUserId(this.teacher.getUserID());
         int rowsUpdated = teacherService.editTeacher(teacher);
         
         if (rowsUpdated > 0 ) {
@@ -87,10 +87,17 @@ public class EditTeacherDialogController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleDeleteTeacher(ActionEvent event) {
+        TeacherService teacherService = new TeacherService();
+        int teacherId = this.teacher.getUserID();
+        teacherService.deleteTeacher(teacherId);
+        
+        handleCloseDialog(event);
+    }
+    
     private void handleCloseDialog(ActionEvent event) {
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.close();
     }
-    
-    
 }

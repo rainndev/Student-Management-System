@@ -17,15 +17,13 @@ import studentmanagementsystem.model.Program;
  * @author rainndev
  */
 public class ProgramService {
+    private DatabaseConnection connection = new DatabaseConnection();
+    private Connection connectDB = connection.getConnection();
+    
     public List<Program> getAllPrograms() {
         List<Program> programList = new ArrayList<>();
-        
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
+   
         String query =  "SELECT * FROM program";
-
-        
-        
         
         try(Statement statement = connectDB.createStatement();){
             try(ResultSet result =  statement.executeQuery(query);){

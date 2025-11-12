@@ -105,7 +105,12 @@
                   <TextField fx:id="fieldProfilePath" prefHeight="35.0" prefWidth="333.0" />
                </children>
             </HBox>
-            <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#handleEditStudent" prefHeight="35.0" prefWidth="496.0" text="Edit Student" />
+            <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#handleEditStudent" prefHeight="35.0" prefWidth="496.0" text="Save Edit " />
+            <Button fx:id="btnDeleteStudent" mnemonicParsing="false" onAction="#handleDeleteStudent" prefHeight="35.0" prefWidth="496.0" text="Delete Student">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
             <Label fx:id="txtMessage" text="Label" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />

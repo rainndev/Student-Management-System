@@ -27,6 +27,7 @@ import studentmanagementsystem.services.SubjectService;
 public class EditSubjectDialogController implements Initializable {
 
     private Subject subject;
+    private  SubjectService subjectService = new SubjectService();
     
     @FXML
     private TextField fieldSubjectCode;
@@ -38,6 +39,8 @@ public class EditSubjectDialogController implements Initializable {
     private Button btnEditSubject;
     @FXML
     private Label txtMessage;
+    @FXML
+    private Button btnDeleteSubject;
 
     /**
      * Initializes the controller class.
@@ -49,7 +52,6 @@ public class EditSubjectDialogController implements Initializable {
 
     @FXML
     private void handleEditSubject(ActionEvent event) {
-        SubjectService subjectService = new SubjectService();
         String subjectCode = fieldSubjectCode.getText();
         String subjectUnits = fieldSubjectUnits.getText();
         String subjectName = fieldSubjectName.getText();
@@ -79,9 +81,15 @@ public class EditSubjectDialogController implements Initializable {
         fieldSubjectName.setText(subject.getSubjectName());
     }
     
+    @FXML
+    private void handleDeleteSubject(ActionEvent event) {
+        int subjectId = this.subject.getSubjectId();
+        subjectService.deleteSubject(subjectId);
+        handleCloseDialog(event);
+    }
+    
     private void handleCloseDialog(ActionEvent event) {
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.close();
     }
-    
 }

@@ -21,11 +21,11 @@ import studentmanagementsystem.model.Role;
  * @author rainndev
  */
 public class UserService {
+    private DatabaseConnection connection = new DatabaseConnection();
+    private Connection connectDB = connection.getConnection();
+    
     public List<User> getAllUser(){
         List<User> userList = new ArrayList<>();
-        
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
         
         String query =
         "SELECT * FROM user as U INNER JOIN role as R ON U.role_id = R.id";
@@ -63,10 +63,7 @@ public class UserService {
     
     public List<Role> getAllRole() {
         List<Role> roleList = new ArrayList<>();
-
-           DatabaseConnection connection = new DatabaseConnection();
-           Connection connectDB = connection.getConnection();
-
+        
            String query =
            "SELECT * FROM  role";
 
@@ -89,50 +86,48 @@ public class UserService {
     }
     
     public List<User> getSearchedUser(String searchQuery) {
-    List<User> searchedUserList = new ArrayList<>();
-    
-    String query =
-        "SELECT * FROM user AS U " +
-        "INNER JOIN role AS R ON U.role_id = R.id " +
-        "WHERE CAST(U.id AS CHAR) LIKE ? OR U.first_name LIKE ? OR U.last_name LIKE ?";
-    
-    // Create the search parameter with wildcards
-    String searchPattern = "%" + searchQuery + "%";
-    
-    DatabaseConnection connection = new DatabaseConnection();
-    
-    try (
-        Connection connectDB = connection.getConnection();
-        PreparedStatement preparedStatement = connectDB.prepareStatement(query)
-    ) {
-      
-        preparedStatement.setString(1, searchPattern);
-        preparedStatement.setString(2, searchPattern);
-        preparedStatement.setString(3, searchPattern);
+        List<User> searchedUserList = new ArrayList<>();
 
-        try (ResultSet result = preparedStatement.executeQuery()) {
-            while (result.next()) {
-                int roleId = result.getInt("role_id");
-                String roleName = result.getString("role_name");
-                Role role = new Role(roleId, roleName);
-                
-                int userID = result.getInt("id");
-                String firstName = result.getString("first_name");
-                String passWord = result.getString("password");
-                String lastName = result.getString("last_name");
-                String userName = result.getString("username");
-                int isActive = result.getInt("isActive");
-                Date createdAt = result.getDate("created_at");
+        String query =
+            "SELECT * FROM user AS U " +
+            "INNER JOIN role AS R ON U.role_id = R.id " +
+            "WHERE CAST(U.id AS CHAR) LIKE ? OR U.first_name LIKE ? OR U.last_name LIKE ?";
 
-                User user = new User(userName, passWord, role, firstName, lastName, isActive);
-                user.setUserId(userID);
-                user.setCreatedAt(createdAt);
-                searchedUserList.add(user);
+        // Create the search parameter with wildcards
+        String searchPattern = "%" + searchQuery + "%";
+
+
+        try (
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query)
+        ) {
+
+            preparedStatement.setString(1, searchPattern);
+            preparedStatement.setString(2, searchPattern);
+            preparedStatement.setString(3, searchPattern);
+
+            try (ResultSet result = preparedStatement.executeQuery()) {
+                while (result.next()) {
+                    int roleId = result.getInt("role_id");
+                    String roleName = result.getString("role_name");
+                    Role role = new Role(roleId, roleName);
+
+                    int userID = result.getInt("id");
+                    String firstName = result.getString("first_name");
+                    String passWord = result.getString("password");
+                    String lastName = result.getString("last_name");
+                    String userName = result.getString("username");
+                    int isActive = result.getInt("isActive");
+                    Date createdAt = result.getDate("created_at");
+
+                    User user = new User(userName, passWord, role, firstName, lastName, isActive);
+                    user.setUserId(userID);
+                    user.setCreatedAt(createdAt);
+                    searchedUserList.add(user);
+                }
             }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
     
     return searchedUserList;
 }

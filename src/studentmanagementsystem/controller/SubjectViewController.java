@@ -37,10 +37,9 @@ import studentmanagementsystem.services.SubjectService;
  */
 public class SubjectViewController implements Initializable {
 
-    @FXML
+    private SubjectService subjectService = new SubjectService();
+    
     private TextField fieldDeleteSubject;
-    @FXML
-    private Button btnDeleteSubject;
     @FXML
     private Button btnEditSubject;
     @FXML
@@ -55,6 +54,10 @@ public class SubjectViewController implements Initializable {
     private TableColumn<Subject, BigDecimal> columnSubjectUnits;
     @FXML
     private TableView<Subject> subjectTableView;
+    @FXML
+    private Button btnSearchSubject;
+    @FXML
+    private TextField fieldSearchSubject;
 
     /**
      * Initializes the controller class.
@@ -68,7 +71,7 @@ public class SubjectViewController implements Initializable {
         
         subjectTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-               fieldDeleteSubject.setText(String.valueOf(newSelection.getSubjectId()));
+               fieldSearchSubject.setText(String.valueOf(newSelection.getSubjectId()));
             }
         });
            
@@ -76,46 +79,16 @@ public class SubjectViewController implements Initializable {
     }    
     
     public void loadSubjects() {
-        SubjectService subjectService = new SubjectService();
         List<Subject> subjectList = subjectService.getAllSubject();
         subjectTableView.setItems(FXCollections.observableArrayList(subjectList));
     }
 
 
-    @FXML
     private void handleDeleteStudent(ActionEvent event) {
         Subject selectedSubject = subjectTableView.getSelectionModel().getSelectedItem();
         int subjectID = selectedSubject.getSubjectId();
-        SubjectService subjectService = new SubjectService();
         subjectService.deleteSubject(subjectID);
         loadSubjects();
-    }
-
-    @FXML
-    private void openEditStudentDialog(ActionEvent event) {
-       Subject selectedSubject = subjectTableView.getSelectionModel().getSelectedItem();
-        
-        if (selectedSubject == null) {
-            System.out.println("No student selected!");
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/EditSubjectDialog.fxml"));
-            Parent root = loader.load();
-            EditSubjectDialogController controller = loader.getController();
-            controller.setSubject(selectedSubject);
-           
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Edit Student");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-            loadSubjects();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -138,5 +111,38 @@ public class SubjectViewController implements Initializable {
                 e.printStackTrace();
          }
     }
-    
+
+    @FXML
+    private void handleSearchSuject(ActionEvent event) {
+        String searchQuery = fieldSearchSubject.getText();
+        List<Subject> subjectList = subjectService.getSearchedSubject(searchQuery);
+        subjectTableView.setItems(FXCollections.observableArrayList(subjectList)); 
+    }
+
+    @FXML
+    private void openEditSubjectDialog(ActionEvent event) {
+        Subject selectedSubject = subjectTableView.getSelectionModel().getSelectedItem();
+        
+        if (selectedSubject == null) {
+            System.out.println("No student selected!");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/EditSubjectDialog.fxml"));
+            Parent root = loader.load();
+            EditSubjectDialogController controller = loader.getController();
+            controller.setSubject(selectedSubject);
+           
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit Student");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            loadSubjects();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }   
 }

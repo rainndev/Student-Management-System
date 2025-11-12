@@ -20,14 +20,13 @@ import studentmanagementsystem.model.Subject;
  * @author rainndev
  */
 public class SubjectService {
+    private DatabaseConnection connection = new DatabaseConnection();
+    private Connection connectDB = connection.getConnection();
+    
     public List<Subject> getAllSubject() {
         List<Subject> subjectList = new ArrayList<>();
-        
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
         String query =  "SELECT * FROM subject";
-   
-        
+
         try(Statement statement = connectDB.createStatement();){
             try(ResultSet result =  statement.executeQuery(query);){
                 while (result.next()) {
@@ -52,8 +51,6 @@ public class SubjectService {
     }
     
     public int addSubject(Subject subject) {
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
         String insertUserQuery = "INSERT INTO subject (`subject_code`, `subject_name`, `units`) VALUES (? ,? ,?)";
         
         try(PreparedStatement userSubjectStmnt = connectDB.prepareStatement(insertUserQuery);){
@@ -70,8 +67,6 @@ public class SubjectService {
     
     
     public int editSubject(Subject subject) {
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
         String insertUserQuery = "UPDATE subject SET subject_code= ? ,subject_name= ?, units = ?  WHERE id = ?";
         
         try(PreparedStatement userSubjectStmnt = connectDB.prepareStatement(insertUserQuery);){
@@ -88,8 +83,6 @@ public class SubjectService {
     }
     
     public int deleteSubject(int ID){
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
         String deleteQuery = "DELETE FROM subject WHERE id = ?";
         
         try(PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);){
@@ -100,4 +93,40 @@ public class SubjectService {
             return 0;
         }
     }
+    
+    
+    public List<Subject> getSearchedSubject(String searchQuery) {
+        List<Subject> subjectList = new ArrayList<>();
+        String searchPattern = "%" + searchQuery + "%";
+       String query = 
+        "SELECT * FROM subject " +
+        "WHERE id LIKE ? OR subject_code LIKE ? OR subject_name LIKE ?";
+        
+        try(PreparedStatement preparedStatement = connectDB.prepareStatement(query);){
+            preparedStatement.setString(1, searchPattern);
+            preparedStatement.setString(2, searchPattern);
+            preparedStatement.setString(3, searchPattern);
+
+            try(ResultSet result =  preparedStatement.executeQuery();){
+                while (result.next()) {
+                    int id = result.getInt("id");
+                    String subjectCode = result.getString("subject_code");
+                    String subjectName = result.getString("subject_name");
+                    BigDecimal subjectUnits = result.getBigDecimal("units");
+
+                    Subject subject = new Subject(subjectCode, subjectName, subjectUnits);
+                    subject.setSubjectId(id);
+                    subjectList.add(subject);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return subjectList;
+    }
 }
+ 

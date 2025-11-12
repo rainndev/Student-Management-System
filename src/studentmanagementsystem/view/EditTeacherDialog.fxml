@@ -57,7 +57,8 @@
             <HBox alignment="CENTER" spacing="10.0" />
             <HBox alignment="CENTER" spacing="10.0" />
             <HBox alignment="CENTER" spacing="10.0" />
-            <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#handleEditTeacher" prefHeight="35.0" prefWidth="496.0" text="Edit Teacher" />
+            <Button fx:id="btnDeleteStudent" mnemonicParsing="false" onAction="#handleEditTeacher" prefHeight="35.0" prefWidth="496.0" text="Save Edit " />
+            <Button fx:id="btnDeleteTeacher" mnemonicParsing="false" onAction="#handleDeleteTeacher" prefHeight="35.0" prefWidth="496.0" text="Delete Teacher" />
             <Label fx:id="txtMessage" text="Label" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />

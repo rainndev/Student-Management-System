@@ -56,6 +56,8 @@ public class EditStudentDialogController implements Initializable {
     private Label txtMessage;
     @FXML
     private Button btnEditStudent;
+    @FXML
+    private Button btnDeleteStudent;
    
     /**
      * Initializes the controller class.
@@ -154,6 +156,17 @@ public class EditStudentDialogController implements Initializable {
             fieldYearLevel.setText(String.valueOf(student.getYearLevel()));
             fieldProfilePath.setText(student.getProfilePhoto());
         }
+    }
+    
+  
+
+    
+    @FXML
+    private void handleDeleteStudent(ActionEvent event) {
+        int studentID = student.getUserID();
+        StudentService studentService = new StudentService();
+        studentService.deleteStudent(studentID);
+        handleCloseDialog(event);
     }
     
     private void handleCloseDialog(ActionEvent event) {

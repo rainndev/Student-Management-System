@@ -43,7 +43,8 @@
                   <TextField fx:id="fieldSubjectUnits" prefHeight="35.0" prefWidth="333.0" />
                </children>
             </HBox>
-            <Button fx:id="btnEditSubject" mnemonicParsing="false" onAction="#handleEditSubject" prefHeight="35.0" prefWidth="496.0" text="Edit Subject" />
+            <Button fx:id="btnEditSubject" mnemonicParsing="false" onAction="#handleEditSubject" prefHeight="35.0" prefWidth="496.0" text="Save Edit" />
+            <Button fx:id="btnDeleteSubject" mnemonicParsing="false" onAction="#handleDeleteSubject" prefHeight="35.0" prefWidth="496.0" text="Delete Subject" />
             <Label fx:id="txtMessage" text="Label" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />

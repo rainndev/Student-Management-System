@@ -33,10 +33,7 @@ import studentmanagementsystem.services.TeacherService;
  */
 public class TeachersViewController implements Initializable {
 
-    @FXML
-    private TextField fieldDeleteTeacher;
-    @FXML
-    private Button btnDeleteTeacher;
+    private TeacherService teacherService = new TeacherService();
     @FXML
     private Button btnEditTeacher;
     @FXML
@@ -53,13 +50,17 @@ public class TeachersViewController implements Initializable {
     private TableColumn<Teacher, String> columnDepartment;
     @FXML
     private TableColumn<Teacher, String> columnContact;
+    @FXML
+    private Button btnSearchTeacher;
+    @FXML
+    private TextField fieldSearchTeacher;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()));
+        columnId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserID()));
         columnFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
         columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
         columnDepartment.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartment()));
@@ -67,7 +68,7 @@ public class TeachersViewController implements Initializable {
         
         teacherTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-               fieldDeleteTeacher.setText(String.valueOf(newSelection.getUserId()));
+               fieldSearchTeacher.setText(String.valueOf(newSelection.getUserID()));
             }
         });
          
@@ -77,7 +78,6 @@ public class TeachersViewController implements Initializable {
     
     
     public void loadTeachers() {
-        TeacherService teacherService = new TeacherService();
         List<Teacher> teacherList = teacherService.getAllTeachers();
         teacherTableView.setItems(FXCollections.observableArrayList(teacherList));
     }
@@ -103,14 +103,6 @@ public class TeachersViewController implements Initializable {
                 e.printStackTrace();
 
             }
-    }
-
-    @FXML
-    private void handleDeleteStudent(ActionEvent event) {
-        TeacherService teacherService = new TeacherService();
-        int id = Integer.parseInt(fieldDeleteTeacher.getText());
-        teacherService.deleteTeacher(id);
-        loadTeachers();
     }
 
     @FXML
@@ -140,7 +132,9 @@ public class TeachersViewController implements Initializable {
     }
 
     @FXML
-    private void openAddStudentDialog(ActionEvent event) {
-    }
-    
+    private void handleSearchTeacher(ActionEvent event) {
+        String searchQuery = fieldSearchTeacher.getText();
+        List<Teacher> searchedTeacherList = teacherService.getSearchedTeacher(searchQuery);
+        teacherTableView.setItems(FXCollections.observableArrayList(searchedTeacherList));
+    }    
 }

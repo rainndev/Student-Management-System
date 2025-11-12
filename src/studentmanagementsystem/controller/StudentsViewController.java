@@ -26,8 +26,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import studentmanagementsystem.model.Program;
-import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
 
 /**
@@ -36,9 +34,7 @@ import studentmanagementsystem.services.StudentService;
  * @author rainndev
  */
 public class StudentsViewController implements Initializable {
-    
-    
-    
+  
 
     @FXML
     private TableColumn<Student, Number> columnId;
@@ -64,10 +60,11 @@ public class StudentsViewController implements Initializable {
     private Button btnEditStudent;
     @FXML
     private Button btnAddStudent1;
+    
     @FXML
-    private TextField fieldDeleteStudent;
+    private Button btnSearchStudent;
     @FXML
-    private Button btnDeleteStudent;
+    private TextField fieldSearchStudent;
 
     /**
      * Initializes the controller class.
@@ -89,7 +86,7 @@ public class StudentsViewController implements Initializable {
         
         studentTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-               fieldDeleteStudent.setText(String.valueOf(newSelection.getUserID()));
+               fieldSearchStudent.setText(String.valueOf(newSelection.getUserID()));
             }
         });
         
@@ -103,16 +100,6 @@ public class StudentsViewController implements Initializable {
     }
 
 
-    @FXML
-    private void handleDeleteStudent(ActionEvent event) {
-        int studentID = Integer.parseInt(fieldDeleteStudent.getText());
-        StudentService studentService = new StudentService();
-        studentService.deleteStudent(studentID);
-        loadStudents();
-    }
-    
-    
-    
     @FXML
     private void openAddStudentDialog() {
         try {
@@ -163,4 +150,13 @@ public class StudentsViewController implements Initializable {
             e.printStackTrace();
         }
     } 
+
+    @FXML
+    private void handleSearchStudent(ActionEvent event) {
+        StudentService studentService = new StudentService();
+        String searchQuery = fieldSearchStudent.getText();
+        
+        List<Student> studentList = studentService.getSearchedUser(searchQuery);
+        studentTableView.setItems(FXCollections.observableArrayList(studentList));
+    }
 }
