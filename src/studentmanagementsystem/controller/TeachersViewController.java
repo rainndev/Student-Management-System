@@ -54,6 +54,8 @@ public class TeachersViewController implements Initializable {
     private Button btnSearchTeacher;
     @FXML
     private TextField fieldSearchTeacher;
+    @FXML
+    private TableColumn<Teacher, String> columndSubjectAssigned;
 
     /**
      * Initializes the controller class.
@@ -65,7 +67,9 @@ public class TeachersViewController implements Initializable {
         columnLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
         columnDepartment.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartment()));
         columnContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactNumber()));
+        columndSubjectAssigned.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubject().getSubjectName()));
         
+       
         teacherTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                fieldSearchTeacher.setText(String.valueOf(newSelection.getUserID()));

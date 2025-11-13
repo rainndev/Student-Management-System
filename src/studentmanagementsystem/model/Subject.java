@@ -16,6 +16,14 @@ public class Subject {
     private String subjectName;
     private BigDecimal subjectUnits;
 
+    
+    public Subject(int subjectID, String subjectCode, String subjectName, BigDecimal subjectUnits) {
+        this.subjectID = subjectID;
+        this.subjectCode = subjectCode;
+        this.subjectName = subjectName;
+        this.subjectUnits = subjectUnits;
+    }
+     
     public Subject(String subjectCode, String subjectName, BigDecimal subjectUnits) {
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
@@ -41,6 +49,11 @@ public class Subject {
     
     public void setSubjectUnit(BigDecimal subjectUnits){
         this.subjectUnits = subjectUnits;
+    }
+    
+    @Override
+    public String toString() {
+        return subjectName; 
     }
     
 }

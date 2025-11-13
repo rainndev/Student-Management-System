@@ -5,18 +5,23 @@
 package studentmanagementsystem.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Role;
+import studentmanagementsystem.model.Subject;
 import studentmanagementsystem.services.TeacherService;
 import studentmanagementsystem.model.Teacher;
+import studentmanagementsystem.services.SubjectService;
+import studentmanagementsystem.services.TeacherSubjectService;
 
 /**
  * FXML Controller class
@@ -49,13 +54,12 @@ public class AddTeacherDialogController implements Initializable {
     @FXML
     private void handleAddTeacher(ActionEvent event) {
         TeacherService teacherService = new TeacherService();
-        
         String firstName = fieldFirstName.getText().trim();
         String lastName = fieldLastName.getText().trim();
         String department = fieldDepartment.getText();
         String contact = fieldContactNumber.getText().trim();
         String randomUsername = java.util.UUID.randomUUID().toString();
-        String password = "123";
+        String password = "123";                
         Role role = new Role(1); // 1 for Teacher
         int isActive = 1;
         

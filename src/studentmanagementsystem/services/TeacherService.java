@@ -1,5 +1,6 @@
 package studentmanagementsystem.services;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.model.Teacher;
 import studentmanagementsystem.model.Role;
+import studentmanagementsystem.model.Subject;
+
 
 
 /*
@@ -28,25 +31,39 @@ public class TeacherService {
     public List<Teacher> getAllTeachers() {
         List<Teacher> teacherList = new ArrayList<>();
         String query =
-        "SELECT " +
-        // User Table (U)
-        "U.id AS user_id, U.first_name, U.password, U.last_name, U.username, U.isActive AS user_active, U.role_id, R.role_name, " +
-        // Teacher Table (T)
-        "T.department, T.contact_number " +
-        "FROM Teacher T " +
-        "INNER JOIN User U ON T.user_id = U.id " +
-        "INNER JOIN role R ON U.role_id = R.id " + 
-        "WHERE U.role_id = 1";
-        
+              "SELECT " +
+              // User Table (U)
+              "U.id AS user_id, U.first_name, U.password, U.last_name, U.username, " +
+              "U.isActive AS user_active, U.role_id, R.role_name, " +
+              // Teacher Table (T)
+              "T.department, T.contact_number, " +
+              // Subject Table (S)
+              "S.id AS subject_id, S.subject_code, S.subject_name, S.units, " +
+              // Teacher Subject Table (TS)
+              "TS.id AS teacher_subject_id " + 
+              "FROM Teacher T " +
+              "INNER JOIN User U ON T.user_id = U.id " +
+              "INNER JOIN Role R ON U.role_id = R.id " +
+              // Use LEFT JOIN for subjects
+              "LEFT JOIN Teacher_Subject TS ON T.user_id = TS.teacher_id " +
+              "LEFT JOIN Subject S ON TS.subject_id = S.id " +
+              "WHERE U.role_id = 1";
+
         try(Statement statement = connectDB.createStatement();){
             try(ResultSet result = statement.executeQuery(query);) {
-                while (result.next()) {
-
+                while (result.next()) {      
                     int roleId = result.getInt("role_id");
                     String roleName = result.getString("role_name");
                     Role role = new Role(roleId, roleName);
-
-
+                    
+                    int subjectID = result.getInt("subject_id");
+                    String subjectName = result.getString("subject_name");
+                    String subjectCode = result.getString("subject_code");
+                    BigDecimal subjectUnits = result.getBigDecimal("units");
+                    Subject subject = new Subject(subjectID, subjectCode, subjectName, subjectUnits);
+                    
+                    int teacherSubjectId = result.getInt("teacher_subject_id");
+                    
                     int userID = result.getInt("user_id");
                     String firstName = result.getString("first_name");
                     String lastName = result.getString("last_name");
@@ -57,7 +74,9 @@ public class TeacherService {
                     String password = result.getString("password");
 
                     Teacher teacher = new Teacher(userName, password, role, firstName, lastName, department, contactNumber, isActive);
+                    teacher.setSubject(subject);
                     teacher.setUserId(userID);
+                    teacher.setTeacherSubjectId(teacherSubjectId);
                     teacherList.add(teacher);
                 }
             } catch (Exception e) {
@@ -163,15 +182,25 @@ public class TeacherService {
         String searchPattern = "%" + searchQuery + "%";
 
         String query =
-            "SELECT " +
-            "U.id AS user_id, U.first_name, U.password, U.last_name, U.username, " +
-            "U.isActive AS user_active, U.role_id, R.role_name, " +
-            "T.department, T.contact_number " +
-            "FROM Teacher T " +
-            "INNER JOIN User U ON T.user_id = U.id " +
-            "INNER JOIN role R ON U.role_id = R.id " + 
-            "WHERE (CAST(user_id AS CHAR) LIKE ? OR U.first_name LIKE ? OR U.last_name LIKE ?) " +
-            "AND U.role_id = 1";
+              "SELECT " +
+              // User Table (U)
+              "U.id AS user_id, U.first_name, U.password, U.last_name, U.username, " +
+              "U.isActive AS user_active, U.role_id, R.role_name, " +
+              // Teacher Table (T)
+              "T.department, T.contact_number, " +
+              // Subject Table (S)
+              "S.id AS subject_id, S.subject_code, S.subject_name, S.units, " +
+              // Teacher Subject Table (TS)
+              "TS.id AS teacher_subject_id " + 
+              "FROM Teacher T " +
+              "INNER JOIN User U ON T.user_id = U.id " +
+              "INNER JOIN Role R ON U.role_id = R.id " +
+              // Use LEFT JOIN for subjects
+              "LEFT JOIN Teacher_Subject TS ON T.user_id = TS.teacher_id " +
+              "LEFT JOIN Subject S ON TS.subject_id = S.id " +
+             "WHERE (CAST(user_id AS CHAR) LIKE ? OR U.first_name LIKE ? OR U.last_name LIKE ?) " +
+             "AND U.role_id = 1";
+
 
         try (PreparedStatement preparedStatement = connectDB.prepareStatement(query)) {
             preparedStatement.setString(1, searchPattern);
@@ -183,7 +212,15 @@ public class TeacherService {
                     int roleId = result.getInt("role_id");
                     String roleName = result.getString("role_name");
                     Role role = new Role(roleId, roleName);
-
+                    
+                    int subjectID = result.getInt("subject_id");
+                    String subjectName = result.getString("subject_name");
+                    String subjectCode = result.getString("subject_code");
+                    BigDecimal subjectUnits = result.getBigDecimal("units");
+                    Subject subject = new Subject(subjectID, subjectCode, subjectName, subjectUnits);
+                    
+                    int teacherSubjectId = result.getInt("teacher_subject_id");
+                    
                     int userID = result.getInt("user_id");
                     String firstName = result.getString("first_name");
                     String lastName = result.getString("last_name");
@@ -194,7 +231,9 @@ public class TeacherService {
                     String password = result.getString("password");
 
                     Teacher teacher = new Teacher(userName, password, role, firstName, lastName, department, contactNumber, isActive);
+                    teacher.setSubject(subject);
                     teacher.setUserId(userID);
+                    teacher.setTeacherSubjectId(teacherSubjectId);
                     teacherList.add(teacher);
                 }
             }

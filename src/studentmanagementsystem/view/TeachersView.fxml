@@ -36,11 +36,12 @@
                                 <TableColumn fx:id="columnFirstName" text="First Name" />
                                 <TableColumn fx:id="columnLastName" text="Last Name" />
                                 <TableColumn fx:id="columnDepartment" text="Department" />
+                        <TableColumn fx:id="columndSubjectAssigned" prefWidth="75.0" text="Subject Assigned" />
                                 <TableColumn fx:id="columnContact" text="Contact No." />
                             </columns>
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                            </columnResizePolicy>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                         </TableView>
                     </children>
                 </HBox>

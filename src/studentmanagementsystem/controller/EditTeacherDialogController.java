@@ -5,18 +5,23 @@
 package studentmanagementsystem.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Role;
+import studentmanagementsystem.model.Subject;
 import studentmanagementsystem.services.TeacherService;
 import studentmanagementsystem.model.Teacher;
+import studentmanagementsystem.services.SubjectService;
+import studentmanagementsystem.services.TeacherSubjectService;
 
 
 /**
@@ -40,19 +45,27 @@ public class EditTeacherDialogController implements Initializable {
     private Label txtMessage;
     @FXML
     private Button btnDeleteTeacher;
+    @FXML
+    private ComboBox<Subject> comboAssignSubject;
+    @FXML
+    private Button btnDeleteStudent;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        SubjectService subjectService = new SubjectService();
+        List<Subject> subjectList = subjectService.getAllSubject();
+        comboAssignSubject.getItems().setAll(subjectList);
     }    
 
     @FXML
     private void handleEditTeacher(ActionEvent event) {
         TeacherService teacherService = new TeacherService();
+        TeacherSubjectService teacherSubjectService = new TeacherSubjectService();
         
+        int teacherId = this.teacher.getUserID();
         String firstName = fieldFirstName.getText();
         String lastName = fieldLastName.getText();
         String department = fieldDepartment.getText();
@@ -60,16 +73,43 @@ public class EditTeacherDialogController implements Initializable {
         String username = this.teacher.getUsername();
         String password = this.teacher.getPassword();
         Role role = this.teacher.getRole();
+        int isActive = 1;
         
-        Teacher teacher = new Teacher(username, password, role, firstName, lastName, department, contactNumber, 1);
-        teacher.setUserId(this.teacher.getUserID());
+        Teacher teacher = new Teacher(username, password, role, firstName, lastName, department, contactNumber, isActive);
+        teacher.setUserId(teacherId);
+        
         int rowsUpdated = teacherService.editTeacher(teacher);
+        Integer subjectId = comboAssignSubject.getValue() != null 
+                            ? comboAssignSubject.getValue().getSubjectId() 
+                            : null;
         
-        if (rowsUpdated > 0 ) {
-          txtMessage.setText("Student  Edit Succcesfully!");
+        int teacherSubjectId = this.teacher.getTeacherSubjectId();
+        
+        boolean isSuccessEdit = false;
+        
+        
+        if (subjectId != null) {
+               if (teacherSubjectId > 0) {
+                 isSuccessEdit = teacherSubjectService.editSubjectTeacher(teacherId, subjectId.intValue(), teacherSubjectId);
+               } else {
+                 isSuccessEdit = teacherSubjectService.addSubjectTeacher(teacherId, subjectId.intValue());
+               }
+        } else {
+                if (teacherSubjectId > 0) {
+                    // isSuccessEdit = teacherSubjectService.deleteSubjectTeacher(teacherSubjectId);
+                    // assume it's successful or just ignore the un-assignment.
+                    isSuccessEdit = true; 
+                } else {
+                    // No subject selected, and no prior assignment existed. Nothing to do.
+                    isSuccessEdit = true;
+                }
+        }
+        
+        if (rowsUpdated > 0  && isSuccessEdit) {
+          txtMessage.setText("Teacher Edit Succcesfully!");
           handleCloseDialog(event);   
         } else {
-          txtMessage.setText("Student  Edit failed!");
+          txtMessage.setText("Teacher Edit failed!");
         }
         
         txtMessage.setVisible(true);
@@ -84,6 +124,7 @@ public class EditTeacherDialogController implements Initializable {
             fieldLastName.setText(teacher.getLastName());
             fieldDepartment.setText(teacher.getDepartment());
             fieldContactNumber.setText(teacher.getContactNumber());
+            comboAssignSubject.setValue(teacher.getSubject());
         }
     }
     
