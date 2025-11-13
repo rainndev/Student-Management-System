@@ -98,7 +98,7 @@ public class SubjectService {
     public List<Subject> getSearchedSubject(String searchQuery) {
         List<Subject> subjectList = new ArrayList<>();
         String searchPattern = "%" + searchQuery + "%";
-       String query = 
+        String query = 
         "SELECT * FROM subject " +
         "WHERE id LIKE ? OR subject_code LIKE ? OR subject_name LIKE ?";
         

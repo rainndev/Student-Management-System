@@ -30,7 +30,8 @@ public class DashboardController implements Initializable {
         "Students", "/studentmanagementsystem/view/StudentsView.fxml",
         "Teachers", "/studentmanagementsystem/view/TeachersView.fxml",
         "Users", "/studentmanagementsystem/view/UsersView.fxml",
-        "Subjects","/studentmanagementsystem/view/SubjectsView.fxml"
+        "Subjects","/studentmanagementsystem/view/SubjectsView.fxml",
+        "Programs","/studentmanagementsystem/view/ProgramsView.fxml"
     );
 
     @FXML

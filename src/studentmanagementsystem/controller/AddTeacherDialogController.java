@@ -5,23 +5,18 @@
 package studentmanagementsystem.controller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Role;
-import studentmanagementsystem.model.Subject;
 import studentmanagementsystem.services.TeacherService;
 import studentmanagementsystem.model.Teacher;
-import studentmanagementsystem.services.SubjectService;
-import studentmanagementsystem.services.TeacherSubjectService;
 
 /**
  * FXML Controller class

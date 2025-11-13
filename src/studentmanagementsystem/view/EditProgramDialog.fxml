@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="702.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.EditProgramDialogController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="702.0" prefWidth="987.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="150.0" text="Program Code">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fieldProgramCode" prefHeight="35.0" prefWidth="333.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label prefWidth="150.0" text="Program Name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fieldProgramName" prefHeight="35.0" prefWidth="333.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="150.0" text="Description">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fieldProgramDescription" prefHeight="35.0" prefWidth="333.0" />
+               </children>
+            </HBox>
+            <Button fx:id="btnEditProgram" mnemonicParsing="false" onAction="#handleEditProgram" prefHeight="35.0" prefWidth="496.0" text="Save Edit" />
+            <Button fx:id="btnDeleteProgram" mnemonicParsing="false" onAction="#handleDeleteProgram" prefHeight="35.0" prefWidth="496.0" text="Delete Program" />
+            <Label fx:id="txtMessage" text="Label" visible="false">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

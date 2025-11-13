@@ -4,7 +4,6 @@
  */
 package studentmanagementsystem.controller;
 
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,54 +14,53 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import studentmanagementsystem.model.Subject;
-import studentmanagementsystem.services.SubjectService;
+import studentmanagementsystem.services.ProgramService;
+import studentmanagementsystem.model.Program;
 
 /**
  * FXML Controller class
  *
  * @author rainndev
  */
-public class AddSubjectDialogController implements Initializable {
+public class AddProgramDialogController implements Initializable {
 
     @FXML
-    private TextField fieldSubjectCode;
+    private TextField fieldProgramCode;
     @FXML
-    private TextField fieldSubjectName;
+    private TextField fieldProgramName;
     @FXML
-    private TextField fieldSubjectUnits;
+    private TextField fieldProgarmDescription;
     @FXML
-    private Button btnAddSubject;
+    private Button btnAddProgram;
     @FXML
     private Label txtMessage;
 
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
     @FXML
-    private void handleAddSubject(ActionEvent event) {
-        SubjectService subjectService = new SubjectService(); 
+    private void handleAddProgram(ActionEvent event) {
+        ProgramService programService = new ProgramService();
         
-        String subjectCode = fieldSubjectCode.getText();
-        String subjectUnits = fieldSubjectUnits.getText();
-        String subjectName = fieldSubjectName.getText();
-        BigDecimal unitsBigDecimal = new BigDecimal(subjectUnits);
+        String programCode = fieldProgramCode.getText();
+        String programName = fieldProgramName.getText();
+        String description = fieldProgarmDescription.getText();
         
-        Subject subject = new Subject(subjectCode, subjectName, unitsBigDecimal);
-        int rowsInserted =  subjectService.addSubject(subject);
+        Program program = new Program(programCode, programName, description);
+        boolean isAddSuccess =  programService.addProgram(program);
         
-        if (rowsInserted > 0 ) {
-            txtMessage.setText("Subject Added Succcesfully!");   
+        if (isAddSuccess) {
+            txtMessage.setText("Program Added Succcesfully!");   
             handleCloseDialog(event);
         } else {
-            txtMessage.setText("Subject Added failed!");
+            txtMessage.setText("Program Added failed!");
         }
-        
         txtMessage.setVisible(true);
     }
     
@@ -70,4 +68,5 @@ public class AddSubjectDialogController implements Initializable {
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.close();
     }
+    
 }

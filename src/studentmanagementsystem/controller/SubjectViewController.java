@@ -93,7 +93,7 @@ public class SubjectViewController implements Initializable {
 
     @FXML
     private void openAddTeacherDialog(ActionEvent event) {
-                 try {
+         try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/AddSubjectDialog.fxml"));
                 Parent root = loader.load();
                 
@@ -145,4 +145,4 @@ public class SubjectViewController implements Initializable {
             e.printStackTrace();
         }
     }   
-}
+    }

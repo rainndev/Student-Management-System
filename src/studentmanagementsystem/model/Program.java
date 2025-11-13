@@ -21,6 +21,12 @@ public class Program {
         this.description = description;
     }
     
+    public Program(String programCode, String programName, String description) {
+        this.programCode = programCode;
+        this.programName = programName;
+        this.description = description;
+    }
+    
     public int getId(){ return id; }
     public String getProgramCode(){ return programCode; }
     public String getProgramName(){ return programName; }
