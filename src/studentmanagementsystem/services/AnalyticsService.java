@@ -1,0 +1,138 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package studentmanagementsystem.services;
+
+import studentmanagementsystem.databases.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+/**
+ *
+ * @author rainndev
+ */
+public class AnalyticsService {
+    private DatabaseConnection connection = new DatabaseConnection();
+    
+    public int getTotalUsers() {
+        int  total = 0;
+        String query =  "SELECT COUNT(*) FROM user";
+         
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
+            ResultSet result =  statement.executeQuery(query);
+            
+            if(result.next()) {
+                total = result.getInt(1);
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return total;
+    }
+    
+    public int getTotalStudents() {
+        int  total = 0;
+        String query =  "SELECT COUNT(*) FROM student";
+         
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
+            ResultSet result =  statement.executeQuery(query);
+            
+            if(result.next()) {
+                total = result.getInt(1);
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return total;
+    }
+    
+    public int getTotalTeachers() {
+        int  total = 0;
+        String query =  "SELECT COUNT(*) FROM teacher";
+         
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
+            ResultSet result =  statement.executeQuery(query);
+            
+            if(result.next()) {
+                total = result.getInt(1);
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return total;
+    }
+    
+    public int getTotalPrograms() {
+        int  total = 0;
+        String query =  "SELECT COUNT(*) FROM program";
+         
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
+            ResultSet result =  statement.executeQuery(query);
+            
+            if(result.next()) {
+                total = result.getInt(1);
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return total;
+    }
+    
+    public int getTotalSubjects() {
+        int  total = 0;
+        String query =  "SELECT COUNT(*) FROM subject";
+         
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
+            ResultSet result =  statement.executeQuery(query);
+            
+            if(result.next()) {
+                total = result.getInt(1);
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return total;
+    }
+    
+    public int[] getActiveInactiveCount() {
+        String query = 
+            "SELECT SUM(isActive = 1) AS activeCount, " +
+            "       SUM(isActive = 0) AS inactiveCount " +
+            "FROM user";
+
+        int active = 0;
+        int inactive = 0;
+
+        try (Connection conn = connection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+            if (rs.next()) {
+                active = rs.getInt("activeCount");
+                inactive = rs.getInt("inactiveCount");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new int[]{active, inactive};
+   }   
+}

@@ -22,11 +22,11 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       switchTo("Home");
+       switchTo("AdminAnalytics");
     }
 
     private final Map<String, String> fxmlMap = Map.of(
-        "Home", "/studentmanagementsystem/view/HomeView.fxml",
+        "AdminAnalytics", "/studentmanagementsystem/view/AdminAnalyticsView.fxml",
         "Students", "/studentmanagementsystem/view/StudentsView.fxml",
         "Teachers", "/studentmanagementsystem/view/TeachersView.fxml",
         "Users", "/studentmanagementsystem/view/UsersView.fxml",
