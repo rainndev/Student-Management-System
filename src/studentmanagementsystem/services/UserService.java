@@ -22,7 +22,6 @@ import studentmanagementsystem.model.Role;
  */
 public class UserService {
     private DatabaseConnection connection = new DatabaseConnection();
-    private Connection connectDB = connection.getConnection();
     
     public List<User> getAllUser(){
         List<User> userList = new ArrayList<>();
@@ -31,7 +30,8 @@ public class UserService {
         "SELECT * FROM user as U INNER JOIN role as R ON U.role_id = R.id";
         
         
-        try(Statement statement = connectDB.createStatement();) {
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();) {
             try(ResultSet result = statement.executeQuery(query);){
                 while (result.next()) {
                     int roleId = result.getInt("role_id");
@@ -67,7 +67,8 @@ public class UserService {
            String query =
            "SELECT * FROM  role";
 
-           try(Statement statement = connectDB.createStatement();) {
+           try(Connection connectDB = connection.getConnection();
+               Statement statement = connectDB.createStatement();) {
                try(ResultSet result = statement.executeQuery(query);) {
                     while (result.next()) {
                         int roleId = result.getInt("role_id");
@@ -97,7 +98,7 @@ public class UserService {
         String searchPattern = "%" + searchQuery + "%";
 
 
-        try (
+        try (Connection connectDB = connection.getConnection();
             PreparedStatement preparedStatement = connectDB.prepareStatement(query)
         ) {
 

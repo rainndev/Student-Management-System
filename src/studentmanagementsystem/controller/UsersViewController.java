@@ -64,6 +64,15 @@ public class UsersViewController implements Initializable {
         columnRole.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole().getRoleName()));
         columnActive.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getActiveState(cellData.getValue().getIsActive())));
         columnCreatedAt.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getCreatedAt()));
+        
+        
+        usersTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+               fieldSearchUser.setText(String.valueOf(newSelection.getUserID()));
+            }
+        });
+         
+         
         loadAllUser();
     }    
     

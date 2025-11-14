@@ -59,9 +59,9 @@ public class AddTeacherDialogController implements Initializable {
         int isActive = 1;
         
         Teacher teacher = new Teacher(randomUsername, password, role, firstName, lastName, department, contact, isActive);
-        int rowsInserted = teacherService.addTeacher(teacher);
+        boolean isSuccess = teacherService.addTeacher(teacher);
         
-        if (rowsInserted > 0 ) {
+        if (isSuccess) {
             txtMessage.setText("Teacher  Added Succcesfully!");   
             handleCloseDialog(event);
         } else {

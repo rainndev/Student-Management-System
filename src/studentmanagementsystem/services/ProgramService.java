@@ -20,14 +20,15 @@ import studentmanagementsystem.model.Subject;
  */
 public class ProgramService {
     private DatabaseConnection connection = new DatabaseConnection();
-    private Connection connectDB = connection.getConnection();
+
     
     public List<Program> getAllPrograms() {
         List<Program> programList = new ArrayList<>();
    
         String query =  "SELECT * FROM program";
         
-        try(Statement statement = connectDB.createStatement();){
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
             try(ResultSet result =  statement.executeQuery(query);){
                 while (result.next()) {
                     int id = result.getInt("id");
@@ -53,7 +54,8 @@ public class ProgramService {
     public boolean addProgram(Program program) {
         String query =  "INSERT INTO program(program_code, program_name, description) VALUES(? , ? , ?)";
         
-        try(PreparedStatement programStmnt = connectDB.prepareStatement(query);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement programStmnt = connectDB.prepareStatement(query);){
                programStmnt.setString(1, program.getProgramCode());
                programStmnt.setString(2, program.getProgramName());
                programStmnt.setString(3, program.getDescription());
@@ -70,7 +72,8 @@ public class ProgramService {
     public boolean editProgram(Program program) {
         String query = "UPDATE program SET program_code = ?, program_name = ?, description = ?  WHERE id = ?";
         
-        try(PreparedStatement stmnt = connectDB.prepareStatement(query);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmnt = connectDB.prepareStatement(query);){
             stmnt.setString(1, program.getProgramCode());
             stmnt.setString(2, program.getProgramName());
             stmnt.setString(3, program.getDescription());
@@ -87,7 +90,8 @@ public class ProgramService {
     public boolean deleteProgram(int ID){
         String query = "DELETE FROM program WHERE id = ?";
         
-        try(PreparedStatement stmt = connectDB.prepareStatement(query);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmt = connectDB.prepareStatement(query);){
            stmt.setInt(1, ID);
            
            int rows = stmt.executeUpdate(); 
@@ -108,7 +112,8 @@ public class ProgramService {
         "WHERE id LIKE ? OR program_code LIKE ? OR program_name LIKE ?";
         
         
-        try(PreparedStatement prepareStatement = connectDB.prepareStatement(query);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement prepareStatement = connectDB.prepareStatement(query);){
             prepareStatement.setString(1, searchPattern);
             prepareStatement.setString(2, searchPattern);
             prepareStatement.setString(3, searchPattern);

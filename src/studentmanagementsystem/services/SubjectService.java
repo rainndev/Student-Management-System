@@ -21,13 +21,13 @@ import studentmanagementsystem.model.Subject;
  */
 public class SubjectService {
     private DatabaseConnection connection = new DatabaseConnection();
-    private Connection connectDB = connection.getConnection();
-    
+
     public List<Subject> getAllSubject() {
         List<Subject> subjectList = new ArrayList<>();
         String query =  "SELECT * FROM subject";
 
-        try(Statement statement = connectDB.createStatement();){
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
             try(ResultSet result =  statement.executeQuery(query);){
                 while (result.next()) {
                     int id = result.getInt("id");
@@ -50,47 +50,54 @@ public class SubjectService {
         return subjectList;
     }
     
-    public int addSubject(Subject subject) {
+    public boolean addSubject(Subject subject) {
         String insertUserQuery = "INSERT INTO subject (`subject_code`, `subject_name`, `units`) VALUES (? ,? ,?)";
         
-        try(PreparedStatement userSubjectStmnt = connectDB.prepareStatement(insertUserQuery);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement userSubjectStmnt = connectDB.prepareStatement(insertUserQuery);){
             userSubjectStmnt.setString(1, subject.getSubjectCode());
             userSubjectStmnt.setString(2, subject.getSubjectName());
             userSubjectStmnt.setBigDecimal(3, subject.getSubjectUnits());
             
-            return userSubjectStmnt.executeUpdate();
+            int rowsInserted =  userSubjectStmnt.executeUpdate();
+            return rowsInserted > 0;
         } catch (Exception e) {
             e.printStackTrace();
-             return 0;
+             return false;
         } 
     }
     
     
-    public int editSubject(Subject subject) {
+    public boolean editSubject(Subject subject) {
         String insertUserQuery = "UPDATE subject SET subject_code= ? ,subject_name= ?, units = ?  WHERE id = ?";
         
-        try(PreparedStatement userSubjectStmnt = connectDB.prepareStatement(insertUserQuery);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement userSubjectStmnt = connectDB.prepareStatement(insertUserQuery);){
             userSubjectStmnt.setString(1, subject.getSubjectCode());
             userSubjectStmnt.setString(2, subject.getSubjectName());
             userSubjectStmnt.setBigDecimal(3, subject.getSubjectUnits());
             userSubjectStmnt.setInt(4, subject.getSubjectId());
             
-            return userSubjectStmnt.executeUpdate();
+            int rowsUpdated = userSubjectStmnt.executeUpdate();
+            return rowsUpdated > 0;
         } catch (Exception e) {
             e.printStackTrace();
-             return 0;
+             return false;
         } 
     }
     
-    public int deleteSubject(int ID){
+    public boolean deleteSubject(int ID){
         String deleteQuery = "DELETE FROM subject WHERE id = ?";
         
-        try(PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);){
            stmt.setInt(1, ID);
-           return stmt.executeUpdate();         
+           int rowsDeleted = stmt.executeUpdate();
+           
+           return rowsDeleted > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
     
@@ -102,7 +109,8 @@ public class SubjectService {
         "SELECT * FROM subject " +
         "WHERE id LIKE ? OR subject_code LIKE ? OR subject_name LIKE ?";
         
-        try(PreparedStatement preparedStatement = connectDB.prepareStatement(query);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query);){
             preparedStatement.setString(1, searchPattern);
             preparedStatement.setString(2, searchPattern);
             preparedStatement.setString(3, searchPattern);

@@ -78,34 +78,37 @@ public class EditTeacherDialogController implements Initializable {
         Teacher teacher = new Teacher(username, password, role, firstName, lastName, department, contactNumber, isActive);
         teacher.setUserId(teacherId);
         
-        int rowsUpdated = teacherService.editTeacher(teacher);
-        Integer subjectId = comboAssignSubject.getValue() != null 
-                            ? comboAssignSubject.getValue().getSubjectId() 
-                            : null;
+        boolean isEditTeacherSuccess = teacherService.editTeacher(teacher);
+        
+        int subjectId = comboAssignSubject.getValue() != null 
+                ? comboAssignSubject.getValue().getSubjectId() 
+                : 0;
         
         int teacherSubjectId = this.teacher.getTeacherSubjectId();
+        System.out.println("subjectId: " + subjectId);
         
-        boolean isSuccessEdit = false;
-        
-        
-        if (subjectId != null) {
+        boolean isTeacherSubSuccessEdit = false;
+
+        if (subjectId != 0) {
                if (teacherSubjectId > 0) {
-                 isSuccessEdit = teacherSubjectService.editSubjectTeacher(teacherId, subjectId.intValue(), teacherSubjectId);
+                 System.out.println("Adding Subject Teacher...");
+                 isTeacherSubSuccessEdit = teacherSubjectService.editSubjectTeacher(teacherId, subjectId, teacherSubjectId);
                } else {
-                 isSuccessEdit = teacherSubjectService.addSubjectTeacher(teacherId, subjectId.intValue());
+                 System.out.println("Editing Subject Teacher...");
+                 isTeacherSubSuccessEdit = teacherSubjectService.addSubjectTeacher(teacherId, subjectId);
                }
         } else {
                 if (teacherSubjectId > 0) {
                     // isSuccessEdit = teacherSubjectService.deleteSubjectTeacher(teacherSubjectId);
                     // assume it's successful or just ignore the un-assignment.
-                    isSuccessEdit = true; 
+                    isTeacherSubSuccessEdit = true; 
                 } else {
                     // No subject selected, and no prior assignment existed. Nothing to do.
-                    isSuccessEdit = true;
+                    isTeacherSubSuccessEdit = true;
                 }
         }
         
-        if (rowsUpdated > 0  && isSuccessEdit) {
+        if (isEditTeacherSuccess && isTeacherSubSuccessEdit) {
           txtMessage.setText("Teacher Edit Succcesfully!");
           handleCloseDialog(event);   
         } else {

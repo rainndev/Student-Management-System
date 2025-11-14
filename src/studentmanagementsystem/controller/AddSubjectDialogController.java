@@ -54,9 +54,9 @@ public class AddSubjectDialogController implements Initializable {
         BigDecimal unitsBigDecimal = new BigDecimal(subjectUnits);
         
         Subject subject = new Subject(subjectCode, subjectName, unitsBigDecimal);
-        int rowsInserted =  subjectService.addSubject(subject);
+        boolean isSuccess =  subjectService.addSubject(subject);
         
-        if (rowsInserted > 0 ) {
+        if (isSuccess) {
             txtMessage.setText("Subject Added Succcesfully!");   
             handleCloseDialog(event);
         } else {

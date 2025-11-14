@@ -25,7 +25,6 @@ import studentmanagementsystem.model.Subject;
  */
 public class TeacherService {
     private DatabaseConnection connection = new DatabaseConnection();
-    private Connection connectDB = connection.getConnection();
     
     
     public List<Teacher> getAllTeachers() {
@@ -49,7 +48,8 @@ public class TeacherService {
               "LEFT JOIN Subject S ON TS.subject_id = S.id " +
               "WHERE U.role_id = 1";
 
-        try(Statement statement = connectDB.createStatement();){
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();){
             try(ResultSet result = statement.executeQuery(query);) {
                 while (result.next()) {      
                     int roleId = result.getInt("role_id");
@@ -92,14 +92,15 @@ public class TeacherService {
     }
     
     
-    public int addTeacher(Teacher teacher) {
+    public boolean addTeacher(Teacher teacher) {
         String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
                     + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
         
         String insertTeacherQuery = "INSERT INTO `teacher`(`user_id`, `department`, `contact_number`, `isActive`) VALUES (? , ? , ? , ? )";
         
-        try( PreparedStatement userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement teacherStmt = connectDB.prepareStatement(insertTeacherQuery);   
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement teacherStmt = connectDB.prepareStatement(insertTeacherQuery);   
                 ){
             
             userStmt.setString(1, teacher.getUsername());
@@ -124,23 +125,22 @@ public class TeacherService {
             teacherStmt.setString(2, teacher.getDepartment());
             teacherStmt.setString(3, teacher.getContactNumber());
             teacherStmt.setInt(4, teacher.getIsActive());
-
-            int rowsInserted = teacherStmt.executeUpdate();
-            return rowsInserted;
-
-
+            
+            int teacherRows = teacherStmt.executeUpdate();
+            return teacherRows > 0;
         } catch (Exception e) {
             e.printStackTrace();
-             return 0;
+             return false;
         } 
     }
     
-    public int editTeacher(Teacher teacher) {
+    public boolean editTeacher(Teacher teacher) {
         String updateUserQuery = "UPDATE user SET username = ?, password = ?, role_id = ?, first_name = ?, last_name = ?, isActive = ? WHERE id = ?";
         String updateTeacherQuery = "UPDATE teacher SET department = ?, contact_number = ?, isActive = ? WHERE user_id = ?";
   
-        try( PreparedStatement userStmt = connectDB.prepareStatement(updateUserQuery);
-             PreparedStatement teacherStmt = connectDB.prepareStatement(updateTeacherQuery); ){        
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement userStmt = connectDB.prepareStatement(updateUserQuery);
+            PreparedStatement teacherStmt = connectDB.prepareStatement(updateTeacherQuery); ){        
          
             userStmt.setString(1, teacher.getUsername());
             userStmt.setString(2, teacher.getPassword());
@@ -155,24 +155,27 @@ public class TeacherService {
             teacherStmt.setString(2, teacher.getContactNumber());
             teacherStmt.setInt(3, teacher.getIsActive());
             teacherStmt.setInt(4, teacher.getUserID());
-
-            int rowsUpdated = teacherStmt.executeUpdate();
-            return rowsUpdated;
+            
+            int userRows = userStmt.executeUpdate();
+            int teacherRows = teacherStmt.executeUpdate();
+            return userRows > 0 && teacherRows > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
     
-    public int deleteTeacher(int ID){
+    public boolean deleteTeacher(int ID){
         String deleteQuery = "DELETE FROM user WHERE id = ?";
         
-        try(PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);){
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);){
            stmt.setInt(1, ID);
-           return stmt.executeUpdate();         
+           int rowsDeleted = stmt.executeUpdate();
+           return rowsDeleted > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
     
@@ -202,7 +205,8 @@ public class TeacherService {
              "AND U.role_id = 1";
 
 
-        try (PreparedStatement preparedStatement = connectDB.prepareStatement(query)) {
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query)) {
             preparedStatement.setString(1, searchPattern);
             preparedStatement.setString(2, searchPattern);
             preparedStatement.setString(3, searchPattern);

@@ -19,8 +19,6 @@ import studentmanagementsystem.model.Program;
  */
 public class StudentService { 	
     private DatabaseConnection connection = new DatabaseConnection();
-    private Connection connectDB = connection.getConnection();
-    
     
    public List<Student> getAllStudent() {
         List<Student> studentList = new ArrayList<>();
@@ -42,7 +40,8 @@ public class StudentService {
            "WHERE U.role_id = 2";
 
         
-        try(Statement statement = connectDB.createStatement();
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();
              ResultSet result = statement.executeQuery(query);
                 ){
             System.out.println(result);
@@ -97,7 +96,7 @@ public class StudentService {
         return studentList;
     }
     
-   public int addStudent(Student student) {
+   public boolean addStudent(Student student) {
         String insertUserQuery = "INSERT INTO user (username, password, role_id, first_name, last_name, isActive, created_at) "
                     + "VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
@@ -107,8 +106,9 @@ public class StudentService {
        
        
 
-        try( PreparedStatement userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement studentStmt = connectDB.prepareStatement(insertStudentQuery);
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement userStmt = connectDB.prepareStatement(insertUserQuery, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement studentStmt = connectDB.prepareStatement(insertStudentQuery);
                 ){
 
             String username = student.getUsername();
@@ -143,22 +143,21 @@ public class StudentService {
             studentStmt.setBoolean(9, true);
 
             int rowsInserted = studentStmt.executeUpdate();
-            return rowsInserted;
-
-
+            return rowsInserted > 0;
         } catch (Exception e) {
             e.printStackTrace();
-             return 0;
+            return false;
         } 
     }
    
-   public int editStudent(Student student) {
+   public boolean editStudent(Student student) {
         String updateUserQuery = "UPDATE user SET username = ?, password = ?, role_id = ?, first_name = ?, last_name = ?, isActive = ? WHERE id = ?";
         String updateStudentQuery = "UPDATE student SET program_id = ?, year_level = ?, gender = ?, birth_date = ?, address = ?, contact_number = ?, profile_photo = ?, isActive = ? WHERE user_id = ?";
         
        
-        try( PreparedStatement userStmt = connectDB.prepareStatement(updateUserQuery);
-             PreparedStatement studentStmt = connectDB.prepareStatement(updateStudentQuery);
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement userStmt = connectDB.prepareStatement(updateUserQuery);
+            PreparedStatement studentStmt = connectDB.prepareStatement(updateStudentQuery);
                 ){
             
             userStmt.setString(1, student.getUsername());
@@ -181,24 +180,26 @@ public class StudentService {
             studentStmt.setInt(9, student.getUserID());
 
             int rowsUpdated = studentStmt.executeUpdate();
-            return rowsUpdated;
+            return rowsUpdated > 0;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
 }
 
-   public int deleteStudent(int ID){
+   public boolean deleteStudent(int ID){
         String deleteQuery = "DELETE FROM user WHERE id = ?";
 
-        try(PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);)
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmt = connectDB.prepareStatement(deleteQuery);)
         {
            stmt.setInt(1, ID);  
-           return stmt.executeUpdate();  
+           int rowsDeleted = stmt.executeUpdate();  
+           return rowsDeleted > 0;
        } catch (Exception e) {
            e.printStackTrace();
-           return 0;
+           return false;
        }
    }
    
@@ -224,7 +225,8 @@ public class StudentService {
            "INNER JOIN `Role` R ON U.role_id = R.id " +
            "WHERE CAST(user_id AS CHAR) LIKE ? OR U.first_name LIKE ? OR U.last_name LIKE ? and U.role_id = 2";
         
-        try(Statement statement = connectDB.createStatement();
+        try(Connection connectDB = connection.getConnection();
+            Statement statement = connectDB.createStatement();
             PreparedStatement preparedStatement = connectDB.prepareStatement(query);
                 ){
             preparedStatement.setString(1, searchPattern);

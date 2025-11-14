@@ -61,9 +61,9 @@ public class EditSubjectDialogController implements Initializable {
         Subject subject = new Subject(subjectCode, subjectName, unitsBigDecimal);
         subject.setSubjectId(subjectID);
         
-        int rowsInserted =  subjectService.editSubject(subject);
+        boolean isSuccess =  subjectService.editSubject(subject);
         
-        if (rowsInserted > 0 ) {
+        if (isSuccess) {
             txtMessage.setText("Subject edit Succcesfully!");   
             handleCloseDialog(event);
         } else {

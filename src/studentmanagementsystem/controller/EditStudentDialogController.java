@@ -122,9 +122,9 @@ public class EditStudentDialogController implements Initializable {
         // add the user id from student came from setStudent params
         student.setUserId(this.student.getUserID());
         
-        int rowsInserted =  studentService.editStudent(student);
+        boolean isSuccess =  studentService.editStudent(student);
         
-        if (rowsInserted > 0 ) {
+        if (isSuccess) {
             txtMessage.setText("Student  Edit Succcesfully!");
             handleCloseDialog(event);
         } else {

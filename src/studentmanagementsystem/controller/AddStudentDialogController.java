@@ -114,11 +114,9 @@ public class AddStudentDialogController implements Initializable {
            profilePhoto     
         );
         
-       
+        boolean isSuccess = studentService.addStudent(student);
         
-        int rowsInserted =  studentService.addStudent(student);
-        
-        if (rowsInserted > 0 ) {
+        if (isSuccess) {
             txtMessage.setText("Student  Added Succcesfully!");   
             handleCloseDialog(event);
         } else {
