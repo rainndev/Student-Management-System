@@ -6,9 +6,9 @@ package studentmanagementsystem.controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -17,17 +17,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import studentmanagementsystem.model.Student;
+import studentmanagementsystem.model.Grade;
 import studentmanagementsystem.model.StudentGradeData;
 import studentmanagementsystem.model.TeacherSubjectComboBox;
 import studentmanagementsystem.services.GradeService;
-import studentmanagementsystem.services.StudentService;
 import studentmanagementsystem.services.TeacherSubjectService;
 
 /**
@@ -38,12 +36,10 @@ import studentmanagementsystem.services.TeacherSubjectService;
 public class EditStudentGradeDialogController implements Initializable {
 
     private Student student;
-    private GradeService gradeService;
+    private GradeService gradeService = new GradeService();
     
     @FXML
     private Label txtMessage;
-    @FXML
-    private Text txtSchoolYear;
     @FXML
     private TableView<StudentGradeData> tableView1stSemester;
     @FXML
@@ -84,6 +80,8 @@ public class EditStudentGradeDialogController implements Initializable {
     private ComboBox<String> comboSchoolYear;
     @FXML
     private ComboBox<String> comboRemarks;
+    @FXML
+    private ComboBox<String> comboTableSchoolYear;
 
     /**
      * Initializes the controller class.
@@ -96,6 +94,13 @@ public class EditStudentGradeDialogController implements Initializable {
         column1stUnits.setCellValueFactory(cellData -> new SimpleObjectProperty<BigDecimal>(cellData.getValue().getSubjectUnits()));
         column1stTeacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTeacherFullName()));
         column1stRemarks.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRemarks()));
+        
+        column2ndGrade.setCellValueFactory(cellData -> new SimpleObjectProperty<BigDecimal>(cellData.getValue().getGrade()));
+        column2ndSubjectCode.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubjectCode()));
+        column2ndSubjectName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubjectName()));
+        column2ndUnits.setCellValueFactory(cellData -> new SimpleObjectProperty<BigDecimal>(cellData.getValue().getSubjectUnits()));
+        column2ndTeacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTeacherFullName()));
+        column2ndRemarks.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRemarks()));
         
         
         //semester
@@ -116,6 +121,7 @@ public class EditStudentGradeDialogController implements Initializable {
         for (int y = startYear; y < endYear; y++) {
             String schoolYear = y + "-" + (y + 1);
             comboSchoolYear.getItems().add(schoolYear);
+            comboTableSchoolYear.getItems().add(schoolYear);
         }
         
         //remarks
@@ -125,22 +131,62 @@ public class EditStudentGradeDialogController implements Initializable {
             "INCOMPLETE",
             "DROPPED"
         );
+        
+        String currentSchoolYear = getCurrentSchoolYear();
+        comboTableSchoolYear.setValue(currentSchoolYear);
+        comboSchoolYear.setValue(currentSchoolYear);
+        
+        comboTableSchoolYear.valueProperty().addListener((obs, oldValue, newValue) -> {
+            loadGrades(newValue);
+        });
     }    
 
     
-    public void loadGrades() {
+    public void loadGrades(String year) {
         int studentId = this.student.getUserID();
-        GradeService gradeService = new GradeService();
-        List<StudentGradeData> studentGradeData = gradeService.getGradesStudentById(studentId, 1, "2024-2025");
-        tableView1stSemester.setItems(FXCollections.observableArrayList(studentGradeData));
+        List<StudentGradeData> studentGradeData1st = gradeService.getGradesStudentById(studentId, 1, year);
+        tableView1stSemester.setItems(FXCollections.observableArrayList(studentGradeData1st));
+        
+        List<StudentGradeData> studentGradeData2nd = gradeService.getGradesStudentById(studentId, 2, year);
+        tableView2ndSemester.setItems(FXCollections.observableArrayList(studentGradeData2nd));
     }
        
-    public void setStudent(Student student) {
+    public void setStudent(Student student) {    
         this.student = student;
-        loadGrades();
+        String currentSchoolYear = getCurrentSchoolYear();
+        loadGrades(currentSchoolYear);
+    }
+    
+    private String getCurrentSchoolYear() {
+        LocalDate today = LocalDate.now();
+        int year = today.getYear();
+        return year + "-" + (year + 1);
     }
 
     @FXML
     private void handleAddGrades(ActionEvent event) {
+        int studentId = this.student.getUserID();
+        BigDecimal grade = new BigDecimal(fieldGrade.getText());
+        int teacherSubjectId = comboTeacherSubject.getValue().getTeacherSubjectId();
+        int semester = comboSemester.getValue();
+        String schoolYear = comboSchoolYear.getValue();
+        String remarks = comboRemarks.getValue();
+        
+        Grade gradeData = new Grade(studentId, teacherSubjectId, grade, remarks, semester, schoolYear);
+        boolean isSuccessAdd = gradeService.addGrade(gradeData);
+        
+        if (isSuccessAdd) {
+            fieldGrade.setText("");
+            comboTeacherSubject.setValue(null);
+            comboSemester.setValue(null);
+            comboSchoolYear.setValue(null);
+            comboRemarks.setValue(null);
+            txtMessage.setText("Grade added successfully");
+            loadGrades(schoolYear);
+        } else {
+            txtMessage.setText("Grade added failed");
+        }
+        
+        txtMessage.setVisible(true);
     }
 }

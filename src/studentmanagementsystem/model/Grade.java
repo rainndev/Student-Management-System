@@ -15,10 +15,10 @@ public class Grade {
     private int teacherSubjectId;
     private BigDecimal grade;
     private String remarks;
-    private String semester;
+    private int semester;
     private String schoolYear; 
 
-    public Grade(int studentId, int teacherSubjectId, BigDecimal grade, String remarks, String semester, String schoolYear) {
+    public Grade(int studentId, int teacherSubjectId, BigDecimal grade, String remarks, int semester, String schoolYear) {
         this.studentId = studentId;
         this.teacherSubjectId = teacherSubjectId;
         this.grade = grade;
@@ -43,7 +43,7 @@ public class Grade {
         return schoolYear;
     }
 
-    public String getSemester() {
+    public int getSemester() {
         return semester;
     }
 
@@ -63,7 +63,7 @@ public class Grade {
         this.schoolYear = schoolYear;
     }
 
-    public void setSemester(String semester) {
+    public void setSemester(int semester) {
         this.semester = semester;
     }
 

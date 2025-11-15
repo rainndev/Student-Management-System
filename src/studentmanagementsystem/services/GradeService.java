@@ -12,8 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import studentmanagementsystem.model.Program;
-import studentmanagementsystem.model.Teacher;
+import studentmanagementsystem.model.Grade;
 
 
 /**
@@ -55,7 +54,7 @@ public class GradeService {
             ps.setString(3, _year);
 
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     StudentGradeData studentGradeData = new StudentGradeData(
                             rs.getInt("grade_id"),
                             rs.getInt("student_id"),
@@ -81,5 +80,26 @@ public class GradeService {
         }
 
         return studentGradeDataList;
+    }
+    
+    
+    public boolean addGrade(Grade grade) {
+        String query =  "INSERT INTO grade(student_id, teacher_subject_id, grade, remarks, semester, school_year) VALUES(? , ? , ?, ?, ?, ?)";
+        
+        try(Connection connectDB = connection.getConnection();
+               PreparedStatement gradeStmnt = connectDB.prepareStatement(query);){
+               gradeStmnt.setInt(1, grade.getStudentId());
+               gradeStmnt.setInt(2, grade.getTecaherSubjectId());
+               gradeStmnt.setBigDecimal(3, grade.getGrade());
+               gradeStmnt.setString(4, grade.getRemarks());
+               gradeStmnt.setInt(5, grade.getSemester());
+               gradeStmnt.setString(6, grade.getSchoolYear());
+               
+               int rowsAffected = gradeStmnt.executeUpdate();
+               return rowsAffected > 0;  
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
