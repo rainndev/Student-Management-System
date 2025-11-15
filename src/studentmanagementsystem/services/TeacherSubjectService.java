@@ -2,12 +2,51 @@ package studentmanagementsystem.services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
+import studentmanagementsystem.model.TeacherSubject;
+import studentmanagementsystem.model.TeacherSubjectComboBox;
 
 public class TeacherSubjectService {
     private DatabaseConnection databaseConnection = new DatabaseConnection();
     
+    public List<TeacherSubjectComboBox> getAllTeacherSubjectComboBox() {
+        List<TeacherSubjectComboBox> teacherSubjectList = new ArrayList<>();
+        
+        String query = "SELECT TS.id as teacher_subject_id, "
+                    + "U.first_name as teacher_first_name, "
+                    + "U.last_name as teacher_last_name, "
+                    + "S.subject_code, "
+                    + "s.subject_name FROM teacher_subject AS TS "
+                    + "INNER JOIN teacher as T  ON T.user_id = TS.teacher_id " 
+                    + "INNER JOIN user as U ON U.id = T.user_id "
+                    + "INNER JOIN subject as S ON s.id = TS.subject_id;";
+            try(Connection connectDB = databaseConnection.getConnection();
+             Statement statement = connectDB.createStatement();
+             ResultSet result = statement.executeQuery(query);
+                ){
+            
+            while (result.next()) {
+                
+                int teacherSubjectId = result.getInt("teacher_subject_id");
+                String teacherFirstName = result.getString("teacher_first_name");
+                String teacherLastName = result.getString("teacher_last_name");
+                String subjectCode = result.getString("subject_code");
+                String subjectName = result.getString("subject_name");
+             
+                TeacherSubjectComboBox teacherSubjectCombo = new TeacherSubjectComboBox(teacherSubjectId, teacherFirstName, teacherLastName, subjectCode, subjectName);
+                teacherSubjectList.add(teacherSubjectCombo);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }      
+        return teacherSubjectList;
+    }
     
     public boolean editSubjectTeacher(int teacherId, int subjectId, int teacherSubjectId) {
         String query = "UPDATE teacher_subject SET teacher_id= ?, subject_id = ? WHERE id = ?";
