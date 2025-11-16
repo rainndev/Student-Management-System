@@ -18,9 +18,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import studentmanagementsystem.model.Student;
 import studentmanagementsystem.model.Grade;
 import studentmanagementsystem.model.StudentGradeData;
@@ -82,6 +85,16 @@ public class EditStudentGradeDialogController implements Initializable {
     private ComboBox<String> comboRemarks;
     @FXML
     private ComboBox<String> comboTableSchoolYear;
+    @FXML
+    private Button btnEditGrade;
+    @FXML
+    private Button btnDeleteGrade;
+    @FXML
+    private TabPane tabPaneView;
+    @FXML
+    private AnchorPane tab1stSemester;
+    @FXML
+    private Tab tab2ndSemester;
 
     /**
      * Initializes the controller class.
@@ -101,6 +114,22 @@ public class EditStudentGradeDialogController implements Initializable {
         column2ndUnits.setCellValueFactory(cellData -> new SimpleObjectProperty<BigDecimal>(cellData.getValue().getSubjectUnits()));
         column2ndTeacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTeacherFullName()));
         column2ndRemarks.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRemarks()));
+        
+        
+        
+        tableView1stSemester.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+              setDataField(newSelection);
+            }
+        });
+        
+           
+        tableView2ndSemester.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+              setDataField(newSelection);
+            }
+        });
+        
         
         
         //semester
@@ -188,5 +217,95 @@ public class EditStudentGradeDialogController implements Initializable {
         }
         
         txtMessage.setVisible(true);
+    }
+    
+    private void setDataField(StudentGradeData studentGradeData) {        
+        int teacherSubjectId = studentGradeData.getTeacherSubjectId();
+        String teacherFirstName = studentGradeData.getTeacherFirstName();
+        String teacherLastName = studentGradeData.getTeacherLastName();
+        String subjectCode = studentGradeData.getSubjectCode();
+        String subjectName = studentGradeData.getSubjectName();
+        
+        
+        fieldGrade.setText(String.valueOf(studentGradeData.getGrade()));
+        
+        TeacherSubjectComboBox teacherSubjectCombo = new TeacherSubjectComboBox(teacherSubjectId, teacherFirstName, teacherLastName, subjectCode, subjectName);
+        comboTeacherSubject.setValue(teacherSubjectCombo);
+        comboRemarks.setValue(studentGradeData.getRemarks());
+        comboSemester.setValue(studentGradeData.getSemester());
+        comboSchoolYear.setValue(studentGradeData.getSchoolYear());
+
+    }
+
+    @FXML
+    private void handleEditGrades(ActionEvent event) {
+        Tab activeTab = tabPaneView.getSelectionModel().getSelectedItem();
+        StudentGradeData selected;
+
+        // determine which table is active
+        if (activeTab.getText().equals("1st Semester")) {
+            selected = tableView1stSemester.getSelectionModel().getSelectedItem();
+        } else {
+            selected = tableView2ndSemester.getSelectionModel().getSelectedItem();
+        }
+
+
+        if (selected == null) {
+            txtMessage.setText("Please select a grade to edit.");
+            txtMessage.setVisible(true);
+            return;
+        }
+
+        Grade grade = new Grade(
+            selected.getGradeId(),
+            selected.getStudentId(),
+            comboTeacherSubject.getValue().getTeacherSubjectId(),
+            new BigDecimal(fieldGrade.getText()),
+            comboRemarks.getValue(),
+            comboSemester.getValue(),
+            comboSchoolYear.getValue()
+        );
+
+        boolean success = gradeService.editGrade(grade);
+
+        if (!success) {
+            txtMessage.setText("Failed to update grade.");
+        } else {
+            txtMessage.setText("Grade updated successfully!");
+            loadGrades(getCurrentSchoolYear()); // refresh
+        }
+
+        txtMessage.setVisible(true);
+    }
+
+    
+    private boolean processGradeEdit(StudentGradeData data, String label) {
+        if (data == null) return true;
+
+        Grade grade = new Grade(
+                    data.getGradeId(),
+                    data.getStudentId(),
+                    comboTeacherSubject.getValue().getTeacherSubjectId(),
+                    new BigDecimal(fieldGrade.getText()),
+                    comboRemarks.getValue(),
+                    comboSemester.getValue(),
+                    comboSchoolYear.getValue()
+        );
+
+        boolean success = gradeService.editGrade(grade);
+
+        if (!success) {
+            txtMessage.setText("Failed to update " + label + " grade.");
+            txtMessage.setVisible(true);
+            return false;
+        }
+
+        return true;
+    }
+
+    @FXML
+    private void handleDeleteGrade(ActionEvent event) {
+        
+        
     }
 }

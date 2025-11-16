@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  * @author rainndev
  */
 public class Grade {
+    private int gradeId;
     private int studentId; 
     private int teacherSubjectId;
     private BigDecimal grade;
@@ -18,7 +19,17 @@ public class Grade {
     private int semester;
     private String schoolYear; 
 
-    public Grade(int studentId, int teacherSubjectId, BigDecimal grade, String remarks, int semester, String schoolYear) {
+    public Grade(int gradeId, int studentId, int teacherSubjectId, BigDecimal grade, String remarks, int semester, String schoolYear) {
+        this.gradeId = gradeId;
+        this.studentId = studentId;
+        this.teacherSubjectId = teacherSubjectId;
+        this.grade = grade;
+        this.remarks = remarks;
+        this.semester = semester;
+        this.schoolYear = schoolYear;
+    }
+    
+     public Grade(int studentId, int teacherSubjectId, BigDecimal grade, String remarks, int semester, String schoolYear) {
         this.studentId = studentId;
         this.teacherSubjectId = teacherSubjectId;
         this.grade = grade;
@@ -27,6 +38,11 @@ public class Grade {
         this.schoolYear = schoolYear;
     }
 
+    public int getGradeId() {
+        return gradeId;
+    }
+
+        
     public BigDecimal getGrade() {
         return grade;
     }
@@ -47,7 +63,7 @@ public class Grade {
         return semester;
     }
 
-    public int getTecaherSubjectId() {
+    public int getTeacherSubjectId() {
         return teacherSubjectId;
     }
 
@@ -71,9 +87,14 @@ public class Grade {
         this.studentId = studentId;
     }
 
-    public void setTecaherSubjectId(int tecaherSubjectId) {
-        this.teacherSubjectId = tecaherSubjectId;
+    public void setTeacherSubjectId(int teacherSubjectId) {
+        this.teacherSubjectId = teacherSubjectId;
     }
+    
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
+    }
+    
     
         
 }

@@ -89,11 +89,40 @@ public class GradeService {
         try(Connection connectDB = connection.getConnection();
                PreparedStatement gradeStmnt = connectDB.prepareStatement(query);){
                gradeStmnt.setInt(1, grade.getStudentId());
-               gradeStmnt.setInt(2, grade.getTecaherSubjectId());
+               gradeStmnt.setInt(2, grade.getTeacherSubjectId());
                gradeStmnt.setBigDecimal(3, grade.getGrade());
                gradeStmnt.setString(4, grade.getRemarks());
                gradeStmnt.setInt(5, grade.getSemester());
                gradeStmnt.setString(6, grade.getSchoolYear());
+               
+               int rowsAffected = gradeStmnt.executeUpdate();
+               return rowsAffected > 0;  
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    public boolean editGrade(Grade grade) {
+        String query =  "UPDATE grade " +
+                        "SET student_id = ?, " +
+                        "teacher_subject_id = ?, " +
+                        "grade = ?, " +
+                        "remarks = ?, " +
+                        "semester = ?, " +
+                        "school_year = ? " +
+                        "WHERE id = ?;";
+        
+        try(Connection connectDB = connection.getConnection();
+               PreparedStatement gradeStmnt = connectDB.prepareStatement(query);){
+               gradeStmnt.setInt(1, grade.getStudentId());
+               gradeStmnt.setInt(2, grade.getTeacherSubjectId());
+               gradeStmnt.setBigDecimal(3, grade.getGrade());
+               gradeStmnt.setString(4, grade.getRemarks());
+               gradeStmnt.setInt(5, grade.getSemester());
+               gradeStmnt.setString(6, grade.getSchoolYear());
+               gradeStmnt.setInt(7, grade.getGradeId());
                
                int rowsAffected = gradeStmnt.executeUpdate();
                return rowsAffected > 0;  
