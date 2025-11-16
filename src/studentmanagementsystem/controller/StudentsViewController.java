@@ -58,13 +58,13 @@ public class StudentsViewController implements Initializable {
     private TableView<Student> studentTableView;
     @FXML
     private Button btnEditStudent;
-    @FXML
-    private Button btnAddStudent1;
     
     @FXML
     private Button btnSearchStudent;
     @FXML
     private TextField fieldSearchStudent;
+    @FXML
+    private Button btnAddStudent;
 
     /**
      * Initializes the controller class.

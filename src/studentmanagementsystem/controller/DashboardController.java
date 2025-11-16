@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.Node; 
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class DashboardController implements Initializable {
 
@@ -19,6 +21,20 @@ public class DashboardController implements Initializable {
     
     @FXML
     private BorderPane mainContentPane;
+    @FXML
+    private HBox hboxAnalytics;
+    @FXML
+    private HBox hboxUser;
+    @FXML
+    private HBox hboxStudents;
+    @FXML
+    private HBox hboxubjects;
+    @FXML
+    private HBox hboxProgram;
+    @FXML
+    private HBox hboxGrades;
+    @FXML
+    private HBox hboxTeacher;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

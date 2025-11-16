@@ -12,9 +12,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.DashboardController">
    <children>
-      <VBox prefHeight="768.0" prefWidth="250.0" style="-fx-background-color: #222222;">
+      <VBox prefHeight="768.0" prefWidth="243.0" spacing="5.0" style="-fx-background-color: #222222;" stylesheets="@../css/navigation-bar.css">
          <children>
-            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="303.0" style="-fx-background-color: #ef3e4c;">
+            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="266.0" style="-fx-background-color: #ef3e4c;">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Student Management">
                      <font>
@@ -22,8 +22,11 @@
                      </font>
                   </Text>
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="AdminAnalytics">
+            <HBox fx:id="hboxAnalytics" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="AdminAnalytics">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,10 +42,13 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Users">
+            <HBox fx:id="hboxUser" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Users">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,10 +64,13 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Students">
+            <HBox fx:id="hboxStudents" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Students">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,10 +86,13 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Teachers">
+            <HBox fx:id="hboxTeacher" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Teachers">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -96,10 +108,13 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Subjects">
+            <HBox fx:id="hboxubjects" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Subjects">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -115,10 +130,13 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Programs">
+            <HBox fx:id="hboxProgram" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Programs">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -134,10 +152,13 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Grades">
+            <HBox fx:id="hboxGrades" alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Grades">
                <children>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -153,15 +174,18 @@
                      </font></Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="249.0" prefHeight="768.0" prefWidth="1120.0">
+      <VBox layoutX="243.0" prefHeight="768.0" prefWidth="1126.0">
          <children>
-            <HBox prefHeight="66.0" prefWidth="1066.0" VBox.vgrow="ALWAYS" />
-            <BorderPane fx:id="mainContentPane" prefHeight="704.0" prefWidth="1066.0" />
+            <HBox prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: #f7f7f7;" />
+            <BorderPane fx:id="mainContentPane" prefHeight="704.0" prefWidth="1066.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

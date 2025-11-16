@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../css/table-styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.StudentsViewController">
+<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../css/global-css.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.StudentsViewController">
     <children>
         <VBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -17,12 +17,12 @@
                <children>
                   <HBox maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="429.0" spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="fieldSearchStudent" prefHeight="25.0" prefWidth="343.0" text="Search..." HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="fieldSearchStudent" prefHeight="40.0" prefWidth="343.0" stylesheets="@../css/global-css.css" text="Search..." HBox.hgrow="ALWAYS" />
                         <Button fx:id="btnSearchStudent" mnemonicParsing="false" onAction="#handleSearchStudent" text="Search" />
                      </children>
                   </HBox>
                       <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#openEditStudentDialog" text="Edit student" />
-                  <Button fx:id="btnAddStudent1" mnemonicParsing="false" onAction="#openAddStudentDialog" text="Add student" />
+                  <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#openAddStudentDialog" text="Add student" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

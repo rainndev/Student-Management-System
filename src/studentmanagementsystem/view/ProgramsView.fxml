@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../css/table-styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.ProgramViewController">
+<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" stylesheets="@../css/global-css.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.ProgramViewController">
     <children>
         <VBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
             <HBox alignment="CENTER_RIGHT" spacing="5.0">
                <children>
-                  <HBox maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="429.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="429.0" spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="fieldSearchProgram" prefHeight="25.0" prefWidth="343.0" text="Search..." HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="fieldSearchProgram" prefHeight="40.0" prefWidth="343.0" text="Search..." HBox.hgrow="ALWAYS" />
                         <Button fx:id="btnSearchProgram" mnemonicParsing="false" onAction="#handleSearchProgram" text="Search" />
                      </children>
                   </HBox>
