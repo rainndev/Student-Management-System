@@ -79,8 +79,7 @@ public class EditStudentGradeDialogController implements Initializable {
     private ComboBox<Integer> comboSemester;
     @FXML
     private Button btnAddGrades;
-    @FXML
-    private ComboBox<String> comboSchoolYear;
+    
     @FXML
     private ComboBox<String> comboRemarks;
     @FXML
@@ -149,7 +148,6 @@ public class EditStudentGradeDialogController implements Initializable {
 
         for (int y = startYear; y < endYear; y++) {
             String schoolYear = y + "-" + (y + 1);
-            comboSchoolYear.getItems().add(schoolYear);
             comboTableSchoolYear.getItems().add(schoolYear);
         }
         
@@ -163,7 +161,6 @@ public class EditStudentGradeDialogController implements Initializable {
         
         String currentSchoolYear = getCurrentSchoolYear();
         comboTableSchoolYear.setValue(currentSchoolYear);
-        comboSchoolYear.setValue(currentSchoolYear);
         
         comboTableSchoolYear.valueProperty().addListener((obs, oldValue, newValue) -> {
             loadGrades(newValue);
@@ -183,7 +180,7 @@ public class EditStudentGradeDialogController implements Initializable {
     public void setStudent(Student student) {    
         this.student = student;
         String currentSchoolYear = getCurrentSchoolYear();
-        loadGrades(currentSchoolYear);
+        loadGrades(comboTableSchoolYear.getValue());
     }
     
     private String getCurrentSchoolYear() {
@@ -198,7 +195,7 @@ public class EditStudentGradeDialogController implements Initializable {
         BigDecimal grade = new BigDecimal(fieldGrade.getText());
         int teacherSubjectId = comboTeacherSubject.getValue().getTeacherSubjectId();
         int semester = comboSemester.getValue();
-        String schoolYear = comboSchoolYear.getValue();
+        String schoolYear = comboTableSchoolYear.getValue();
         String remarks = comboRemarks.getValue();
         
         Grade gradeData = new Grade(studentId, teacherSubjectId, grade, remarks, semester, schoolYear);
@@ -208,7 +205,6 @@ public class EditStudentGradeDialogController implements Initializable {
             fieldGrade.setText("");
             comboTeacherSubject.setValue(null);
             comboSemester.setValue(null);
-            comboSchoolYear.setValue(null);
             comboRemarks.setValue(null);
             txtMessage.setText("Grade added successfully");
             loadGrades(schoolYear);
@@ -233,8 +229,6 @@ public class EditStudentGradeDialogController implements Initializable {
         comboTeacherSubject.setValue(teacherSubjectCombo);
         comboRemarks.setValue(studentGradeData.getRemarks());
         comboSemester.setValue(studentGradeData.getSemester());
-        comboSchoolYear.setValue(studentGradeData.getSchoolYear());
-
     }
 
     @FXML
@@ -263,7 +257,7 @@ public class EditStudentGradeDialogController implements Initializable {
             new BigDecimal(fieldGrade.getText()),
             comboRemarks.getValue(),
             comboSemester.getValue(),
-            comboSchoolYear.getValue()
+            comboTableSchoolYear.getValue()
         );
 
         boolean success = gradeService.editGrade(grade);
@@ -272,7 +266,7 @@ public class EditStudentGradeDialogController implements Initializable {
             txtMessage.setText("Failed to update grade.");
         } else {
             txtMessage.setText("Grade updated successfully!");
-            loadGrades(getCurrentSchoolYear()); // refresh
+            loadGrades(comboTableSchoolYear.getValue());
         }
 
         txtMessage.setVisible(true);
@@ -289,7 +283,7 @@ public class EditStudentGradeDialogController implements Initializable {
                     new BigDecimal(fieldGrade.getText()),
                     comboRemarks.getValue(),
                     comboSemester.getValue(),
-                    comboSchoolYear.getValue()
+                    comboTableSchoolYear.getValue()
         );
 
         boolean success = gradeService.editGrade(grade);
@@ -305,7 +299,31 @@ public class EditStudentGradeDialogController implements Initializable {
 
     @FXML
     private void handleDeleteGrade(ActionEvent event) {
+        Tab activeTab = tabPaneView.getSelectionModel().getSelectedItem();
+        StudentGradeData selected;
         
+           // determine which table is active
+        if (activeTab.getText().equals("1st Semester")) {
+            selected = tableView1stSemester.getSelectionModel().getSelectedItem();
+        } else {
+            selected = tableView2ndSemester.getSelectionModel().getSelectedItem();
+        }
+
+
+        if (selected == null) {
+            txtMessage.setText("Please select a grade to edit.");
+            txtMessage.setVisible(true);
+            return;
+        }
+        boolean success = gradeService.deleteGrade(selected.getGradeId());
+        if (!success) {
+            txtMessage.setText("Failed to delete grade.");
+        } else {
+            txtMessage.setText("Grade deleted successfully!");
+            loadGrades(comboTableSchoolYear.getValue()); // refresh
+        }
+
+        txtMessage.setVisible(true);
         
     }
 }

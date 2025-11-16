@@ -131,4 +131,19 @@ public class GradeService {
             return false;
         }
     }
+    
+    public boolean deleteGrade(int ID) {
+        String query = "DELETE FROM grade WHERE id = ?";
+        
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmt = connectDB.prepareStatement(query);){
+           stmt.setInt(1, ID);
+           
+           int rows = stmt.executeUpdate(); 
+           return rows > 0;         
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
