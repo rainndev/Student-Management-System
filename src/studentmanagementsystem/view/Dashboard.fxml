@@ -12,103 +12,145 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.DashboardController">
    <children>
-      <VBox prefHeight="768.0" prefWidth="303.0" style="-fx-background-color: #1e1e1e;">
+      <VBox prefHeight="768.0" prefWidth="250.0" style="-fx-background-color: #222222;">
          <children>
-            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="303.0" style="-fx-background-color: red;">
+            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="303.0" style="-fx-background-color: #ef3e4c;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student Management">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Student Management">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="AdminAnalytics">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="AdminAnalytics">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/analytics.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Analytics" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Analytics" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Users">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Users">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/users.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Users" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Students">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Students">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/students.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Students" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Students" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Teachers">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Teachers">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/teachers.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Teachers" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Teachers" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Subjects">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Subjects">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/subjects.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Subjects" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Subjects" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Programs">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Programs">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/program.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Program" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Program" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="10.0" style="-fx-background-color: gray;" userData="Grades">
+            <HBox alignment="CENTER" onMouseClicked="#handleSwitchPage" prefHeight="63.0" prefWidth="303.0" spacing="20.0" userData="Grades">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Desktop/Programming/Student-Management-System/icons/home.png" />
+                        <Image url="@../assets/grades.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Grades" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Grades" wrappingWidth="70.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -116,9 +158,9 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="303.0" prefHeight="768.0" prefWidth="1066.0">
+      <VBox layoutX="249.0" prefHeight="768.0" prefWidth="1120.0">
          <children>
-            <HBox prefHeight="66.0" prefWidth="1066.0" style="-fx-background-color: blue;" />
+            <HBox prefHeight="66.0" prefWidth="1066.0" VBox.vgrow="ALWAYS" />
             <BorderPane fx:id="mainContentPane" prefHeight="704.0" prefWidth="1066.0" />
          </children>
       </VBox>
