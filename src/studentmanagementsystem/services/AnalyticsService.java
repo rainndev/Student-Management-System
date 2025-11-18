@@ -168,7 +168,7 @@ public class AnalyticsService {
         Map<String, Number> allRemarksCountSubject = new HashMap<>();
         String query = "SELECT COUNT(*) AS count, remarks FROM grade " +
                        "GROUP BY remarks;";
-
+        
         try (Connection conn = connection.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(query)) {
@@ -184,5 +184,51 @@ public class AnalyticsService {
         }
 
         return allRemarksCountSubject;
+    }
+     
+     
+     public Map<String, int[]> getSubjectGradeBreakdown() {
+        
+        Map<String, int[]> subjectGradeMap = new HashMap<>();
+        String query =  """
+        SELECT 
+            S.subject_code,
+            SUM(CASE WHEN G.remarks = 'Passed' THEN 1 ELSE 0 END) AS passed_count,
+            SUM(CASE WHEN G.remarks = 'Failed' THEN 1 ELSE 0 END) AS failed_count,
+            SUM(CASE WHEN G.remarks = 'Incomplete' THEN 1 ELSE 0 END) AS incomplete_count,
+            SUM(CASE WHEN G.remarks = 'Dropped' THEN 1 ELSE 0 END) AS dropped_count
+        FROM 
+            grade AS G
+        INNER JOIN 
+            teacher_subject AS TS ON TS.id = G.teacher_subject_id
+        INNER JOIN 
+            subject AS S ON S.id = TS.subject_id
+        GROUP BY 
+            S.subject_code
+        ORDER BY 
+            S.subject_code;
+        """;
+        
+        try (Connection conn = connection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                String subjectCode = rs.getString("subject_code");
+                int[] counts = new int[4];
+                
+                counts[0] = rs.getInt("passed_count");
+                counts[1] = rs.getInt("failed_count");
+                counts[2] = rs.getInt("incomplete_count");
+                counts[3] = rs.getInt("dropped_count");
+                
+                subjectGradeMap.put(subjectCode, counts);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return subjectGradeMap;
+       
     }
 }
