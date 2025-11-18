@@ -14,6 +14,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import studentmanagementsystem.services.AnalyticsService;
 

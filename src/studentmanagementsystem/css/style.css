@@ -1,0 +1,13 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 18, 2025, 3:51:28 PM
+    Author     : rainndev
+*/
+
+/* Apply globally to all nodes */
+.root {
+    -fx-font-family: "Inter"; 
+}

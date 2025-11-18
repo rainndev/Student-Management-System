@@ -27,6 +27,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Login.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Log in");
         stage.setResizable(false);

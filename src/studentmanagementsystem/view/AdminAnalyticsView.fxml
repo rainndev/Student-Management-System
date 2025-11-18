@@ -7,13 +7,15 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="917.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AdminAnalyticsView">
+<AnchorPane id="AnchorPane" prefHeight="706.0" prefWidth="926.0" stylesheets="@../css/admin-analytics.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AdminAnalyticsView">
    <children>
       <ScrollPane fitToWidth="true" prefHeight="706.0" prefWidth="719.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -21,91 +23,186 @@
                <children>
                   <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                                          <children>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                                                               <children>
-                                                                  <Text fx:id="txtTotalUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="18.0" />
-                                       </font>
-                                    </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Users">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Text>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                                                               <children>
-                                                                  <Text fx:id="txtTotalStudents" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="18.0" />
-                                       </font>
-                                    </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Students">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Text>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                                                               <children>
-                                                                  <Text fx:id="txtTotalTeachers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="18.0" />
-                                       </font>
-                                    </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Teachers">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Text>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                                                               <children>
-                                                                  <Text fx:id="txtTotalPrograms" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="18.0" />
-                                       </font>
-                                    </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Programs">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Text>
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                                                               <children>
-                                                                  <Text fx:id="txtTotalSubjects" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                                                                     <font>
-                                                                        <Font name="Arial Black" size="18.0" />
-                                       </font>
-                                    </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Subjects">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Text>
-                                                               </children>
-                                                            </VBox>
+                              <HBox fx:id="hboxTotalUsers" alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/users-analytics.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                                                  <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                                     <children>
+                                                                        <Text fx:id="txtTotalUsers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                             <font>
+                                                <Font name="Arial Black" size="18.0" />
+                                             </font>
+                                          </Text>
+                                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Users">
+                                                                           <VBox.margin>
+                                                                              <Insets top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </Text>
+                                                                     </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                                                  </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="hboxTotalStudents" alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/students-analytics.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Text fx:id="txtTotalStudents" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                             <font>
+                                                <Font name="Arial Black" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Students">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="hboxTotalStudents" alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/teachers-analytics.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Text fx:id="txtTotalTeachers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                             <font>
+                                                <Font name="Arial Black" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Teachers">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="hboxTotalPrograms" alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/program-analytics.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Text fx:id="txtTotalPrograms" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                             <font>
+                                                <Font name="Arial Black" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Programs">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="hboxTotalSubjects" alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/subjects-analytics.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Text fx:id="txtTotalSubjects" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                             <font>
+                                                <Font name="Arial Black" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Subjects">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                                                          </children>
-                                                         <padding>
-                                                            <Insets left="10.0" right="10.0" />
-                                                         </padding>
                                                          <VBox.margin>
                                                             <Insets top="10.0" />
                                                          </VBox.margin>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                                                       </HBox>
                                                       <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                                          <children>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                            <VBox fx:id="vboxInActiveUsers" alignment="CENTER" prefHeight="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                <children>
-                                                                  <Text fx:id="txtTotalInactiveUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                  <Text fx:id="txtTotalInactiveUsers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                                                      <font>
                                                                         <Font name="Arial Black" size="18.0" />
                                        </font>
@@ -117,9 +214,9 @@
                                                                   </Text>
                                                                </children>
                                                             </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                            <VBox fx:id="vboxActiveUsers" alignment="CENTER" prefHeight="100.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                <children>
-                                                                  <Text fx:id="txtTotalActiveUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                  <Text fx:id="txtTotalActiveUsers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                                                      <font>
                                                                         <Font name="Arial Black" size="18.0" />
                                        </font>

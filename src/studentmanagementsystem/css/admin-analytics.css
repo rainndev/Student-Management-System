@@ -1,0 +1,15 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 18, 2025, 3:11:49 PM
+    Author     : rainndev
+*/
+
+#hboxTotalUsers, #hboxTotalSubjects, #hboxTotalStudents, #hboxTotalTeachers, #hboxTotalPrograms, #hboxTotalSubjects, #hboxInactiveUsers, #hboxTotalActiveUsers,
+#vboxInActiveUsers, #vboxActiveUsers {
+    -fx-background-radius: 8px;
+    -fx-background-color:   #e7e7e6;
+    -fx-padding: 10px;
+}
