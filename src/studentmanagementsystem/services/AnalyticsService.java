@@ -162,4 +162,27 @@ public class AnalyticsService {
 
         return studentCountPerProgram;
     }
+    
+    
+     public Map<String, Number> getAllRemarksCountSubject() {
+        Map<String, Number> allRemarksCountSubject = new HashMap<>();
+        String query = "SELECT COUNT(*) AS count, remarks FROM grade " +
+                       "GROUP BY remarks;";
+
+        try (Connection conn = connection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                String remarks = rs.getString("remarks");
+                int count = rs.getInt("count");
+
+                allRemarksCountSubject.put(remarks, count);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return allRemarksCountSubject;
+    }
 }

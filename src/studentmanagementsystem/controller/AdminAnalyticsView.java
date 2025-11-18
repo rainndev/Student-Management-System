@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.text.Text;
 import studentmanagementsystem.services.AnalyticsService;
@@ -42,6 +43,8 @@ public class AdminAnalyticsView implements Initializable {
     private BarChart<String, Number> barChart;
     @FXML
     private CategoryAxis Department;
+    @FXML
+    private PieChart pieChart;
 
     /**
      * Initializes the controller class.
@@ -55,6 +58,7 @@ public class AdminAnalyticsView implements Initializable {
         int totalSubject = analyticsService.getTotalSubjects();
         int[] totalActiveInactiveUsers = analyticsService.getActiveInactiveCount();
         Map<String, Number> studentCountPerProgram = analyticsService.getStudentCountPerProgram();
+        Map<String, Number> allRemarksCountSubject = analyticsService.getAllRemarksCountSubject();
         
         txtTotalUsers.setText(String.valueOf(totalUsers));
         txtTotalStudents.setText(String.valueOf(totalStudents));
@@ -78,6 +82,18 @@ public class AdminAnalyticsView implements Initializable {
         
         series.setName("Total Students per Program"); 
         barChart.getData().add(series);
+        
+            
+        //Pie chart
+        for (Map.Entry<String, Number> entry : allRemarksCountSubject.entrySet()) {
+            pieChart.getData().add(
+                new PieChart.Data(entry.getKey(), entry.getValue().doubleValue())
+            );
+        }
+
+        pieChart.setLegendVisible(true);   // show legend
+        pieChart.setLabelsVisible(true);   // show percentage/value inside slices
+        pieChart.setStartAngle(90);        // rotate start if you want
     }    
     
 }

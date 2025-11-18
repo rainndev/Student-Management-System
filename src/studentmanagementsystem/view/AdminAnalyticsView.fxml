@@ -4,140 +4,170 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="706.0" prefWidth="719.0" stylesheets="@../css/chart.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AdminAnalyticsView">
+<AnchorPane id="AnchorPane" prefHeight="917.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AdminAnalyticsView">
    <children>
-      <VBox layoutX="316.0" layoutY="110.0" prefHeight="452.0" prefWidth="719.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <ScrollPane fitToWidth="true" prefHeight="706.0" prefWidth="719.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                  <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fx:id="txtTotalUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Users">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="txtTotalStudents" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Students">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="txtTotalTeachers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Teachers">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="txtTotalPrograms" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Programs">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="txtTotalSubjects" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Subjects">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Users">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalStudents" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Students">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalTeachers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Teachers">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalPrograms" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Programs">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalSubjects" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Subjects">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="10.0" right="10.0" />
+                                                         </padding>
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalInactiveUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inactive Users">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
+                                                               <children>
+                                                                  <Text fx:id="txtTotalActiveUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                                                     <font>
+                                                                        <Font name="Arial Black" size="18.0" />
+                                       </font>
+                                    </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Active Users">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="10.0" right="10.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                      <HBox prefWidth="719.0">
+                                                         <children>
+                                                <BarChart fx:id="barChart" prefHeight="300.0" prefWidth="730.0" stylesheets="@../css/bar-chart.css" HBox.hgrow="ALWAYS">
+                                                              <xAxis>
+                                                                <CategoryAxis fx:id="Department" />
+                                                              </xAxis>
+                                                              <yAxis>
+                                                                <NumberAxis side="LEFT" />
+                                                              </yAxis>
+                                                            </BarChart>
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets top="20.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                        <HBox prefHeight="300.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <PieChart fx:id="pieChart" stylesheets="@../css/pie-chart.css" VBox.vgrow="NEVER" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                                                   </children>
+                                                </VBox>
                </children>
                <padding>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets bottom="20.0" />
                </padding>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="txtTotalInactiveUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inactive Users">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
                      </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #e7e7e6;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="txtTotalActiveUsers" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font></Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Active Users">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefWidth="719.0">
-               <children>
-                  <BarChart fx:id="barChart" prefHeight="300.0" prefWidth="730.0" HBox.hgrow="ALWAYS">
-                    <xAxis>
-                      <CategoryAxis fx:id="Department" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </BarChart>
-               </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+                  </AnchorPane>
