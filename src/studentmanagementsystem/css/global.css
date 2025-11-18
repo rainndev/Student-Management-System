@@ -16,3 +16,24 @@
     -fx-padding: 10px 30px 10px 30px;
     -fx-background-radius: 8px;
 }
+
+#btnSearchUser:hover,
+#btnDetails:hover,
+#btnSearchStudent:hover, 
+#btnEditStudent:hover,
+#btnAddStudent:hover,
+#btnSearchSubject:hover,
+#btnEditSubject:hover,
+#btnAddSubject:hover,
+#btnSearchTeacher:hover,
+#btnEditTeacher:hover,
+#btnAddTeacher:hover,
+#btnSearchProgram:hover,
+#btnEditProgram:hover,
+#btnAddProgram:hover,
+#btnEditGrade:hover
+{
+    -fx-background-color: #383838; 
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}

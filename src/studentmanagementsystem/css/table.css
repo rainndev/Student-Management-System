@@ -1,0 +1,56 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 17, 2025, 9:58:10 PM
+    Author     : rainndev
+*/
+
+/* Entire table */
+/*.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+}*/
+
+/* Table header */
+/*.table-view .column-header-background {
+    -fx-background-color: red;
+}*/
+
+.table-view .column-header, 
+.table-view .column-header .label {
+    -fx-padding: 10px;
+    -fx-text-fill: #646464;
+    -fx-font-weight: bold;
+    -fx-background-color:   #e7e7e6;
+}
+
+/* Table rows */
+.table-row-cell {
+    -fx-padding: 10px;
+    -fx-font-size: 12px;
+}
+
+/* Hover effect on rows */
+.table-row-cell:hover {
+    -fx-background-color: #f1f1f1;
+    -fx-cursor: hand;
+}
+
+/* Selected row */
+.table-row-cell:selected {
+    -fx-background-color: #fbd7db;
+}
+
+/* Change text color of selected cells */
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #222222;
+}
+
+.table-view:focused {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+}
+
