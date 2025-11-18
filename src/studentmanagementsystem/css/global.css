@@ -1,3 +1,24 @@
+/* ===== GLOBAL FOCUS COLOR ===== */
+:focus-visible,
+:focus,
+:focused {
+    -fx-focus-color: rgba(239, 62, 76, 0.5);
+    -fx-faint-focus-color: rgba(239, 62, 76, 0.25);
+}
+
+/* TextField, TextArea, PasswordField */
+.text-input {
+    -fx-focus-color: rgba(239, 62, 76, 0.5);
+    -fx-faint-focus-color: rgba(239, 62, 76, 0.25);
+}
+
+/* TableView focus border */
+.table-view:focused {
+    -fx-focus-color: rgba(239, 62, 76, 0.5);
+    -fx-faint-focus-color: rgba(239, 62, 76, 0.25);
+}
+
+
 #fieldSearchUser, #fieldSearchStudent, #fieldSearchSubject, #fieldSearchTeacher, #fieldSearchProgram{
     -fx-text-fill: #7B7B7B; /* Dark gray */
     -fx-background-color: #ffffff;

@@ -1,0 +1,28 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 19, 2025, 12:07:28 AM
+    Author     : rainndev
+*/
+
+.user-name-field, .password-field, .log-in-btn{
+    -fx-background-radius: 12px;
+}
+
+.log-in-btn {
+    -fx-background-color:  #ef3e4c;
+    -fx-text-fill:  white;
+}
+
+
+.log-in-btn:hover {
+    -fx-background-color: rgba(239, 62, 76, 0.8);
+    -fx-cursor: hand;
+}
+
+.right-side-column {
+    -fx-background-color: rgba(239, 62, 76, 0.1);
+    -fx-background-radius:  100px 0px 0px 100px;
+}
