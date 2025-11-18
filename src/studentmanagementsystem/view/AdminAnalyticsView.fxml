@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="452.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AdminAnalyticsView">
+<AnchorPane id="AnchorPane" maxHeight="Infinity" maxWidth="Infinity" prefHeight="706.0" prefWidth="719.0" stylesheets="@../css/chart.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AdminAnalyticsView">
    <children>
       <VBox layoutX="316.0" layoutY="110.0" prefHeight="452.0" prefWidth="719.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -118,6 +121,21 @@
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+            </HBox>
+            <HBox prefWidth="719.0">
+               <children>
+                  <BarChart fx:id="barChart" prefHeight="300.0" prefWidth="730.0" HBox.hgrow="ALWAYS">
+                    <xAxis>
+                      <CategoryAxis fx:id="Department" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

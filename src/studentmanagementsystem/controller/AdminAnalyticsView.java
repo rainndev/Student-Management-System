@@ -5,9 +5,13 @@
 package studentmanagementsystem.controller;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.text.Text;
 import studentmanagementsystem.services.AnalyticsService;
 
@@ -34,6 +38,10 @@ public class AdminAnalyticsView implements Initializable {
     private Text txtTotalInactiveUsers;
     @FXML
     private Text txtTotalActiveUsers;
+    @FXML
+    private BarChart<String, Number> barChart;
+    @FXML
+    private CategoryAxis Department;
 
     /**
      * Initializes the controller class.
@@ -46,7 +54,7 @@ public class AdminAnalyticsView implements Initializable {
         int totalPrograms = analyticsService.getTotalPrograms();
         int totalSubject = analyticsService.getTotalSubjects();
         int[] totalActiveInactiveUsers = analyticsService.getActiveInactiveCount();
-
+        Map<String, Number> studentCountPerProgram = analyticsService.getStudentCountPerProgram();
         
         txtTotalUsers.setText(String.valueOf(totalUsers));
         txtTotalStudents.setText(String.valueOf(totalStudents));
@@ -55,6 +63,21 @@ public class AdminAnalyticsView implements Initializable {
         txtTotalSubjects.setText(String.valueOf(totalSubject));
         txtTotalActiveUsers.setText(String.valueOf(totalActiveInactiveUsers[0]));
         txtTotalInactiveUsers.setText(String.valueOf(totalActiveInactiveUsers[1]));
+        
+        
+        //enable animation
+        barChart.setAnimated(true);
+        
+        //bar chart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (Map.Entry<String, Number> entry : studentCountPerProgram.entrySet()) {
+            String program = entry.getKey();
+            Number count = entry.getValue();
+            series.getData().add(new XYChart.Data<>(program, count));
+        }
+        
+        series.setName("Total Students per Program"); 
+        barChart.getData().add(series);
     }    
     
 }

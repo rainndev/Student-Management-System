@@ -8,6 +8,8 @@ import studentmanagementsystem.databases.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -135,4 +137,29 @@ public class AnalyticsService {
 
         return new int[]{active, inactive};
    }   
+    
+    
+    public Map<String, Number> getStudentCountPerProgram() {
+        Map<String, Number> studentCountPerProgram = new HashMap<>();
+        String query = "SELECT COUNT(*) AS student_count, P.program_code FROM student AS S " +
+                       "INNER JOIN program AS P ON P.id = S.program_id " +
+                       "GROUP BY P.program_code;";
+
+        try (Connection conn = connection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                String program = rs.getString("program_code");
+                int studentCount = rs.getInt("student_count");
+
+                studentCountPerProgram.put(program, studentCount);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return studentCountPerProgram;
+    }
 }
