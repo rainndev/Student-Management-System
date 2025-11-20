@@ -16,9 +16,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.Node; 
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+import studentmanagementsystem.Main;
+import studentmanagementsystem.model.SessionManager;
 
 
 public class DashboardController implements Initializable {
@@ -45,11 +48,15 @@ public class DashboardController implements Initializable {
     private Label timeLabel;
     @FXML
     private Label nameLabel;
+    @FXML
+    private HBox hboxLogout;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        switchTo("AdminAnalytics");
        startUpdatingTime();
+       String fullName = SessionManager.getFullName();
+       nameLabel.setText("Hi, " + fullName);
     }
 
     private final Map<String, String> fxmlMap = Map.of(
@@ -111,8 +118,27 @@ public class DashboardController implements Initializable {
         timeline.play();
     }
     
-    
-    public void setName(String name) {
-        nameLabel.setText("Hi, " + name);
+
+    @FXML
+    private void handleLogOut(MouseEvent event) {
+        SessionManager.clearSession();
+        
+        if (SessionManager.isActive()) {
+            return;
+        }
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Login.fxml"));
+
+            Scene loginScene = new Scene(root);
+            loginScene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
+            // Switch the stage
+            Main.mainStage.setScene(loginScene);
+            Main.mainStage.setTitle("Log in");
+            Main.mainStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

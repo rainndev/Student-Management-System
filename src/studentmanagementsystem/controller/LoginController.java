@@ -25,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.Main;
+import studentmanagementsystem.model.SessionManager;
 
 /**
  * FXML Controller class
@@ -50,16 +51,10 @@ public class LoginController implements Initializable {
         
     }   
     
-    private void goToDashboard(Event event, String fullname) {
+    private void goToDashboard(Event event) {
        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/Dashboard.fxml"));
-            Parent root = loader.load();
-
-            DashboardController controller = loader.getController();
-            
-            //set the name
-            controller.setName(fullname);
-            
+            Parent root = loader.load();            
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(
@@ -102,13 +97,15 @@ public class LoginController implements Initializable {
             
             
               if (result.next()) {
+                int id = result.getInt("id");
                 String firstName = result.getString("first_name");
                 String lastName = result.getString("last_name");
                 
-                String fullname = formattedFullName(firstName, lastName);
+                SessionManager.setSession(id, firstName, lastName);
+                
                 txtMessage.setText("Login successful!");
                 txtMessage.setStyle("-fx-text-fill: green;");
-                goToDashboard(event, fullname);
+                goToDashboard(event);
                 
             } else {
                 txtMessage.setText("Invalid username or password.");
@@ -135,16 +132,5 @@ public class LoginController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    
-    private String formattedFullName(String firstName, String lastName) {
-        String formattedFirst = firstName.substring(0, 1).toUpperCase() 
-                        + firstName.substring(1).toLowerCase();
-
-        String formattedLast = lastName.substring(0, 1).toUpperCase()
-                               + lastName.substring(1).toLowerCase();
-        
-        return formattedFirst + " " + formattedLast;
     }
 }
