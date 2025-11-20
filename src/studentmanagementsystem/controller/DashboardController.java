@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.Node; 
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 public class DashboardController implements Initializable {
 
@@ -76,4 +75,5 @@ public class DashboardController implements Initializable {
                 e.printStackTrace();
         }
     }
+    
 }

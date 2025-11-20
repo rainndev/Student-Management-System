@@ -21,8 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import studentmanagementsystem.databases.DatabaseConnection;
+import studentmanagementsystem.Main;
 
 /**
  * FXML Controller class
@@ -53,6 +55,8 @@ public class LoginController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Dashboard.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
+            stage.setTitle("Dashboard");
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
@@ -62,8 +66,15 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleLogin(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        
+        if (username.isEmpty() || password.isEmpty()) {
+            txtMessage.setText("Please fill the form");
+            txtMessage.setStyle("-fx-text-fill: red;");
+            txtMessage.setVisible(true);
+            return; 
+        }
         
         DatabaseConnection connectNow  = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
@@ -93,5 +104,20 @@ public class LoginController implements Initializable {
             txtMessage.setText("Error connecting to database.");
         }
     }
-    
+
+    @FXML
+    private void handleClickedCreateOne(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/SignUp.fxml"));
+            Scene signupScene = new Scene(root);
+            signupScene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
+            // Switch the stage
+            Main.mainStage.setScene(signupScene);
+            Main.mainStage.setTitle("Create an Account"); 
+            Main.mainStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

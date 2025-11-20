@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 
+package studentmanagementsystem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
+    public static Stage mainStage;
     /**
      * @param args the command line arguments
      */
@@ -25,6 +27,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        mainStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Login.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
@@ -32,6 +35,5 @@ public class Main extends Application{
         stage.setTitle("Log in");
         stage.setResizable(false);
         stage.show();
-    }
-    
+    }   
 }

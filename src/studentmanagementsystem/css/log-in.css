@@ -7,7 +7,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : rainndev
 */
 
-.user-name-field, .password-field, .log-in-btn{
+.user-name-field, .password-field, .log-in-btn, .role-combo-box {
+    -fx-padding: 0 0 0 15px; 
     -fx-background-radius: 12px;
 }
 
@@ -25,4 +26,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .right-side-column {
     -fx-background-color: rgba(239, 62, 76, 0.1);
     -fx-background-radius:  100px 0px 0px 100px;
+}
+
+.txt-create-one, .txt-log-in {
+     -fx-text-fill:  #ef3e4c;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
 }
