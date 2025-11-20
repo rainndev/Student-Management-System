@@ -18,6 +18,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import studentmanagementsystem.Main;
+import studentmanagementsystem.model.Role;
+import studentmanagementsystem.model.User;
+import studentmanagementsystem.services.UserService;
 
 /**
  * FXML Controller class
@@ -26,6 +29,9 @@ import studentmanagementsystem.Main;
  */
 public class SignUpController implements Initializable {
 
+    
+    private UserService userService = new UserService();
+    
     @FXML
     private TextField firstNameField;
     @FXML
@@ -35,7 +41,7 @@ public class SignUpController implements Initializable {
     @FXML
     private TextField passwordField;
     @FXML
-    private ComboBox<String> roleComboBox;
+    private ComboBox<Role> roleComboBox;
     @FXML
     private Label txtMessage;
     @FXML
@@ -46,7 +52,9 @@ public class SignUpController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        roleComboBox.getItems().addAll("Student", "Teacher");
+        Role teacher = new Role(1, "Teacher");
+        Role student = new Role(2, "Student");
+        roleComboBox.getItems().addAll(teacher, student);
     }    
 
 
@@ -69,6 +77,31 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void handleSignup(ActionEvent event) {
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        Role role = roleComboBox.getValue();
         
+        
+        User user = new User(username, password, role, firstName, lastName);
+        boolean isSuccess = userService.addUser(user);
+        
+        if (isSuccess) {  
+            txtMessage.setText("Signup successfully!");
+            txtMessage.setStyle("-fx-text-fill: green;");
+            
+            
+            firstNameField.setText("");
+            lastNameField.setText("");
+            usernameField.setText("");
+            passwordField.setText("");
+            roleComboBox.setValue(null);
+        } else {
+            txtMessage.setText("Signup failed!");
+            txtMessage.setStyle("-fx-text-fill: red;");
+        }
+        
+        txtMessage.setVisible(true);
     }
 }

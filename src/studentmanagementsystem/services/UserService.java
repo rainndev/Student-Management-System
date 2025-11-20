@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import studentmanagementsystem.databases.DatabaseConnection;
@@ -22,6 +23,25 @@ import studentmanagementsystem.model.Role;
  */
 public class UserService {
     private DatabaseConnection connection = new DatabaseConnection();
+    
+    public boolean addUser(User user) {
+        String query = "INSERT INTO user(username, password, role_id, first_name, last_name) VALUES(? , ? , ? , ? , ?)";
+        
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query)){
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getRole().getRoleID());
+            preparedStatement.setString(4, user.getFirstName());
+            preparedStatement.setString(5, user.getLastName());
+            
+            int rowsInserted = preparedStatement.executeUpdate();
+            
+            return rowsInserted > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     
     public List<User> getAllUser(){
         List<User> userList = new ArrayList<>();

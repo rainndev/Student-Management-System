@@ -27,4 +27,9 @@ public class Role {
 
     public void setRoleName (String roleName){ this.roleName = roleName;}
     public void setRoleID (int roleID){ this.roleID = roleID;}
+
+    @Override
+    public String toString() {
+        return roleName; 
+    }
 }
