@@ -50,17 +50,29 @@ public class LoginController implements Initializable {
         
     }   
     
-    private void goToDashboard(Event event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Dashboard.fxml"));
+    private void goToDashboard(Event event, String fullname) {
+       try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/Dashboard.fxml"));
+            Parent root = loader.load();
+
+            DashboardController controller = loader.getController();
+            
+            //set the name
+            controller.setName(fullname);
+            
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
+            scene.getStylesheets().add(
+                    getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm()
+            );
+
             stage.setTitle("Dashboard");
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException ex) {
-            System.getLogger(LoginController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.getLogger(LoginController.class.getName())
+                    .log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -90,9 +102,13 @@ public class LoginController implements Initializable {
             
             
               if (result.next()) {
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
+                
+                String fullname = formattedFullName(firstName, lastName);
                 txtMessage.setText("Login successful!");
                 txtMessage.setStyle("-fx-text-fill: green;");
-                goToDashboard(event);
+                goToDashboard(event, fullname);
                 
             } else {
                 txtMessage.setText("Invalid username or password.");
@@ -119,5 +135,16 @@ public class LoginController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    private String formattedFullName(String firstName, String lastName) {
+        String formattedFirst = firstName.substring(0, 1).toUpperCase() 
+                        + firstName.substring(1).toLowerCase();
+
+        String formattedLast = lastName.substring(0, 1).toUpperCase()
+                               + lastName.substring(1).toLowerCase();
+        
+        return formattedFirst + " " + formattedLast;
     }
 }

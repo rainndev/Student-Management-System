@@ -3,16 +3,23 @@ package studentmanagementsystem.controller;
 import javafx.scene.input.MouseEvent; 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.Node; 
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
+
 
 public class DashboardController implements Initializable {
 
@@ -34,10 +41,15 @@ public class DashboardController implements Initializable {
     private HBox hboxGrades;
     @FXML
     private HBox hboxTeacher;
+    @FXML
+    private Label timeLabel;
+    @FXML
+    private Label nameLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        switchTo("AdminAnalytics");
+       startUpdatingTime();
     }
 
     private final Map<String, String> fxmlMap = Map.of(
@@ -76,4 +88,31 @@ public class DashboardController implements Initializable {
         }
     }
     
+    
+    public void startUpdatingTime() {
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("hh:mm a, MMMM dd, yyyy");
+
+        Runnable updateTime = () -> {
+            String formatted = LocalDateTime.now().format(formatter);
+            timeLabel.setText(formatted);
+        };
+
+        // Update once immediately
+        updateTime.run();
+
+        // Update every 1 minute
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> updateTime.run()),
+                new KeyFrame(Duration.minutes(1))
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+    
+    
+    public void setName(String name) {
+        nameLabel.setText("Hi, " + name);
+    }
 }
