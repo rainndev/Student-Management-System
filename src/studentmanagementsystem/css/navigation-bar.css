@@ -23,3 +23,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #383838; 
     -fx-background-radius: 8px;
 }
+
+
+.side-nav-container {
+    -fx-background-color:  #222222;
+    -fx-background-radius: 0px 20px 20px 0px;
+}
+
+.side-nav-header {
+    -fx-background-color:  #ef3e4c;
+    -fx-background-radius: 0px 20px 0px 0px;     
+}

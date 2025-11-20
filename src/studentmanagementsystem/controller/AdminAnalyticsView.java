@@ -14,6 +14,9 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import studentmanagementsystem.services.AnalyticsService;
@@ -49,6 +52,20 @@ public class AdminAnalyticsView implements Initializable {
     private PieChart pieChart;
     @FXML
     private StackedBarChart<String, Number> stackedRemarksChart;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private HBox hboxTotalUsers;
+    @FXML
+    private HBox hboxTotalStudents;
+    @FXML
+    private HBox hboxTotalPrograms;
+    @FXML
+    private HBox hboxTotalSubjects;
+    @FXML
+    private VBox vboxInActiveUsers;
+    @FXML
+    private VBox vboxActiveUsers;
 
     /**
      * Initializes the controller class.
@@ -75,6 +92,9 @@ public class AdminAnalyticsView implements Initializable {
         initializeBarChart();
         initializePieChart();
         initializeStackedBarChart();
+        
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
    }
     
     
