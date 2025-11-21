@@ -66,6 +66,9 @@
                </padding>
             </VBox>
          </children>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
       </VBox>
    </children>
    <stylesheets>

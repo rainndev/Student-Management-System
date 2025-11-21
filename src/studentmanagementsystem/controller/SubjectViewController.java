@@ -104,7 +104,7 @@ public class SubjectViewController implements Initializable {
 
                 Scene scene = new Scene(root);
                 dialogStage.setScene(scene);
-
+                dialogStage.setResizable(false);
                 dialogStage.showAndWait(); 
                 loadSubjects();
          } catch (IOException e) {
@@ -136,6 +136,7 @@ public class SubjectViewController implements Initializable {
            
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
             stage.setTitle("Edit Student");
             stage.setScene(new Scene(root));
             stage.showAndWait();
