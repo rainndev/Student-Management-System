@@ -1,0 +1,24 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 21, 2025, 10:38:24 PM
+    Author     : rainndev
+*/
+
+#fieldSubjectCode, #fieldSubjectName, #fieldSubjectUnits, #btnAddSubject, #btnEditSubject, #btnDeleteSubject{
+    -fx-padding: 0 0 0 15px; 
+    -fx-background-radius: 12px;
+}
+
+
+#btnAddSubject, #btnDeleteSubject, #btnEditSubject  {
+    -fx-background-color:  #ef3e4c;
+    -fx-text-fill:  white;
+}
+
+#btnAddSubject:hover, #btnDeleteSubject:hover, #btnEditSubject:hover {
+    -fx-background-color: rgba(239, 62, 76, 0.8);
+    -fx-cursor: hand;
+}

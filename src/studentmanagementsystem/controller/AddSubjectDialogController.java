@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Subject;
 import studentmanagementsystem.services.SubjectService;
+import studentmanagementsystem.util.Validator;
 
 /**
  * FXML Controller class
@@ -51,19 +52,34 @@ public class AddSubjectDialogController implements Initializable {
         String subjectCode = fieldSubjectCode.getText();
         String subjectUnits = fieldSubjectUnits.getText();
         String subjectName = fieldSubjectName.getText();
+        
+        txtMessage.setText("");   
+        
+        if (!Validator.isRequired(subjectCode)) {
+            txtMessage.setText("Error: Subject code is required");   
+            return;
+        }
+        
+        if (!Validator.isRequired(subjectName)) {
+            txtMessage.setText("Error: Subject name is required");   
+            return;
+        }
+        
+        if (!Validator.isBigDecimalNumeric(subjectUnits)) {
+            txtMessage.setText("Error: Subject Unit must be Decimal Number ");   
+            return;
+        }
+        
         BigDecimal unitsBigDecimal = new BigDecimal(subjectUnits);
         
         Subject subject = new Subject(subjectCode, subjectName, unitsBigDecimal);
         boolean isSuccess =  subjectService.addSubject(subject);
         
-        if (isSuccess) {
-            txtMessage.setText("Subject Added Succcesfully!");   
+        if (isSuccess) { 
             handleCloseDialog(event);
         } else {
             txtMessage.setText("Subject Added failed!");
         }
-        
-        txtMessage.setVisible(true);
     }
     
     private void handleCloseDialog(ActionEvent event) {

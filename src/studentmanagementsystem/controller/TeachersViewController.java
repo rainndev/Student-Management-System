@@ -100,6 +100,7 @@ public class TeachersViewController implements Initializable {
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
                 Scene scene = new Scene(root);
                 dialogStage.setScene(scene);
+                dialogStage.setResizable(false);
                 dialogStage.showAndWait(); 
                 loadTeachers();
                 
@@ -127,6 +128,7 @@ public class TeachersViewController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit Teacher");
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.showAndWait();
             loadTeachers();
