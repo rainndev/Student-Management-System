@@ -1,0 +1,47 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 21, 2025, 9:50:46 PM
+    Author     : rainndev
+*/
+
+#fieldFirstName, #fieldLastName, #fieldDepartment, #fieldContactNumber, #btnAddTeacher, #btnEditTeacher, #btnDeleteTeacher, #comboAssignSubject{
+    -fx-padding: 0 0 0 15px; 
+    -fx-background-radius: 12px;
+}
+
+#btnAddTeacher, #btnDeleteTeacher, #btnEditTeacher {
+    -fx-background-color:  #ef3e4c;
+    -fx-text-fill:  white;
+}
+
+#btnAddTeacher:hover{
+    -fx-background-color: rgba(239, 62, 76, 0.8);
+    -fx-cursor: hand;
+}
+
+
+#comboAssignSubject {
+    -fx-background-color: #222222;   
+    -fx-text-fill:  white;
+}
+
+
+/* Text color inside the dropdown list */
+#comboAssignSubject .list-cell:selected {
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Text color for hovered items */
+#comboAssignSubject .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Default list cells (unselected) */
+#comboAssignSubject {
+    -fx-text-fill: black;
+}

@@ -19,7 +19,7 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Student Management">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                   </Text>
                </children>

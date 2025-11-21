@@ -44,11 +44,11 @@ public class EditTeacherDialogController implements Initializable {
     @FXML
     private Label txtMessage;
     @FXML
-    private Button btnDeleteTeacher;
-    @FXML
     private ComboBox<Subject> comboAssignSubject;
     @FXML
-    private Button btnDeleteStudent;
+    private Button btnEditTeacher;
+    @FXML
+    private Button btnDeleteTeacher;
 
     /**
      * Initializes the controller class.

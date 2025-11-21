@@ -22,8 +22,8 @@
                         <Button fx:id="btnSearchStudent" mnemonicParsing="false" onAction="#handleSearchStudent" text="Search" />
                      </children>
                   </HBox>
-                      <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#openEditStudentDialog" text="Edit student" />
-                  <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#openAddStudentDialog" text="Add student" />
+                      <Button fx:id="btnEditStudent" mnemonicParsing="false" onAction="#openEditStudentDialog" text="Edit" />
+                  <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#openAddStudentDialog" text="Add" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

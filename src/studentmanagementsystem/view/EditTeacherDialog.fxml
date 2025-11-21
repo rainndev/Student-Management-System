@@ -1,84 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="702.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.EditTeacherDialogController">
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.EditTeacherDialogController">
    <children>
-      <VBox alignment="CENTER" prefHeight="702.0" prefWidth="987.0" spacing="10.0">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" spacing="10.0">
+            <VBox>
                <children>
-                  <Label prefHeight="27.0" prefWidth="150.0" text="First Name">
+                  <Label text="Edit Teacher" textFill="#222222">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="28.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fieldFirstName" prefHeight="35.0" prefWidth="333.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10.0">
-               <children>
-                  <Label prefWidth="150.0" text="Last Name">
+                  <Label text="Add a new teacher to the system by filling out the required information." textFill="#646464">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fieldLastName" prefHeight="35.0" prefWidth="333.0" />
                </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10.0" />
-            <HBox alignment="CENTER" spacing="10.0">
+               <padding>
+                  <Insets left="50.0" right="50.0" top="50.0" />
+               </padding>
+            </VBox>
+            <VBox spacing="10.0">
                <children>
-                  <Label prefWidth="150.0" text="Department">
+                  <Label prefHeight="27.0" prefWidth="150.0" text="First Name" textFill="#222222">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fieldDepartment" prefHeight="35.0" prefWidth="333.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10.0">
-               <children>
-                  <Label prefWidth="150.0" text="Contact No.">
+                  <TextField fx:id="fieldFirstName" prefHeight="50.0" prefWidth="333.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefWidth="150.0" text="Last Name" textFill="#222222">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fieldContactNumber" prefHeight="35.0" prefWidth="333.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10.0">
-               <children>
-                  <Label prefWidth="150.0" text="Asign Subject">
+                  <TextField fx:id="fieldLastName" prefHeight="50.0" prefWidth="333.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefWidth="150.0" text="Department" textFill="#222222">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="comboAssignSubject" prefHeight="35.0" prefWidth="333.0" />
+                  <TextField fx:id="fieldDepartment" prefHeight="50.0" prefWidth="333.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefWidth="150.0" text="Contact No." textFill="#222222">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fieldContactNumber" prefHeight="50.0" prefWidth="333.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefWidth="150.0" text="Assigned Subject" textFill="#222222">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="comboAssignSubject" prefHeight="50.0" prefWidth="492.0" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="btnEditTeacher" mnemonicParsing="false" onAction="#handleEditTeacher" prefHeight="50.0" prefWidth="492.0" text="Save Edit" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnDeleteTeacher" mnemonicParsing="false" onAction="#handleDeleteTeacher" prefHeight="50.0" prefWidth="492.0" text="Delete Teacher" />
+                  <Label fx:id="txtMessage" alignment="CENTER" prefHeight="17.0" prefWidth="494.0" textFill="#ef3e4c" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10.0" />
-            <HBox alignment="CENTER" spacing="10.0" />
-            <HBox alignment="CENTER" spacing="10.0" />
-            <Button fx:id="btnDeleteStudent" mnemonicParsing="false" onAction="#handleEditTeacher" prefHeight="35.0" prefWidth="496.0" text="Save Edit " />
-            <Button fx:id="btnDeleteTeacher" mnemonicParsing="false" onAction="#handleDeleteTeacher" prefHeight="35.0" prefWidth="496.0" text="Delete Teacher" />
-            <Label fx:id="txtMessage" text="Label" visible="false">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </padding>
+            </VBox>
          </children>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
       </VBox>
    </children>
+   <padding>
+      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../css/teacher-field.css" />
+      <URL value="@../css/global.css" />
+   </stylesheets>
 </AnchorPane>

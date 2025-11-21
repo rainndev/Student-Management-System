@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import studentmanagementsystem.model.Role;
 import studentmanagementsystem.services.TeacherService;
 import studentmanagementsystem.model.Teacher;
+import studentmanagementsystem.util.Validator;
 
 /**
  * FXML Controller class
@@ -34,9 +35,9 @@ public class AddTeacherDialogController implements Initializable {
     @FXML
     private TextField fieldContactNumber;
     @FXML
-    private Button btnAddStudent;
-    @FXML
     private Label txtMessage;
+    @FXML
+    private Button btnAddTeacher;
 
     /**
      * Initializes the controller class.
@@ -58,17 +59,50 @@ public class AddTeacherDialogController implements Initializable {
         Role role = new Role(1); // 1 for Teacher
         int isActive = 1;
         
+        
+        txtMessage.setText("");
+        
+        if (!Validator.isRequired(firstName)) {
+            txtMessage.setText("Error: First name is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(lastName)) {
+            txtMessage.setText("Error: Last name is required.");
+            return;
+        }
+        
+        
+        if (!Validator.isAlpha(department)) {
+            txtMessage.setText("Error: Department must be String.");
+            return;
+        }
+        
+        if (!Validator.isRequired(department)) {
+            txtMessage.setText("Error: Department is required.");
+            return;
+        }
+        
+        
+        if (!Validator.isRequired(contact)) {
+            txtMessage.setText("Error: Contact number is required.");
+            return;
+        }
+
+        if (!Validator.isNumeric(contact)) {
+            txtMessage.setText("Error: Contact number must be numeric.");
+            return;
+        }
+        
         Teacher teacher = new Teacher(randomUsername, password, role, firstName, lastName, department, contact, isActive);
         boolean isSuccess = teacherService.addTeacher(teacher);
         
         if (isSuccess) {
-            txtMessage.setText("Teacher  Added Succcesfully!");   
+            txtMessage.setText("");
             handleCloseDialog(event);
         } else {
             txtMessage.setText("Teacher  Added failed!");
         }
-        
-        txtMessage.setVisible(true);
     }
     
     private void handleCloseDialog(ActionEvent event) {

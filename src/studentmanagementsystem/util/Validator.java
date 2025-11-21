@@ -32,4 +32,8 @@ public class Validator {
     public static boolean isDateSelected(Object date) {
         return date != null;
     }
+    
+    public static boolean isAlpha(String value) {
+       return value != null && value.matches("[A-Za-z]+");
+    }
 }
