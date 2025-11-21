@@ -1,0 +1,23 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 21, 2025, 8:23:41 PM
+    Author     : rainndev
+*/
+
+#fieldFirstName, #fieldLastName, #fieldbirthDate, #fieldAddresss, #fieldContactNumber, #comboProgram, #comboYearLevel, #fieldProfilePath, #btnAddStudent {
+    -fx-padding: 0 0 0 15px; 
+    -fx-background-radius: 12px;
+}
+
+#btnAddStudent {
+    -fx-background-color:  #212121;
+    -fx-text-fill:  white;
+}
+
+#btnAddStudent:hover{
+    -fx-background-color: rgba(33, 33, 33, 0.8);
+    -fx-cursor: hand;
+}

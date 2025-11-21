@@ -113,6 +113,7 @@ public class StudentsViewController implements Initializable {
 
                 Scene scene = new Scene(root);
                 dialogStage.setScene(scene);
+                dialogStage.setResizable(false);
 
                 dialogStage.showAndWait(); 
                 loadStudents();

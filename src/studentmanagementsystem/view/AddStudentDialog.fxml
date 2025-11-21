@@ -1,120 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="702.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AddStudentDialogController">
+<AnchorPane id="AnchorPane" prefWidth="1207.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagementsystem.controller.AddStudentDialogController">
    <children>
-      <VBox alignment="CENTER" prefHeight="702.0" prefWidth="987.0" spacing="10.0">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefHeight="27.0" prefWidth="150.0" text="First Name">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="fieldFirstName" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Last Name">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="fieldLastName" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefHeight="27.0" prefWidth="150.0" text="Gender">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="comboGender" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Birthdate">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <DatePicker fx:id="fieldbirthDate" onAction="#handleBirthDate" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Address">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="fieldAddresss" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Contact No.">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="fieldContactNumber" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Program">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="comboProgram" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Year Level">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="fieldYearLevel" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label prefWidth="150.0" text="Profile Path">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="fieldProfilePath" prefHeight="35.0" prefWidth="333.0" />
-                     </children>
-                  </HBox>
-                  <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#handleAddStudent" prefHeight="35.0" prefWidth="496.0" text="Add Student" />
-                  <Label fx:id="txtMessage" text="Label" visible="false">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
+            <VBox VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Add New Student" textFill="#222222">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <Label text="Create a new student record by entering the required personal and academic details." textFill="#646464">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
                   </Label>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets left="50.0" right="50.0" top="50.0" />
                </padding>
             </VBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefWidth="604.0" HBox.hgrow="ALWAYS">
+                     <children>
+                              <Label prefHeight="27.0" prefWidth="150.0" text="First Name" textFill="#222222">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                              </Label>
+                              <TextField fx:id="fieldFirstName" prefHeight="50.0" prefWidth="333.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                              <Label prefWidth="150.0" text="Last Name" textFill="#222222">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                              </Label>
+                              <TextField fx:id="fieldLastName" prefHeight="50.0" prefWidth="333.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                              <Label prefHeight="27.0" prefWidth="150.0" text="Gender" textFill="#222222">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                              </Label>
+                        <HBox prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <RadioButton fx:id="rMale" mnemonicParsing="false" text="Male" textFill="#222222">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="gender" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="rFemale" mnemonicParsing="false" text="Female" textFill="#222222" toggleGroup="$gender">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                              <Label prefWidth="150.0" text="Birthdate" textFill="#222222">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                              </Label>
+                              <DatePicker fx:id="fieldbirthDate" onAction="#handleBirthDate" prefHeight="50.0" prefWidth="527.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <Label prefWidth="150.0" text="Address" textFill="#222222">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="fieldAddresss" prefHeight="50.0" prefWidth="333.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                           </children>
+                     <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </padding>
+                        </VBox>
+                  <VBox prefWidth="604.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefWidth="150.0" text="Contact No." textFill="#222222">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="fieldContactNumber" prefHeight="50.0" prefWidth="333.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label prefWidth="150.0" text="Program" textFill="#222222">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="comboProgram" prefHeight="50.0" prefWidth="533.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin></ComboBox>
+                        <Label prefWidth="150.0" text="Year Level" textFill="#222222">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="comboYearLevel" prefHeight="50.0" prefWidth="533.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin></ComboBox>
+                        <Label prefWidth="150.0" text="Profile Path" textFill="#222222">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="fieldProfilePath" prefHeight="50.0" prefWidth="333.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label prefWidth="150.0" text="Address" textFill="#222222" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button fx:id="btnAddStudent" mnemonicParsing="false" onAction="#handleAddStudent" prefHeight="50.0" prefWidth="630.0" text="Add Student">
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Label fx:id="txtMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="526.0" textFill="#ef3e4c">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </padding>
+                  </VBox>
                </children>
+            </HBox>
+         </children>
+      </VBox>
+               </children>
+   <padding>
+      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../css/global.css" />
+      <URL value="@../css/student-field.css" />
+   </stylesheets>
 </AnchorPane>

@@ -20,10 +20,13 @@ import java.sql.Date;
 import java.time.LocalDate;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Role;
 import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
+import studentmanagementsystem.util.Validator;
 
 
 /**
@@ -37,13 +40,11 @@ public class AddStudentDialogController implements Initializable {
     private TextField fieldFirstName;
     @FXML
     private TextField fieldLastName;
-    @FXML
-    private ComboBox<String> comboGender;
+
     @FXML
     private TextField fieldAddresss;
     @FXML
     private TextField fieldContactNumber;
-    @FXML
     private TextField fieldYearLevel;
     @FXML
     private Button btnAddStudent;
@@ -55,6 +56,14 @@ public class AddStudentDialogController implements Initializable {
     private TextField fieldProfilePath;
     @FXML
     private Label txtMessage;
+    @FXML
+    private RadioButton rFemale;
+    @FXML
+    private ToggleGroup gender;
+    @FXML
+    private RadioButton rMale;
+    @FXML
+    private ComboBox<Integer> comboYearLevel;
     /**
      * Initializes the controller class.
      */
@@ -63,67 +72,100 @@ public class AddStudentDialogController implements Initializable {
         ProgramService programService = new ProgramService();
         List<Program> programList = programService.getAllPrograms();
         comboProgram.getItems().addAll(programList);
-        comboGender.getItems().addAll("Male", "Female");
+        comboYearLevel.getItems().addAll(1, 2, 3, 4);
+        rMale.setSelected(true);
     }
 
  
     @FXML
     private void handleAddStudent(ActionEvent event) {
-        
+
         StudentService studentService = new StudentService();
+
+        // Basic field values
         String firstName = fieldFirstName.getText().trim();
         String lastName = fieldLastName.getText().trim();
-        String gender = comboGender.getValue().trim();
-        String address = fieldAddresss.getText();
+        String gender = rFemale.isSelected() ? "Female" : "Male";
+        String address = fieldAddresss.getText().trim();
         String contact = fieldContactNumber.getText().trim();
+        String profilePhoto = fieldProfilePath.getText().trim();
+        Integer yearLevel = comboYearLevel.getValue();
+        LocalDate localDate = fieldbirthDate.getValue();
+        Program selectedProgram = comboProgram.getValue();
+        
+        
+        txtMessage.setText("");
+        if (!Validator.isRequired(firstName)) {
+            txtMessage.setText("Error: First name is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(lastName)) {
+            txtMessage.setText("Error: Last name is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(address)) {
+            txtMessage.setText("Error: Address is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(contact)) {
+            txtMessage.setText("Error: Contact number is required.");
+            return;
+        }
+
+        if (!Validator.isNumeric(contact)) {
+            txtMessage.setText("Error: Contact number must be numeric.");
+            return;
+        }
+
+        if (!Validator.isSelected(comboYearLevel.getValue())) {
+            txtMessage.setText("Error: Please select a year level.");
+            return;
+        }
+
+        if (!Validator.isSelected(comboProgram.getValue())) {
+            txtMessage.setText("Error: Please select a program.");
+            return;
+        }
+
+        if (!Validator.isDateSelected(fieldbirthDate.getValue())) {
+            txtMessage.setText("Error: Please select a birth date.");
+            return;
+        }
         
        
-        int yearLevel;
-        try {
-            yearLevel = Integer.parseInt(fieldYearLevel.getText().trim());
-        } catch (NumberFormatException e) {
-            txtMessage.setText("Error: Year Level must be a number.");
-            return; 
-        }
+        Date birthDate = Date.valueOf(localDate);
         
-        Date birthDate = null;
-        LocalDate localDate = fieldbirthDate.getValue();
-        if (localDate != null) {
-            birthDate = Date.valueOf(localDate); 
-        }
-        
-        Program selectedProgram = comboProgram.getValue(); 
-        String profilePhoto = fieldProfilePath.getText().trim();
+        // Ready to create student
         String randomUsername = java.util.UUID.randomUUID().toString();
-        Role role = new Role(2); // 2 for STUDENT
+        Role role = new Role(2);
         int isActive = 1;
-        
-        
+
         Student student = new Student(
-           role,
-           selectedProgram,
-           yearLevel,
-           gender,
-           birthDate, 
-           address,
-           contact,
-           isActive,
-           firstName,
-           lastName,
-           randomUsername,
-           profilePhoto     
+            role,
+            selectedProgram,
+            yearLevel,
+            gender,
+            birthDate,
+            address,
+            contact,
+            isActive,
+            firstName,
+            lastName,
+            randomUsername,
+            profilePhoto
         );
-        
+
         boolean isSuccess = studentService.addStudent(student);
-        
+
         if (isSuccess) {
-            txtMessage.setText("Student  Added Succcesfully!");   
+            txtMessage.setText("");
             handleCloseDialog(event);
         } else {
-            txtMessage.setText("Student  Added failed!");
+            txtMessage.setText("Error: Failed to add student.");
         }
-        
-        txtMessage.setVisible(true);
     }
 
     @FXML
