@@ -79,7 +79,7 @@ public class StudentsViewController implements Initializable {
         columnBirthDate.setCellValueFactory(cellData -> new SimpleObjectProperty<Date>(cellData.getValue().getBirthDate()));
         columnAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
         columnContact.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactNumber()));
-        columnProgram.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram().getProgramName()));
+        columnProgram.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProgram().getProgramCode()));
         columnYearLevel.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getYearLevel()));
         loadStudents();
         

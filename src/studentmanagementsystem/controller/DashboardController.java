@@ -131,8 +131,6 @@ public class DashboardController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Login.fxml"));
 
             Scene loginScene = new Scene(root);
-            loginScene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
-            // Switch the stage
             Main.mainStage.setScene(loginScene);
             Main.mainStage.setTitle("Log in");
             Main.mainStage.show();

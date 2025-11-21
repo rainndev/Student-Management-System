@@ -57,10 +57,6 @@ public class LoginController implements Initializable {
             Parent root = loader.load();            
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(
-                    getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm()
-            );
-
             stage.setTitle("Dashboard");
             stage.setScene(scene);
             stage.show();
@@ -123,8 +119,6 @@ public class LoginController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/SignUp.fxml"));
             Scene signupScene = new Scene(root);
-            signupScene.getStylesheets().add(getClass().getResource("/studentmanagementsystem/css/global.css").toExternalForm());
-            // Switch the stage
             Main.mainStage.setScene(signupScene);
             Main.mainStage.setTitle("Create an Account"); 
             Main.mainStage.show();
