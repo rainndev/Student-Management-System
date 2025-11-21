@@ -7,17 +7,49 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : rainndev
 */
 
-#fieldFirstName, #fieldLastName, #fieldbirthDate, #fieldAddresss, #fieldContactNumber, #comboProgram, #comboYearLevel, #fieldProfilePath, #btnAddStudent {
+#fieldFirstName, #fieldLastName, #fieldbirthDate, #fieldAddresss, #fieldContactNumber, #comboProgram, #comboYearLevel, #fieldProfilePath,
+#btnAddStudent, #btnDeleteStudent, #btnEditStudent {
     -fx-padding: 0 0 0 15px; 
     -fx-background-radius: 12px;
 }
 
-#btnAddStudent {
-    -fx-background-color:  #212121;
+#btnAddStudent, #btnDeleteStudent, #btnEditStudent {
+    -fx-background-color:  #ef3e4c;
     -fx-text-fill:  white;
 }
 
-#btnAddStudent:hover{
-    -fx-background-color: rgba(33, 33, 33, 0.8);
+#btnAddStudent:hover, #btnDeleteStudent:hover {
+    -fx-background-color: rgba(239, 62, 76, 0.8);
     -fx-cursor: hand;
+}
+
+#comboProgram, #comboYearLevel {
+    -fx-background-color:  #222222;   
+    -fx-text-fill:  white;
+}
+
+/* Text color when NOT expanded (button cell) */
+#comboProgram .combo-box-display-node, 
+#comboYearLevel .combo-box-display-node {
+    -fx-text-fill: white;
+}
+
+/* Text color inside the dropdown list */
+#comboProgram .list-cell:selected,
+#comboYearLevel .list-cell:selected {
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Text color for hovered items */
+#comboProgram .list-cell:hover,
+#comboYearLevel .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Default list cells (unselected) */
+#comboProgram .list-cell,
+#comboYearLevel .list-cell {
+    -fx-text-fill: black;
 }

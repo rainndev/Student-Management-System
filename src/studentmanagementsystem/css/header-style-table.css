@@ -1,0 +1,49 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 21, 2025, 9:30:44 PM
+    Author     : rainndev
+*/
+
+
+#fieldSearchUser, #fieldSearchStudent, #fieldSearchSubject, #fieldSearchTeacher, #fieldSearchProgram{
+    -fx-text-fill: #7B7B7B; /* Dark gray */
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #CACACA; 
+    -fx-border-width: 1; 
+    -fx-border-radius: 8px;
+    -fx-height: 40px;
+}
+
+#btnSearchUser, #btnDetails, #btnSearchStudent, #btnEditStudent, #btnAddStudent, #btnSearchSubject, #btnEditSubject, #btnAddSubject,
+#btnSearchTeacher, #btnEditTeacher, #btnAddTeacher, #btnSearchProgram, #btnEditProgram, #btnAddProgram, #btnEditGrade
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-background-radius: 8px;
+}
+
+#btnSearchUser:hover,
+#btnDetails:hover,
+#btnSearchStudent:hover, 
+#btnEditStudent:hover,
+#btnAddStudent:hover,
+#btnSearchSubject:hover,
+#btnEditSubject:hover,
+#btnAddSubject:hover,
+#btnSearchTeacher:hover,
+#btnEditTeacher:hover,
+#btnAddTeacher:hover,
+#btnSearchProgram:hover,
+#btnEditProgram:hover,
+#btnAddProgram:hover,
+#btnEditGrade:hover
+{
+    -fx-background-color: #383838; 
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}

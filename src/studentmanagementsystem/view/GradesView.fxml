@@ -51,5 +51,6 @@
    <stylesheets>
       <URL value="@../css/global.css" />
       <URL value="@../css/table.css" />
+      <URL value="@../css/header-style-table.css" />
    </stylesheets>
 </AnchorPane>

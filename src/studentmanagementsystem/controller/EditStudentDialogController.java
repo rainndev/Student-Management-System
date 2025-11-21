@@ -17,7 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import studentmanagementsystem.model.Program;
 import studentmanagementsystem.model.Role;
@@ -38,7 +40,6 @@ public class EditStudentDialogController implements Initializable {
     private TextField fieldFirstName;
     @FXML
     private TextField fieldLastName;
-    @FXML
     private ComboBox<String> comboGender;
     @FXML
     private DatePicker fieldbirthDate;
@@ -48,7 +49,6 @@ public class EditStudentDialogController implements Initializable {
     private TextField fieldContactNumber;
     @FXML
     private ComboBox<Program> comboProgram;
-    @FXML
     private TextField fieldYearLevel;
     @FXML
     private TextField fieldProfilePath;
@@ -58,6 +58,14 @@ public class EditStudentDialogController implements Initializable {
     private Button btnEditStudent;
     @FXML
     private Button btnDeleteStudent;
+    @FXML
+    private RadioButton rMale;
+    @FXML
+    private ToggleGroup gender;
+    @FXML
+    private RadioButton rFemale;
+    @FXML
+    private ComboBox<Integer> comboYearLevel;
    
     /**
      * Initializes the controller class.
@@ -67,7 +75,7 @@ public class EditStudentDialogController implements Initializable {
         ProgramService programService = new ProgramService();
         List<Program> programList = programService.getAllPrograms();
         comboProgram.getItems().addAll(programList);
-        comboGender.getItems().addAll("Male", "Female");
+        comboYearLevel.getItems().addAll(1, 2, 3, 4);
     }    
 
     @FXML
@@ -125,7 +133,6 @@ public class EditStudentDialogController implements Initializable {
         boolean isSuccess =  studentService.editStudent(student);
         
         if (isSuccess) {
-            txtMessage.setText("Student  Edit Succcesfully!");
             handleCloseDialog(event);
         } else {
             txtMessage.setText("Student  Edit failed!");
@@ -140,20 +147,18 @@ public class EditStudentDialogController implements Initializable {
         if (student != null) {
             fieldFirstName.setText(student.getFirstName());
             fieldLastName.setText(student.getLastName());
-            comboGender.setValue(student.getGender());
             
-            // Check if the BirthDate object is not null before calling toLocalDate()
-            if (student.getBirthDate() != null) {
-                fieldbirthDate.setValue(student.getBirthDate().toLocalDate());
+            if (rMale.isSelected()) {
+                rMale.setSelected(true);
             } else {
-                // If it's null, explicitly clear the DatePicker
-                fieldbirthDate.setValue(null); 
+                rFemale.setSelected(true);
             }
-        
+            
+            fieldbirthDate.setValue(student.getBirthDate().toLocalDate());
             fieldAddresss.setText(student.getAddress());
             fieldContactNumber.setText(student.getContactNumber());
             comboProgram.setValue(student.getProgram());
-            fieldYearLevel.setText(String.valueOf(student.getYearLevel()));
+            comboYearLevel.setValue(student.getYearLevel());
             fieldProfilePath.setText(student.getProfilePhoto());
         }
     }

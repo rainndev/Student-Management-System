@@ -143,6 +143,7 @@ public class StudentsViewController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit Student");
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.showAndWait();
             loadStudents();
