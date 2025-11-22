@@ -1,0 +1,80 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 22, 2025, 10:53:51 AM
+    Author     : rainndev
+*/
+
+#fieldGrade, #comboTeacherSubject, #comboRemarks, #comboSemester, #btnAddGrades, #btnEditGrade, #btnDeleteGrade, #comboTableSchoolYear {
+    -fx-padding: 0 0 0 15px; 
+    -fx-background-radius: 12px;
+}
+
+
+#comboTeacherSubject, #comboRemarks, #comboSemester, #comboTableSchoolYear {
+    -fx-background-color:  #222222;   
+    -fx-text-fill:  white;
+}
+
+/* Text color when NOT expanded (button cell) */
+#comboTeacherSubject .combo-box-display-node, 
+#comboRemarks .combo-box-display-node,
+#comboSemester .combo-box-display-node,
+#comboTableSchoolYear .combo-box-display-node
+{
+    -fx-text-fill: white;
+}
+
+/* Text color inside the dropdown list */
+#comboTeacherSubject .list-cell:selected,
+#comboRemarks .list-cell:selected,
+#comboSemester .list-cell:selected,
+#comboTableSchoolYear .list-cell:selected
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Text color for hovered items */
+#comboTeacherSubject .list-cell:hover,
+#comboRemarks .list-cell:hover,
+#comboSemester .list-cell:hover,
+#comboTableSchoolYear .list-cell:hover
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Default list cells (unselected) */
+#comboTeacherSubject .list-cell,
+#comboRemarks .list-cell,
+#comboSemester .list-cell,
+#comboTableSchoolYear .list-cell
+{
+    -fx-text-fill: black;
+}
+
+
+
+#btnAddGrades {
+    -fx-background-color:  #ef3e4c;
+    -fx-text-fill:  white;
+}
+
+#btnAddGrades:hover {
+    -fx-background-color: rgba(239, 62, 76, 0.8);
+    -fx-cursor: hand;
+}
+
+#btnEditGrade,#btnDeleteGrade {
+   -fx-background-color: transparent;
+   -fx-border-color: #ef3e4c;
+   -fx-border-radius: 12px;
+}
+
+#btnEditGrade:hover, #btnDeleteGrade:hover{
+    -fx-background-color: rgba(239, 62, 76, 0.1);
+    -fx-cursor: hand;
+}

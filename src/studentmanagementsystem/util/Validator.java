@@ -4,6 +4,8 @@
  */
 package studentmanagementsystem.util;
 
+import javafx.scene.control.ComboBox;
+
 /**
  *
  * @author rainndev
@@ -17,8 +19,8 @@ public class Validator {
         return value != null && value.matches("\\d+");
     }
 
-    public static boolean isSelected(Object value) {
-        return value != null;
+    public static boolean isSelected(ComboBox<?> comboBox) {
+        return comboBox != null && comboBox.getValue() != null;
     }
 
     public static boolean hasMinLength(String value, int min) {

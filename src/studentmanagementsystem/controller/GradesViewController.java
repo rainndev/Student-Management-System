@@ -114,6 +114,7 @@ public class GradesViewController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit Student Grade");
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.showAndWait();
             loadStudents();

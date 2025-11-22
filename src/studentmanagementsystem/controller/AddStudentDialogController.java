@@ -120,12 +120,12 @@ public class AddStudentDialogController implements Initializable {
             return;
         }
 
-        if (!Validator.isSelected(comboYearLevel.getValue())) {
+        if (!Validator.isSelected(comboYearLevel)) {
             txtMessage.setText("Error: Please select a year level.");
             return;
         }
 
-        if (!Validator.isSelected(comboProgram.getValue())) {
+        if (!Validator.isSelected(comboProgram)) {
             txtMessage.setText("Error: Please select a program.");
             return;
         }

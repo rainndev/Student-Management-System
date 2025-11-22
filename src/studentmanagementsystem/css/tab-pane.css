@@ -1,0 +1,25 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 22, 2025, 11:06:42 AM
+    Author     : rainndev
+*/
+
+.tab-pane .tab-header-area {
+    -fx-background-color: #212121;
+}
+
+.tab-pane .tab {
+    -fx-background-insets: 0;
+    -fx-background-radius: 6px 6px 0 0;
+    -fx-padding: 10 16;
+}
+
+
+.tab-pane .tab-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #333;
+}
+

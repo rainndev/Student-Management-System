@@ -30,6 +30,7 @@ import studentmanagementsystem.model.StudentGradeData;
 import studentmanagementsystem.model.TeacherSubjectComboBox;
 import studentmanagementsystem.services.GradeService;
 import studentmanagementsystem.services.TeacherSubjectService;
+import studentmanagementsystem.util.Validator;
 
 /**
  * FXML Controller class
@@ -94,6 +95,8 @@ public class EditStudentGradeDialogController implements Initializable {
     private AnchorPane tab1stSemester;
     @FXML
     private Tab tab2ndSemester;
+    @FXML
+    private Label labelTitle;
 
     /**
      * Initializes the controller class.
@@ -181,6 +184,13 @@ public class EditStudentGradeDialogController implements Initializable {
         this.student = student;
         String currentSchoolYear = getCurrentSchoolYear();
         loadGrades(comboTableSchoolYear.getValue());
+        
+        //set the title
+        if (student != null) {
+            labelTitle.setText("Manage Grade – " + student.getFullName());
+        } else {
+            labelTitle.setText("Manage Grade Student");
+        }
     }
     
     private String getCurrentSchoolYear() {
@@ -191,13 +201,39 @@ public class EditStudentGradeDialogController implements Initializable {
 
     @FXML
     private void handleAddGrades(ActionEvent event) {
+        txtMessage.setText("");
+        if(!Validator.isBigDecimalNumeric(fieldGrade.getText())) {
+            txtMessage.setText("Error: Grade is required");
+            return;
+        }
+        
+        if(!Validator.isSelected(comboTeacherSubject)) {
+            txtMessage.setText("Error: Teacher Subject is required");
+            return;
+        }
+        
+        if(!Validator.isSelected(comboSemester)) {
+            txtMessage.setText("Error: Semester is required");
+            return;
+        }
+        
+        if(!Validator.isSelected(comboTableSchoolYear)) {
+            txtMessage.setText("Error: School year is required");
+            return;
+        }
+        
+        if(!Validator.isSelected(comboRemarks)) {
+            txtMessage.setText("Error: Remark is required");
+            return;
+        }
+        
+        
         int studentId = this.student.getUserID();
-        BigDecimal grade = new BigDecimal(fieldGrade.getText());
-        int teacherSubjectId = comboTeacherSubject.getValue().getTeacherSubjectId();
         int semester = comboSemester.getValue();
         String schoolYear = comboTableSchoolYear.getValue();
-        String remarks = comboRemarks.getValue();
-        
+        String remarks = comboRemarks.getValue(); 
+        int teacherSubjectId = comboTeacherSubject.getValue().getTeacherSubjectId();
+        BigDecimal grade = new BigDecimal(fieldGrade.getText());
         Grade gradeData = new Grade(studentId, teacherSubjectId, grade, remarks, semester, schoolYear);
         boolean isSuccessAdd = gradeService.addGrade(gradeData);
         
@@ -302,7 +338,7 @@ public class EditStudentGradeDialogController implements Initializable {
         Tab activeTab = tabPaneView.getSelectionModel().getSelectedItem();
         StudentGradeData selected;
         
-           // determine which table is active
+        // determine which table is active
         if (activeTab.getText().equals("1st Semester")) {
             selected = tableView1stSemester.getSelectionModel().getSelectedItem();
         } else {
