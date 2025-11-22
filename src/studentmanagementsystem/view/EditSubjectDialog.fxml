@@ -15,7 +15,7 @@
          <children>
             <VBox>
                <children>
-                  <Label text="Add Edit Subject" textFill="#222222">
+                  <Label text="Edit Subject" textFill="#222222">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>

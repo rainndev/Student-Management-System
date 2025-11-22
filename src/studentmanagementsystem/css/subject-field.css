@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 
-#btnAddSubjec, #btnEditSubject  {
+#btnAddSubject, #btnEditSubject  {
     -fx-background-color:  #ef3e4c;
     -fx-text-fill:  white;
 }
