@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,17 +20,29 @@
    <children>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="706.0" prefWidth="719.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
                <children>
                   <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <HBox>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Label text="Admin Dashboard">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                                                       <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                                          <children>
                               <HBox fx:id="hboxTotalUsers" alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/users-analytics.png" />
                                              </image>
@@ -43,10 +56,10 @@
                                                                      <children>
                                                                         <Text fx:id="txtTotalUsers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                              <font>
-                                                <Font name="Arial Black" size="18.0" />
+                                                <Font name="SansSerif Bold" size="24.0" />
                                              </font>
                                           </Text>
-                                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Users">
+                                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Total Users">
                                                                            <VBox.margin>
                                                                               <Insets top="5.0" />
                                                                            </VBox.margin>
@@ -62,7 +75,7 @@
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
-                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/students-analytics.png" />
                                              </image>
@@ -76,10 +89,10 @@
                                        <children>
                                           <Text fx:id="txtTotalStudents" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                              <font>
-                                                <Font name="Arial Black" size="18.0" />
+                                                <Font name="SansSerif Bold" size="24.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Students">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Total Students">
                                              <VBox.margin>
                                                 <Insets top="5.0" />
                                              </VBox.margin>
@@ -95,7 +108,7 @@
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/teachers-analytics.png" />
                                              </image>
@@ -109,10 +122,10 @@
                                        <children>
                                           <Text fx:id="txtTotalTeachers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                              <font>
-                                                <Font name="Arial Black" size="18.0" />
+                                                <Font name="SansSerif Bold" size="24.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Teachers">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Total Teachers">
                                              <VBox.margin>
                                                 <Insets top="5.0" />
                                              </VBox.margin>
@@ -128,7 +141,7 @@
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/program-analytics.png" />
                                              </image>
@@ -142,10 +155,10 @@
                                        <children>
                                           <Text fx:id="txtTotalPrograms" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                              <font>
-                                                <Font name="Arial Black" size="18.0" />
+                                                <Font name="SansSerif Bold" size="24.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Programs">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Total Programs">
                                              <VBox.margin>
                                                 <Insets top="5.0" />
                                              </VBox.margin>
@@ -161,7 +174,7 @@
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/subjects-analytics.png" />
                                              </image>
@@ -175,10 +188,10 @@
                                        <children>
                                           <Text fx:id="txtTotalSubjects" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                              <font>
-                                                <Font name="Arial Black" size="18.0" />
+                                                <Font name="SansSerif Bold" size="24.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Subjects">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Total Subjects">
                                              <VBox.margin>
                                                 <Insets top="5.0" />
                                              </VBox.margin>
@@ -204,10 +217,10 @@
                                                                <children>
                                                                   <Text fx:id="txtTotalInactiveUsers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                                                      <font>
-                                                                        <Font name="Arial Black" size="18.0" />
+                                                                        <Font name="SansSerif Bold" size="24.0" />
                                        </font>
                                     </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inactive Users">
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Inactive Users">
                                                                      <VBox.margin>
                                                                         <Insets top="10.0" />
                                                                      </VBox.margin>
@@ -218,10 +231,10 @@
                                                                <children>
                                                                   <Text fx:id="txtTotalActiveUsers" fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                                                      <font>
-                                                                        <Font name="Arial Black" size="18.0" />
+                                                                        <Font name="SansSerif Bold" size="24.0" />
                                        </font>
                                     </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Active Users">
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #646464;" text="Active Users">
                                                                      <VBox.margin>
                                                                         <Insets top="10.0" />
                                                                      </VBox.margin>
@@ -247,6 +260,9 @@
                                                          <VBox.margin>
                                                             <Insets top="20.0" />
                                                          </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                                                       </HBox>
                         <HBox prefHeight="300.0" prefWidth="200.0">
                            <children>
@@ -272,7 +288,7 @@
                                                 </VBox>
                </children>
                <padding>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </AnchorPane>
          </content>

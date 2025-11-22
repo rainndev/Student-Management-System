@@ -33,3 +33,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
      -fx-font-weight: bold;
      -fx-cursor: hand;
 }
+
+.role-combo-box {
+    -fx-background-color:  #222222;   
+    -fx-text-fill:  white;
+}
+
+/* Text color when NOT expanded (button cell) */
+.role-combo-box .combo-box-display-node
+{
+    -fx-text-fill: white;
+}
+
+/* Text color inside the dropdown list */
+.role-combo-box .list-cell:selected
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Text color for hovered items */
+.role-combo-box .list-cell:hover
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Default list cells (unselected) */
+.role-combo-box .list-cell
+{
+    -fx-text-fill: black;
+}
+

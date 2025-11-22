@@ -10,7 +10,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #hboxAnalytics, #hboxUser, #hboxStudents, #hboxTeacher, #hboxubjects, #hboxProgram, #hboxGrades, .log-out-btn {
     -fx-background-color:  #222222;
     -fx-cursor: hand;
-    
 }
 
 #hboxAnalytics:hover, 

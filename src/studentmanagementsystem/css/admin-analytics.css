@@ -10,6 +10,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #hboxTotalUsers, #hboxTotalSubjects, #hboxTotalStudents, #hboxTotalTeachers, #hboxTotalPrograms, #hboxTotalSubjects, #hboxInactiveUsers, #hboxTotalActiveUsers,
 #vboxInActiveUsers, #vboxActiveUsers {
     -fx-background-radius: 8px;
-    -fx-background-color:   #e7e7e6;
+    -fx-background-color:   rgba(239, 62, 76, 0.05);;
     -fx-padding: 10px;
 }

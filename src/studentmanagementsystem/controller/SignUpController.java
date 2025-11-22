@@ -21,6 +21,7 @@ import studentmanagementsystem.Main;
 import studentmanagementsystem.model.Role;
 import studentmanagementsystem.model.User;
 import studentmanagementsystem.services.UserService;
+import studentmanagementsystem.util.Validator;
 
 /**
  * FXML Controller class
@@ -77,6 +78,33 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void handleSignup(ActionEvent event) {
+        
+        txtMessage.setText("");
+        if (!Validator.isRequired(firstNameField.getText().trim())) {
+            txtMessage.setText("Error: First name is required");
+            return;
+        }
+        
+        if (!Validator.isRequired(lastNameField.getText().trim())) {
+            txtMessage.setText("Error: Last name is required");
+            return;
+        }
+         
+        if (!Validator.isRequired(usernameField.getText().trim())) {
+            txtMessage.setText("Error: Username is required");
+            return;
+        }
+        
+        if (!Validator.isRequired(passwordField.getText().trim())) {
+            txtMessage.setText("Error: Password is required");
+            return;
+        }
+        
+        if (!Validator.isSelected(roleComboBox)) {
+            txtMessage.setText("Error: Role is required");
+            return;
+        }
+        
         String firstName = firstNameField.getText().trim();
         String lastName = lastNameField.getText().trim();
         String username = usernameField.getText().trim();
@@ -91,7 +119,6 @@ public class SignUpController implements Initializable {
             txtMessage.setText("Signup successfully!");
             txtMessage.setStyle("-fx-text-fill: green;");
             
-            
             firstNameField.setText("");
             lastNameField.setText("");
             usernameField.setText("");
@@ -99,9 +126,7 @@ public class SignUpController implements Initializable {
             roleComboBox.setValue(null);
         } else {
             txtMessage.setText("Signup failed!");
-            txtMessage.setStyle("-fx-text-fill: red;");
+            txtMessage.setStyle("-fx-text-fill: #ef3e4c;");
         }
-        
-        txtMessage.setVisible(true);
     }
 }

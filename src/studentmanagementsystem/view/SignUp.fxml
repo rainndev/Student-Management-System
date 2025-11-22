@@ -123,7 +123,7 @@
                         </HBox>
                         <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#handleSignup" prefHeight="50.0" prefWidth="511.0" styleClass="log-in-btn" text="Sign Up" VBox.vgrow="ALWAYS">
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -134,7 +134,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <Label fx:id="txtMessage" text="Label" visible="false">
+                  <Label fx:id="txtMessage" alignment="CENTER" prefHeight="17.0" prefWidth="431.0" textFill="#ef3e4c">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
