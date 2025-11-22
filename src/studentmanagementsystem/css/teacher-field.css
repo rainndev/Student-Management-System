@@ -12,12 +12,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-radius: 12px;
 }
 
-#btnAddTeacher, #btnDeleteTeacher, #btnEditTeacher {
+#btnAddTeacher, #btnEditTeacher {
     -fx-background-color:  #ef3e4c;
     -fx-text-fill:  white;
 }
 
-#btnAddTeacher:hover{
+#btnAddTeacher:hover, #btnEditTeacher:hover{
     -fx-background-color: rgba(239, 62, 76, 0.8);
     -fx-cursor: hand;
 }
@@ -44,4 +44,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 /* Default list cells (unselected) */
 #comboAssignSubject {
     -fx-text-fill: black;
+}
+
+#btnDeleteTeacher {
+   -fx-background-color: transparent;
+   -fx-border-color: #ef3e4c;
+   -fx-border-radius: 12px;
+}
+
+#btnDeleteTeacher:hover {
+   -fx-background-color: rgba(239, 62, 76, 0.1);
+   -fx-border-color: #ef3e4c;
+   -fx-border-radius: 12px;
+   -fx-cursor: hand;
 }

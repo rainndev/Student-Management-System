@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 
-#btnAddSubject, #btnDeleteSubject, #btnEditSubject  {
+#btnAddSubjec, #btnEditSubject  {
     -fx-background-color:  #ef3e4c;
     -fx-text-fill:  white;
 }
@@ -21,4 +21,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #btnAddSubject:hover, #btnDeleteSubject:hover, #btnEditSubject:hover {
     -fx-background-color: rgba(239, 62, 76, 0.8);
     -fx-cursor: hand;
+}
+
+
+#btnDeleteSubject {
+   -fx-background-color: transparent;
+   -fx-border-color: #ef3e4c;
+   -fx-border-radius: 12px;
+}
+
+#btnDeleteSubject:hover {
+   -fx-background-color: rgba(239, 62, 76, 0.1);
+   -fx-border-color: #ef3e4c;
+   -fx-border-radius: 12px;
+   -fx-cursor: hand;
 }
