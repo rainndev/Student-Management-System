@@ -106,6 +106,7 @@ public class ProgramViewController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit Student");
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.showAndWait();
             loadPrograms();
@@ -126,7 +127,7 @@ public class ProgramViewController implements Initializable {
                 dialogStage.setTitle("Add New Program");
 
                 dialogStage.initModality(Modality.APPLICATION_MODAL);
-
+                dialogStage.setResizable(false);
                 Scene scene = new Scene(root);
                 dialogStage.setScene(scene);
 

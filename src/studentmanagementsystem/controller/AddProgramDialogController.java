@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.model.Program;
+import studentmanagementsystem.util.Validator;
 
 /**
  * FXML Controller class
@@ -28,12 +29,13 @@ public class AddProgramDialogController implements Initializable {
     private TextField fieldProgramCode;
     @FXML
     private TextField fieldProgramName;
-    @FXML
     private TextField fieldProgarmDescription;
     @FXML
     private Button btnAddProgram;
     @FXML
     private Label txtMessage;
+    @FXML
+    private TextField fieldProgramDescription;
 
     /**
      * Initializes the controller class.
@@ -50,7 +52,18 @@ public class AddProgramDialogController implements Initializable {
         
         String programCode = fieldProgramCode.getText();
         String programName = fieldProgramName.getText();
-        String description = fieldProgarmDescription.getText();
+        String description = fieldProgramDescription.getText();
+        
+        txtMessage.setText("");
+        if (!Validator.isRequired(programCode)) {
+            txtMessage.setText("Error: Program code is required");   
+            return;
+        }
+        
+        if (!Validator.isRequired(programName)) {
+            txtMessage.setText("Error: Program name is required");   
+            return;
+        }
         
         Program program = new Program(programCode, programName, description);
         boolean isAddSuccess =  programService.addProgram(program);
@@ -61,7 +74,6 @@ public class AddProgramDialogController implements Initializable {
         } else {
             txtMessage.setText("Program Added failed!");
         }
-        txtMessage.setVisible(true);
     }
     
     private void handleCloseDialog(ActionEvent event) {
