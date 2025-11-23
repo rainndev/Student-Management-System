@@ -34,6 +34,7 @@ public class UserDetailsDialogController implements Initializable {
     
     private User user;
     private UserDetailsService userDetailsService = new UserDetailsService();
+    private UserService userService = new UserService();
  
     @FXML
     private Label labelFullname;
@@ -177,7 +178,6 @@ public class UserDetailsDialogController implements Initializable {
 
     @FXML
     private void handleToggleEnableUser(ActionEvent event) {
-         UserService userService = new UserService();
          int isActive = this.user.getIsActive() == 1 ? 0 : 1;
          
          boolean isSuccess = userService.toggleEnableUser(this.user.getUserID(), isActive);
@@ -186,5 +186,7 @@ public class UserDetailsDialogController implements Initializable {
 
     @FXML
     private void handleDeleteUser(ActionEvent event) {
+         boolean isSuccess = userService.deleteUser(this.user.getUserID());
+         btnDelete.setText(isSuccess ? "Success" : "Failed");
     }
 }

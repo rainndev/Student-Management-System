@@ -168,4 +168,19 @@ public class UserService {
             return false;
         }
     }
+    
+    
+    public boolean deleteUser(int ID) {
+        String query = "DELETE FROM user WHERE id = ?";
+        
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query)){
+            preparedStatement.setInt(1, ID);
+            
+            int rowsInserted = preparedStatement.executeUpdate();
+            return rowsInserted > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
