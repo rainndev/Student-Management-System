@@ -137,7 +137,7 @@ public class UserDetailsDialogController implements Initializable {
         labelExtraDesc2.setText("Year Level");
         
         btnActiveInactive.setText(
-          userStudentDetails.getUser().getIsActive() == 1 ? "Disable" : "Approve"
+          userStudentDetails.getUser().getIsActive() == 1 ? "Disable" : "Enable"
         );
     } 
     
@@ -171,7 +171,7 @@ public class UserDetailsDialogController implements Initializable {
           labelExtraDesc2.setText("Subjects");
           
           btnActiveInactive.setText(
-            userTeacherDetails.getUser().getIsActive() == 1 ? "Disable" : "Approve"
+            userTeacherDetails.getUser().getIsActive() == 1 ? "Disable" : "Enable"
           );
           
     }
