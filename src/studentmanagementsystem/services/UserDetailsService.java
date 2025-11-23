@@ -21,22 +21,22 @@ public class UserDetailsService {
     public UserStudentDetails getBasicStudentDetails(int id) {
          String query = """
                         SELECT 
-                            R.id AS role_id, 
-                            R.role_name, 
-                            U.id AS user_id, 
-                            U.username, 
-                            U.first_name, 
-                            U.last_name, 
-                            U.created_at, 
-                            U.password,
-                            U.isActive,
-                            S.year_level, 
-                            P.program_code
-                        FROM user AS U
-                        INNER JOIN role AS R ON U.role_id = R.id
-                        INNER JOIN student AS S ON U.id = S.user_id
-                        INNER JOIN program AS P ON S.program_id = P.id
-                        WHERE U.id = ?;
+                                R.id AS role_id, 
+                                R.role_name, 
+                                U.id AS user_id, 
+                                U.username, 
+                                U.first_name, 
+                                U.last_name, 
+                                U.created_at, 
+                                U.password,
+                                U.isActive,
+                                S.year_level, 
+                                P.program_code
+                            FROM user AS U
+                            LEFT JOIN role AS R ON U.role_id = R.id
+                            LEFT JOIN student AS S ON U.id = S.user_id
+                            LEFT JOIN program AS P ON S.program_id = P.id
+                            WHERE U.id = ?;
                         """;
 
          try (Connection connectDB = connection.getConnection();
@@ -83,35 +83,35 @@ public class UserDetailsService {
     
     public UserTeacherDetails getBasicTeacherDetails(int id) {
          String query = """
-                       SELECT 
-                            R.id AS role_id, 
-                            R.role_name, 
-                            U.id AS user_id, 
-                            U.username, 
-                            U.first_name, 
-                            U.last_name, 
-                            U.created_at, 
-                            U.password,
-                            U.isActive,
-                            T.department,
-                            COUNT(S.id) AS subject_count_handled
-                        FROM user AS U
-                        INNER JOIN role AS R ON U.role_id = R.id
-                        INNER JOIN teacher AS T ON U.id = T.user_id
-                        INNER JOIN teacher_subject AS TS ON T.user_id = TS.teacher_id
-                        INNER JOIN subject AS S ON TS.subject_id = S.id
-                        WHERE U.id = ?
-                        GROUP BY 
-                            R.id, 
-                            R.role_name, 
-                            U.id, 
-                            U.username, 
-                            U.first_name, 
-                            U.last_name, 
-                            U.created_at, 
-                            U.password,
-                            U.isActive,
-                            T.department;
+                    SELECT 
+                          R.id AS role_id, 
+                          R.role_name, 
+                          U.id AS user_id, 
+                          U.username, 
+                          U.first_name, 
+                          U.last_name, 
+                          U.created_at, 
+                          U.password,
+                          U.isActive,
+                          T.department,
+                          COUNT(S.id) AS subject_count_handled
+                      FROM user AS U
+                      LEFT JOIN role AS R ON U.role_id = R.id
+                      LEFT JOIN teacher AS T ON U.id = T.user_id
+                      LEFT JOIN teacher_subject AS TS ON T.user_id = TS.teacher_id
+                      LEFT JOIN subject AS S ON TS.subject_id = S.id
+                      WHERE U.id = ?
+                      GROUP BY 
+                          R.id, 
+                          R.role_name, 
+                          U.id, 
+                          U.username, 
+                          U.first_name, 
+                          U.last_name, 
+                          U.created_at, 
+                          U.password,
+                          U.isActive,
+                          T.department;
                         """;
 
          try (Connection connectDB = connection.getConnection();
@@ -155,5 +155,4 @@ public class UserDetailsService {
              return null;
          }
      }
-
 }

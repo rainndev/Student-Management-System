@@ -152,4 +152,20 @@ public class UserService {
     
     return searchedUserList;
 }
+    
+    
+    public boolean toggleEnableUser(int Id, int isActive) {
+       String query = "UPDATE user SET isActive = ? WHERE id = ?";
+        
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query)){
+            preparedStatement.setInt(1, isActive);
+            preparedStatement.setInt(2, Id);
+            
+            int rowsInserted = preparedStatement.executeUpdate();
+            return rowsInserted > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

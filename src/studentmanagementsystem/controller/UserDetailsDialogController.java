@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -80,7 +81,7 @@ public class UserDetailsDialogController implements Initializable {
           return;
       }
       
-        switch (user.getRole().getRoleID()) {
+      switch (user.getRole().getRoleID()) {
             case 1:
                 //1 is teacher
                 initTeacher();
@@ -96,13 +97,12 @@ public class UserDetailsDialogController implements Initializable {
                 labelExtraTitle2.setText("-");
                 labelExtraDesc2.setText("n/a");
                 break;
-        }
+      }
     }
     
     
     private void initStudent() {
         UserStudentDetails userStudentDetails = userDetailsService.getBasicStudentDetails(user.getUserID());
-        
         if (userStudentDetails == null) {
             labelFullname.setText("No details found");
             labelUsername.setText("n/a");
@@ -113,8 +113,6 @@ public class UserDetailsDialogController implements Initializable {
             labelExtraDesc1.setText("Program");
             labelExtraTitle2.setText("n/a");
             labelExtraDesc2.setText("Year level");
-
-            btnActiveInactive.setDisable(true);
             return;
         }
         
@@ -155,8 +153,6 @@ public class UserDetailsDialogController implements Initializable {
             labelExtraDesc1.setText("Department");
             labelExtraTitle2.setText("n/a");
             labelExtraDesc2.setText("Subjects");
-            
-            btnActiveInactive.setDisable(true);
             return;
         }
         
@@ -177,5 +173,18 @@ public class UserDetailsDialogController implements Initializable {
             userTeacherDetails.getUser().getIsActive() == 1 ? "Disable" : "Approve"
           );
           
+    }
+
+    @FXML
+    private void handleToggleEnableUser(ActionEvent event) {
+         UserService userService = new UserService();
+         int isActive = this.user.getIsActive() == 1 ? 0 : 1;
+         
+         boolean isSuccess = userService.toggleEnableUser(this.user.getUserID(), isActive);
+         btnActiveInactive.setText(isSuccess ? "Success" : "Failed");
+    }
+
+    @FXML
+    private void handleDeleteUser(ActionEvent event) {
     }
 }
