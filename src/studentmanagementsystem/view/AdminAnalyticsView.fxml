@@ -70,6 +70,9 @@
                                        </padding>
                                                                   </VBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                               </HBox>
                               <HBox fx:id="hboxTotalStudents" alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
@@ -103,6 +106,9 @@
                                        </padding>
                                     </VBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                               </HBox>
                               <HBox fx:id="hboxTotalStudents" alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
@@ -136,6 +142,9 @@
                                        </padding>
                                     </VBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                               </HBox>
                               <HBox fx:id="hboxTotalPrograms" alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
@@ -169,6 +178,9 @@
                                        </padding>
                                     </VBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                               </HBox>
                               <HBox fx:id="hboxTotalSubjects" alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
@@ -202,6 +214,9 @@
                                        </padding>
                                     </VBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                               </HBox>
                                                          </children>
                                                          <VBox.margin>

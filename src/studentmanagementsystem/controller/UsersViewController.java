@@ -4,6 +4,7 @@
  */
 package studentmanagementsystem.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.sql.Date;
@@ -14,11 +15,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import studentmanagementsystem.model.Teacher;
 import studentmanagementsystem.model.User;
 import studentmanagementsystem.services.TeacherService;
@@ -31,7 +37,7 @@ import studentmanagementsystem.services.UserService;
  * @author rainndev
  */
 public class UsersViewController implements Initializable {
-
+    
     @FXML
     private TableColumn<User, Number> columnId;
     @FXML
@@ -91,8 +97,25 @@ public class UsersViewController implements Initializable {
     }
 
     @FXML
-    private void handleSearchDetails(ActionEvent event) {
+    private void handleUserDetails(ActionEvent event) {
+        User selectedUser = usersTableView.getSelectionModel().getSelectedItem();
+        
+        
+        try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/UserDetailsDialog.fxml"));
+                Parent root = loader.load();
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("User Details");
+                UserDetailsDialogController controller = loader.getController();
+                controller.setUser(selectedUser);
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                Scene scene = new Scene(root);
+                dialogStage.setScene(scene);
+                dialogStage.setResizable(false);
+                dialogStage.showAndWait();
+                loadAllUser();
+         } catch (IOException e) {
+                e.printStackTrace();
+         }
     }
-
-    
 }

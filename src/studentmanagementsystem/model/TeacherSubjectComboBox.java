@@ -39,6 +39,10 @@ public class TeacherSubjectComboBox {
         return teacherLastName;
     }
 
+    public String getTeacherFullName() {
+        return teacherFirstName + " " + teacherLastName;
+    }
+    
     public int getTeacherSubjectId() {
         return teacherSubjectId;
     }

@@ -23,7 +23,7 @@
                               <Insets left="15.0" />
                            </padding></TextField>
                         <Button fx:id="btnSearchUser" mnemonicParsing="false" onAction="#handleSearchUser" text="Search" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="btnDetails" mnemonicParsing="false" onAction="#handleSearchDetails" style="-fx-background-radius: 8;" text="Details" />
+                        <Button fx:id="btnDetails" mnemonicParsing="false" onAction="#handleUserDetails" style="-fx-background-radius: 8;" text="Details" />
                      </children>
                   </HBox>
                </children>
