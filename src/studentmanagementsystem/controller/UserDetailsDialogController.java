@@ -16,6 +16,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import studentmanagementsystem.model.TeacherSubjectComboBox;
 import studentmanagementsystem.model.User;
 import studentmanagementsystem.model.UserStudentDetails;
@@ -64,6 +68,11 @@ public class UserDetailsDialogController implements Initializable {
     private TableColumn<TeacherSubjectComboBox, String> columnTeacher;
     @FXML
     private TableColumn<TeacherSubjectComboBox, String> columnSubject;
+    private Circle profileCircle;
+    @FXML
+    private Circle profileBg;
+    @FXML
+    private ImageView profileImage;
     
     /**
      * Initializes the controller class.
@@ -72,12 +81,18 @@ public class UserDetailsDialogController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         columnTeacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTeacherFullName()));
         columnSubject.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubjectCode()));
+        
     }    
     
         
     public void setUser(User user) {
       this.user = user;
 
+      Image student = new Image("/studentmanagementsystem/assets/students.png");
+      Image teacher = new Image("/studentmanagementsystem/assets/teachers.png");
+      
+      profileImage.setImage(user.getRole().getRoleID() == 2 ? student : teacher);
+      
       if (user == null) {
           return;
       }
