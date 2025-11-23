@@ -136,5 +136,40 @@ public class SubjectService {
         
         return subjectList;
     }
+    
+    public List<Subject> getSubjectWithTeacherId(int ID) {
+       List<Subject> subjectList = new ArrayList<>();
+       String query = """
+                      SELECT S.id, S.subject_name, S.subject_code, S.units FROM subject as S 
+                      INNER JOIN teacher_subject as TS ON S.id = TS.subject_id
+                      INNER JOIN teacher as T ON TS.teacher_id = T.user_id
+                      WHERE T.user_id = ?;
+                      """;
+       
+       try(Connection connectDB = connection.getConnection();
+            PreparedStatement preparedStatement = connectDB.prepareStatement(query);){
+            preparedStatement.setInt(1, ID);
+
+            try(ResultSet result =  preparedStatement.executeQuery();){
+                while (result.next()) {
+                    int id = result.getInt("id");
+                    String subjectCode = result.getString("subject_code");
+                    String subjectName = result.getString("subject_name");
+                    BigDecimal subjectUnits = result.getBigDecimal("units");
+
+                    Subject subject = new Subject(subjectCode, subjectName, subjectUnits);
+                    subject.setSubjectId(id);
+                    subjectList.add(subject);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return subjectList;
+    }
 }
  

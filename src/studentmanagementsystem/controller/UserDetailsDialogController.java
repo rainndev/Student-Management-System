@@ -4,9 +4,11 @@
  */
 package studentmanagementsystem.controller;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -20,10 +22,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import studentmanagementsystem.model.Subject;
 import studentmanagementsystem.model.TeacherSubjectComboBox;
 import studentmanagementsystem.model.User;
 import studentmanagementsystem.model.UserStudentDetails;
 import studentmanagementsystem.model.UserTeacherDetails;
+import studentmanagementsystem.services.SubjectService;
 import studentmanagementsystem.services.TeacherSubjectService;
 import studentmanagementsystem.services.UserDetailsService;
 import studentmanagementsystem.services.UserService;
@@ -73,6 +77,12 @@ public class UserDetailsDialogController implements Initializable {
     private Circle profileBg;
     @FXML
     private ImageView profileImage;
+    @FXML
+    private TableView<Subject> tableViewSubjectUnits;
+    @FXML
+    private TableColumn<Subject, BigDecimal> columnUnits;
+    @FXML
+    private TableColumn<Subject, String> columnSubjects2;
     
     /**
      * Initializes the controller class.
@@ -81,6 +91,9 @@ public class UserDetailsDialogController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         columnTeacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTeacherFullName()));
         columnSubject.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubjectCode()));
+        
+        columnUnits.setCellValueFactory(cellData -> new SimpleObjectProperty<BigDecimal>(cellData.getValue().getSubjectUnits()));
+        columnSubjects2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSubjectCode()));
         
     }    
     
@@ -136,6 +149,8 @@ public class UserDetailsDialogController implements Initializable {
         List<TeacherSubjectComboBox> teacherSubjectList = teacherSubjectService.getAllTeacherSubjectStudentID(user.getUserID());
         tableViewTeachersSujbject.setItems(FXCollections.observableArrayList(teacherSubjectList));
         
+        tableViewSubjectUnits.setVisible(false);
+        tableViewSubjectUnits.setManaged(false); 
         
        
         labelFullname.setText(userStudentDetails.getUser().getFullName());
@@ -158,7 +173,9 @@ public class UserDetailsDialogController implements Initializable {
     
     private void initTeacher() {
         UserTeacherDetails userTeacherDetails = userDetailsService.getBasicTeacherDetails(user.getUserID());
-          
+
+        
+        
         if (userTeacherDetails == null) {
             labelFullname.setText("No details found");
             labelUsername.setText("n/a");
@@ -172,6 +189,12 @@ public class UserDetailsDialogController implements Initializable {
             return;
         }
         
+          tableViewTeachersSujbject.setVisible(false);
+          tableViewTeachersSujbject.setManaged(false);
+          
+          SubjectService subjectService = new SubjectService();
+          List<Subject> subjectList = subjectService.getSubjectWithTeacherId(user.getUserID());
+          tableViewSubjectUnits.setItems(FXCollections.observableArrayList(subjectList));
         
           labelFullname.setText(userTeacherDetails.getUser().getFullName());
           labelUsername.setText(userTeacherDetails.getUser().getUsername());
