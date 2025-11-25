@@ -91,26 +91,34 @@ public class LoginController implements Initializable {
             
             ResultSet result = statement.executeQuery();
             
-            
-              if (result.next()) {
-                int id = result.getInt("id");
-                String firstName = result.getString("first_name");
-                String lastName = result.getString("last_name");
-                
-                SessionManager.setSession(id, firstName, lastName);
-                
-                txtMessage.setText("Login successful!");
-                txtMessage.setStyle("-fx-text-fill: green;");
-                goToDashboard(event);
-                
-            } else {
-                txtMessage.setText("Invalid username or password.");
-                txtMessage.setStyle("-fx-text-fill: red;");
+               
+            if (!result.next()) {
+                  txtMessage.setText("Invalid username or password.");
+                  txtMessage.setStyle("-fx-text-fill: red;");
+                  return;
             }
-              txtMessage.setVisible(true); 
+            
+            int id = result.getInt("id");
+            int isActive = result.getInt("isActive");
+            String firstName = result.getString("first_name");
+            String lastName = result.getString("last_name");
+            
+            if (isActive == 0) {
+                  txtMessage.setText("Your account is currently pending. Please try again later.");
+                  txtMessage.setStyle("-fx-text-fill: red;");
+                  return;
+            }
+            
+            SessionManager.setSession(id, firstName, lastName);
+            
+            txtMessage.setText("Login successful!");
+            txtMessage.setStyle("-fx-text-fill: green;");
+            goToDashboard(event);
         } catch (Exception e) {
             e.printStackTrace();
             txtMessage.setText("Error connecting to database.");
+        }  finally {
+            txtMessage.setVisible(true); 
         }
     }
 
