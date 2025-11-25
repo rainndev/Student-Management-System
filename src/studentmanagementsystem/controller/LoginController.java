@@ -51,13 +51,13 @@ public class LoginController implements Initializable {
         
     }   
     
-    private void goToDashboard(Event event) {
+    private void goTo(Event event, String path, String title) {
        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/Dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();            
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            stage.setTitle("Dashboard");
+            stage.setTitle(title);
             stage.setScene(scene);
             stage.show();
 
@@ -99,6 +99,7 @@ public class LoginController implements Initializable {
             }
             
             int id = result.getInt("id");
+            int roleId = result.getInt("role_id");
             int isActive = result.getInt("isActive");
             String firstName = result.getString("first_name");
             String lastName = result.getString("last_name");
@@ -113,7 +114,22 @@ public class LoginController implements Initializable {
             
             txtMessage.setText("Login successful!");
             txtMessage.setStyle("-fx-text-fill: green;");
-            goToDashboard(event);
+            
+            //role base login
+            
+            switch (roleId) {
+                case 0:
+                    goTo(event, "/studentmanagementsystem/view/Dashboard.fxml", "Dashboard");
+                    break;
+                case 1:
+                    goTo(event, "/studentmanagementsystem/view/Dashboard.fxml", "Dashboard");
+                    break;
+                case 2:
+                    goTo(event, "/studentmanagementsystem/view/StudentDashboard.fxml", "Student");
+                    break;  
+                default:
+                    throw new AssertionError();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             txtMessage.setText("Error connecting to database.");
