@@ -285,4 +285,78 @@ public class StudentService {
         }      
         return studentList;
     }
+   
+   public Student getStudentById(int ID) {
+        Student student = new Student();
+        String query =
+        "SELECT " +
+        "U.id AS user_id, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
+        "R.role_name, " +
+        "S.program_id, S.year_level, S.gender, S.birth_date, S.address, S.contact_number, S.profile_photo, S.isActive AS student_active, " +
+        "P.program_code, P.program_name, P.description " +
+        "FROM `User` U " +
+        "LEFT JOIN `Student` S ON S.user_id = U.id " +
+        "LEFT JOIN `Program` P ON S.program_id = P.id " +
+        "LEFT JOIN `Role` R ON U.role_id = R.id " +
+        "WHERE U.role_id = 2 AND U.id = ?";
+
+        
+        try(Connection connectDB = connection.getConnection();
+            PreparedStatement stmt = connectDB.prepareStatement(query);
+                ){
+            
+            stmt.setInt(1, ID);
+            
+            try(ResultSet result = stmt.executeQuery()) {
+                 if (result.next()) {
+
+                     int roleId = result.getInt("role_id");
+                     String roleName = result.getString("role_name");
+                     Role role = new Role(roleId, roleName);
+
+                     int userId = result.getInt("user_id");
+                     String firstName = result.getString("first_name");
+                     String lastName = result.getString("last_name");
+                     String username = result.getString("username");
+                     int isActive = result.getInt("student_active"); 
+                     String profilePhoto = result.getString("profile_photo");
+
+
+                     int yearLevel = result.getInt("year_level");
+                     String gender = result.getString("gender");
+                     Date birthDate = result.getDate("birth_date");
+                     String address = result.getString("address");
+                     String contactNumber = result.getString("contact_number");      
+                     String description = result.getString("description");
+
+                     int programID = result.getInt("program_id");      
+                     String programName = result.getString("program_name");
+                     String programCode = result.getString("program_code");
+                     Program program = new Program(programID, programCode, programName, description);
+
+                     student = new Student(
+                             role,
+                             program, 
+                             yearLevel,
+                             gender, 
+                             birthDate, 
+                             address, 
+                             contactNumber,        
+                             isActive, 
+                             firstName, 
+                             lastName, 
+                             username,        
+                             profilePhoto
+                     );
+                     student.setUserId(userId);
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }      
+        return student;
+    }
 }

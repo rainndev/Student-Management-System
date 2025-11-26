@@ -1,0 +1,40 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 26, 2025, 11:15:40 AM
+    Author     : rainndev
+*/
+
+#comboTableSchoolYear {
+    -fx-background-color:  #222222;   
+    -fx-text-fill:  white;
+    -fx-background-radius: 8px;
+}
+
+/* Text color when NOT expanded (button cell) */
+#comboTableSchoolYear .combo-box-display-node
+{
+    -fx-text-fill: white;
+}
+
+/* Text color inside the dropdown list */
+#comboTableSchoolYear .list-cell:selected
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Text color for hovered items */
+#comboTableSchoolYear .list-cell:hover
+{
+    -fx-text-fill: white;
+    -fx-background-color: #222222;
+}
+
+/* Default list cells (unselected) */
+#comboTableSchoolYear .list-cell
+{
+    -fx-text-fill: black;
+}

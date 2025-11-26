@@ -11,6 +11,9 @@ public class Student extends User{
     private String contactNumber;
     private int programId;
     private String profilePhoto;
+
+    public Student() {
+    }
     
     public Student(Role role, Program program, int yearLevel, String gender,	
                         Date birthDate, String address, String contactNumber, int isActive,
