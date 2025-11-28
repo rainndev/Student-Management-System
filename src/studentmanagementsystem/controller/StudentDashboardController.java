@@ -6,6 +6,7 @@ package studentmanagementsystem.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -101,6 +102,8 @@ public class StudentDashboardController implements Initializable {
     private Button btnEdit;
     @FXML
     private ImageView imgLogOut;
+    @FXML
+    private Label lblGWA;
 
     /**
      * Initializes the controller class.
@@ -152,12 +155,24 @@ public class StudentDashboardController implements Initializable {
     
     
     public void loadGrades(String year) {
+        
+        Tab selected = tabPaneView.getSelectionModel().getSelectedItem();
+
+        
         int studentId = SessionManager.getUserId();
         List<StudentGradeData> studentGradeData1st = gradeService.getGradesStudentById(studentId, 1, year);
         tableView1stSemester.setItems(FXCollections.observableArrayList(studentGradeData1st));
         
         List<StudentGradeData> studentGradeData2nd = gradeService.getGradesStudentById(studentId, 2, year);
         tableView2ndSemester.setItems(FXCollections.observableArrayList(studentGradeData2nd));
+        
+        tabPaneView.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab.getText().equals("1st Semester")) {
+                lblGWA.setText(String.valueOf(calculateGwa(studentGradeData1st)));
+            } else {
+                lblGWA.setText(String.valueOf(calculateGwa(studentGradeData2nd)));
+            }
+        });
     }
     
     private void loadInfo(){
@@ -259,5 +274,28 @@ public class StudentDashboardController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+   private BigDecimal calculateGwa(List<StudentGradeData> list) {
+        BigDecimal totalWeighted = BigDecimal.ZERO;
+        BigDecimal totalUnits = BigDecimal.ZERO;
+
+        for (StudentGradeData data : list) {
+            BigDecimal grade = data.getGrade();
+            BigDecimal units = data.getSubjectUnits();
+
+            if (grade != null && units != null) {
+                totalWeighted = totalWeighted.add(grade.multiply(units));
+                totalUnits = totalUnits.add(units);
+            }
+        }
+
+       
+        if (totalUnits.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO; // or return null
+        }
+
+        return totalWeighted.divide(totalUnits, 4, RoundingMode.HALF_UP);
     }
 }
