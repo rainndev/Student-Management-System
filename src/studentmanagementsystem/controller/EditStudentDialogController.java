@@ -65,6 +65,8 @@ public class EditStudentDialogController implements Initializable {
     private RadioButton rFemale;
     @FXML
     private ComboBox<Integer> comboYearLevel;
+    @FXML
+    private Label lblbStudentTitle;
    
     /**
      * Initializes the controller class.
@@ -229,4 +231,13 @@ public class EditStudentDialogController implements Initializable {
          stage.close();
     }
       
+    
+    public void setDialogTitle(String value) {
+        lblbStudentTitle.setText(value);
+        
+        if ("My Information".equals(lblbStudentTitle.getText())) {
+            btnDeleteStudent.setVisible(false);
+            btnDeleteStudent.setDisable(true);
+        }
+    }
 }

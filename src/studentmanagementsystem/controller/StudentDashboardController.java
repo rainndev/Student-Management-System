@@ -219,7 +219,8 @@ public class StudentDashboardController implements Initializable {
             Parent root = loader.load();
             EditStudentDialogController controller = loader.getController();
             controller.setStudent(currentStudent);
-           
+            controller.setDialogTitle("My Information");
+            
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Edit Student");

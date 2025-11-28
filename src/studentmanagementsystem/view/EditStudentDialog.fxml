@@ -20,7 +20,7 @@
          <children>
             <VBox VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Edit Student" textFill="#222222">
+                  <Label fx:id="lblbStudentTitle" text="Edit Student" textFill="#222222">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
