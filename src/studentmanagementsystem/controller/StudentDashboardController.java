@@ -12,14 +12,18 @@ import java.util.ResourceBundle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import studentmanagementsystem.model.SessionManager;
 import studentmanagementsystem.model.StudentGradeData;
@@ -81,6 +85,10 @@ public class StudentDashboardController implements Initializable {
     private Label lblYearLevel;
     @FXML
     private Label lblGender;
+    @FXML
+    private Button btnEdit;
+    @FXML
+    private ImageView imgLogOut;
 
     /**
      * Initializes the controller class.
@@ -163,5 +171,13 @@ public class StudentDashboardController implements Initializable {
         LocalDate today = LocalDate.now();
         int year = today.getYear();
         return year + "-" + (year + 1);
+    }
+
+    @FXML
+    private void handleEdit(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleLogoutClicked(MouseEvent event) {
     }
 }
