@@ -26,6 +26,8 @@ import javafx.stage.Stage;
 import studentmanagementsystem.databases.DatabaseConnection;
 import studentmanagementsystem.Main;
 import studentmanagementsystem.model.SessionManager;
+import studentmanagementsystem.model.User;
+import studentmanagementsystem.model.Role;
 
 /**
  * FXML Controller class
@@ -101,6 +103,8 @@ public class LoginController implements Initializable {
             int id = result.getInt("id");
             int roleId = result.getInt("role_id");
             int isActive = result.getInt("isActive");
+            String userName = result.getString("username");
+            String passWord = result.getString("password");
             String firstName = result.getString("first_name");
             String lastName = result.getString("last_name");
             
@@ -110,7 +114,10 @@ public class LoginController implements Initializable {
                   return;
             }
             
+            Role role = new Role(roleId);
+            User user = new User(userName, passWord, role, firstName, lastName);
             SessionManager.setSession(id, firstName, lastName);
+            SessionManager.setUser(user);
             
             txtMessage.setText("Login successful!");
             txtMessage.setStyle("-fx-text-fill: green;");

@@ -157,7 +157,9 @@ public class AddStudentDialogController implements Initializable {
             randomUsername,
             profilePhoto
         );
-
+        
+        student.setPassword("123");
+        
         boolean isSuccess = studentService.addStudent(student);
 
         if (isSuccess) {

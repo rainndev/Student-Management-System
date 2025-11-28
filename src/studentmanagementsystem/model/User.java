@@ -40,6 +40,14 @@ public class User {
         this(username, password, role, firstName, lastName, isActive, null);
     }
     
+    public  User(String username, Role role, String firstName, String lastName, int isActive){
+        this.username = username;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isActive = isActive;
+    }
+    
     
     public  User(String username, String password, Role role, String firstName, String lastName) {
         this.username = username;
@@ -68,4 +76,7 @@ public class User {
     public void setCreatedAt(Date date) { this.createdAt = date; }
     public void setUserId(int UserID) { this.UserID = UserID; }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

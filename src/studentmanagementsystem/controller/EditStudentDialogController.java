@@ -26,6 +26,7 @@ import studentmanagementsystem.model.Role;
 import studentmanagementsystem.model.Student;
 import studentmanagementsystem.services.ProgramService;
 import studentmanagementsystem.services.StudentService;
+import studentmanagementsystem.util.Validator;
 
 /**
  * FXML Controller class
@@ -40,7 +41,6 @@ public class EditStudentDialogController implements Initializable {
     private TextField fieldFirstName;
     @FXML
     private TextField fieldLastName;
-    private ComboBox<String> comboGender;
     @FXML
     private DatePicker fieldbirthDate;
     @FXML
@@ -49,7 +49,6 @@ public class EditStudentDialogController implements Initializable {
     private TextField fieldContactNumber;
     @FXML
     private ComboBox<Program> comboProgram;
-    private TextField fieldYearLevel;
     @FXML
     private TextField fieldProfilePath;
     @FXML
@@ -84,22 +83,57 @@ public class EditStudentDialogController implements Initializable {
 
     @FXML
     private void handleEditStudent(ActionEvent event) {
+        
+        if (!Validator.isRequired(fieldFirstName.getText())) {
+            txtMessage.setText("Error: First name is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(fieldLastName.getText())) {
+            txtMessage.setText("Error: Last name is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(fieldAddresss.getText())) {
+            txtMessage.setText("Error: Address is required.");
+            return;
+        }
+
+        if (!Validator.isRequired(fieldContactNumber.getText())) {
+            txtMessage.setText("Error: Contact number is required.");
+            return;
+        }
+
+        if (!Validator.isNumeric(fieldContactNumber.getText())) {
+            txtMessage.setText("Error: Contact number must be numeric.");
+            return;
+        }
+
+        if (!Validator.isSelected(comboYearLevel)) {
+            txtMessage.setText("Error: Please select a year level.");
+            return;
+        }
+
+        if (!Validator.isSelected(comboProgram)) {
+            txtMessage.setText("Error: Please select a program.");
+            return;
+        }
+
+        if (!Validator.isDateSelected(fieldbirthDate.getValue())) {
+            txtMessage.setText("Error: Please select a birth date.");
+            return;
+        }
+        
+        
         StudentService studentService = new StudentService();
         
         String firstName = fieldFirstName.getText().trim();
         String lastName = fieldLastName.getText().trim();
-        String gender = comboGender.getValue().trim();
+        String gender = rFemale.isSelected() ? "Female" : "Male";
         String address = fieldAddresss.getText();
         String contact = fieldContactNumber.getText().trim();
-
+        Integer yearLevel = comboYearLevel.getValue();
         
-        int yearLevel;
-        try {
-            yearLevel = Integer.parseInt(fieldYearLevel.getText().trim());
-        } catch (NumberFormatException e) {
-            txtMessage.setText("Error: Year Level must be a number.");
-            return; 
-        }
         
         Date birthDate = null;
         LocalDate localDate = fieldbirthDate.getValue();
@@ -108,8 +142,13 @@ public class EditStudentDialogController implements Initializable {
         }
         
         Program selectedProgram = comboProgram.getValue(); 
-        String profilePhoto = fieldProfilePath.getText().trim();
-        String randomUsername = java.util.UUID.randomUUID().toString();
+        String profilePhoto = fieldProfilePath.getText() == null
+        ? "" : fieldProfilePath.getText().trim();
+        
+        String username = this.student.getUsername().isEmpty() || this.student.getUsername() == null 
+                ? java.util.UUID.randomUUID().toString() : this.student.getUsername();
+        
+        
         Role role = this.student.getRole();
       
         Student student = new Student(
@@ -123,12 +162,13 @@ public class EditStudentDialogController implements Initializable {
            1,
            firstName,
            lastName,
-           randomUsername,
+           username,
            profilePhoto     
         );
 
-        // add the user id from student came from setStudent params
+        // add the user id and pass from student came from setStudent params
         student.setUserId(this.student.getUserID());
+        student.setPassword(this.student.getPassword());
         
         boolean isSuccess =  studentService.editStudent(student);
         
@@ -144,17 +184,27 @@ public class EditStudentDialogController implements Initializable {
     public void setStudent(Student student) {
         this.student = student;
 
+        System.out.println("Edit current student id: " + student.getUserID());
+        
         if (student != null) {
             fieldFirstName.setText(student.getFirstName());
             fieldLastName.setText(student.getLastName());
             
+            
             if (rMale.isSelected()) {
                 rMale.setSelected(true);
-            } else {
+            } else if (rFemale.isSelected()) {
                 rFemale.setSelected(true);
+            } else {
+                rMale.setSelected(true);
             }
             
-            fieldbirthDate.setValue(student.getBirthDate().toLocalDate());
+            if (student.getBirthDate() != null) {
+                fieldbirthDate.setValue(student.getBirthDate().toLocalDate());
+            } else {
+                fieldbirthDate.setValue(null); 
+            }
+            
             fieldAddresss.setText(student.getAddress());
             fieldContactNumber.setText(student.getContactNumber());
             comboProgram.setValue(student.getProgram());

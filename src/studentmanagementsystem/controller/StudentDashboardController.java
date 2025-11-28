@@ -4,6 +4,7 @@
  */
 package studentmanagementsystem.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -14,7 +15,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,11 +29,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import studentmanagementsystem.Main;
+import studentmanagementsystem.model.Role;
 import studentmanagementsystem.model.SessionManager;
 import studentmanagementsystem.model.StudentGradeData;
 import studentmanagementsystem.model.Student;
+import studentmanagementsystem.model.Program;
 import studentmanagementsystem.services.GradeService;
 import studentmanagementsystem.services.StudentService;
+import java.sql.Date;
 
 /**
  * FXML Controller class
@@ -109,28 +119,9 @@ public class StudentDashboardController implements Initializable {
         column2ndTeacher.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTeacherFullName()));
         column2ndRemarks.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRemarks()));
 
-        Student student = studentService.getStudentById(SessionManager.getUserId());
-        String fullName = student.getFullName();
-        String programName = student.getProgram().getProgramName();
-        int yearLevel = student.getYearLevel();
-        String gender = student.getGender();
         
+        loadInfo();
         
-        lblFullName.setText(
-            (fullName == null || fullName.isEmpty()) ? "Unknown Student" : fullName
-        );
-
-        lblProgram.setText(
-            (programName == null || programName.isEmpty()) ? "Unknown Program" : programName
-        );
-
-        lblYearLevel.setText(
-            yearLevel == 0 ? "Not specified" : String.valueOf(yearLevel)
-        );
-
-        lblGender.setText(
-            (gender == null || gender.isEmpty()) ? "n/a" : gender
-        );
         
         //school year
         int startYear = 2020;  
@@ -167,6 +158,31 @@ public class StudentDashboardController implements Initializable {
         tableView2ndSemester.setItems(FXCollections.observableArrayList(studentGradeData2nd));
     }
     
+    private void loadInfo(){
+        Student student = studentService.getStudentById(SessionManager.getUserId());
+        String fullName = student.getFullName();
+        String programName = student.getProgram().getProgramName();
+        int yearLevel = student.getYearLevel();
+        String gender = student.getGender();
+        
+        
+        lblFullName.setText(
+            (fullName == null || fullName.isEmpty()) ? "Unknown Student" : fullName
+        );
+
+        lblProgram.setText(
+            (programName == null || programName.isEmpty()) ? "Unknown Program" : programName
+        );
+
+        lblYearLevel.setText(
+            yearLevel == 0 ? "Not specified" : String.valueOf(yearLevel)
+        );
+
+        lblGender.setText(
+            (gender == null || gender.isEmpty()) ? "n/a" : gender
+        );
+    }
+    
     private String getCurrentSchoolYear() {
         LocalDate today = LocalDate.now();
         int year = today.getYear();
@@ -175,9 +191,66 @@ public class StudentDashboardController implements Initializable {
 
     @FXML
     private void handleEdit(ActionEvent event) {
+        Student student = studentService.getStudentById(SessionManager.getUserId());
+        String username = SessionManager.getUser().getUsername();
+        Role role = SessionManager.getUser().getRole();
+        String firstName = SessionManager.getUser().getFirstName();
+        String lastName = SessionManager.getUser().getLastName();
+        Program  program = student.getProgram();
+        Date birthDate = student.getBirthDate();
+        String address = student.getAddress();
+        String contact = student.getContactNumber();
+        String profilePhoto = student.getProfilePhoto();
+        String password = SessionManager.getUser().getPassword();
+        int isActive = student.getIsActive();
+              
+        Student currentStudent = new Student(role, program, 0, username, birthDate, address, contact, isActive, firstName, lastName, username, profilePhoto);
+        currentStudent.setUserId(SessionManager.getUserId());
+        currentStudent.setPassword(password);
+        
+        
+        if (currentStudent == null) {
+            System.out.println("No student selected!");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagementsystem/view/EditStudentDialog.fxml"));
+            Parent root = loader.load();
+            EditStudentDialogController controller = loader.getController();
+            controller.setStudent(currentStudent);
+           
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit Student");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            loadInfo();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleLogoutClicked(MouseEvent event) {
+        SessionManager.clearSession();
+        
+        if (SessionManager.isActive()) {
+            return;
+        }
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/studentmanagementsystem/view/Login.fxml"));
+
+            Scene loginScene = new Scene(root);
+            Main.mainStage.setScene(loginScene);
+            Main.mainStage.setTitle("Log in");
+            Main.mainStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

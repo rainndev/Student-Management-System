@@ -15,11 +15,15 @@ public class Student extends User{
     public Student() {
     }
     
+    public Student(String userName, Role role, String firstName, String lastName, int isActive) {
+      super(userName, role , firstName, lastName, isActive);  
+    }
+    
     public Student(Role role, Program program, int yearLevel, String gender,	
                         Date birthDate, String address, String contactNumber, int isActive,
                         String firstName, String lastName, String userName, String profilePhoto) {
         
-        super(userName, "123", role , firstName, lastName, isActive);
+        super(userName, role , firstName, lastName, isActive);
         
         this.program = program;
         this.yearLevel = yearLevel;

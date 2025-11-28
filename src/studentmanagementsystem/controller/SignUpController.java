@@ -113,7 +113,7 @@ public class SignUpController implements Initializable {
         
         
         User user = new User(username, password, role, firstName, lastName);
-        boolean isSuccess = userService.addUser(user);
+        boolean isSuccess = userService.addUserWithDefaultStudent(user);
         
         if (isSuccess) {  
             txtMessage.setText("Signup successfully!");

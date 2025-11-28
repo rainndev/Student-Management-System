@@ -5,6 +5,8 @@ public class SessionManager {
     private static Integer userId;
     private static String firstName;
     private static String lastName;
+    private static User user;
+
 
    
     public static void setSession(Integer id, String fName, String lName) {
@@ -19,7 +21,15 @@ public class SessionManager {
         lastName = null;
     }
 
- 
+    public static void setUser(User user) {
+        SessionManager.user = user;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+    
+    
     public static Integer getUserId() {
         return userId;
     }

@@ -183,4 +183,63 @@ public class UserService {
             return false;
         }
     }
+    
+    
+    public boolean addUserWithDefaultStudent(User user) {
+
+        String insertUserQuery =
+            "INSERT INTO user(username, password, role_id, first_name, last_name) VALUES(?, ?, ?, ?, ?)";
+
+        String insertStudentQuery =
+            "INSERT INTO student(user_id, program_id, year_level, gender, birth_date, address, contact_number, profile_photo, isActive) " +
+            "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connectDB = connection.getConnection();
+             PreparedStatement userStmt = connectDB.prepareStatement(insertUserQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+             PreparedStatement studentStmt = connectDB.prepareStatement(insertStudentQuery)) {
+
+            // ---------- Insert USER ----------
+            userStmt.setString(1, user.getUsername());
+            userStmt.setString(2, user.getPassword());
+            userStmt.setInt(3, user.getRole().getRoleID());
+            userStmt.setString(4, user.getFirstName());
+            userStmt.setString(5, user.getLastName());
+
+            int rowsUser = userStmt.executeUpdate();
+
+            if (rowsUser == 0) {
+                return false; // user insert failed
+            }
+
+            // ---------- Get Generated user.id ----------
+            ResultSet generatedKeys = userStmt.getGeneratedKeys();
+
+            int userId;
+            if (generatedKeys.next()) {
+                userId = generatedKeys.getInt(1);
+            } else {
+                return false; // no ID generated
+            }
+
+            // ---------- Insert STUDENT with default values ----------
+            studentStmt.setInt(1, userId);       
+            studentStmt.setInt(2, 1);              
+            studentStmt.setInt(3, 1);              
+            studentStmt.setString(4, "Male");     
+            studentStmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
+            studentStmt.setString(6, "N/A");       
+            studentStmt.setString(7, "N/A");       
+            studentStmt.setString(8, "");          
+            studentStmt.setBoolean(9, true);  
+
+            int rowsStudent = studentStmt.executeUpdate();
+
+            return rowsStudent > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
