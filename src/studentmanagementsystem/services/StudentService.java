@@ -25,7 +25,7 @@ public class StudentService {
         String query =
            "SELECT " +
            // User Table (U)
-           "U.id AS user_id, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
+           "U.id AS user_id, U.password, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
            // ROLE Table (R) - NEW COLUMNS ADDED HERE
            "R.role_name, " + // Use R.role_name instead of U.role_name
            // Student Table (S)
@@ -56,6 +56,7 @@ public class StudentService {
                 String firstName = result.getString("first_name");
                 String lastName = result.getString("last_name");
                 String username = result.getString("username");
+                String password = result.getString("password");
                 int isActive = result.getInt("student_active"); 
                 String profilePhoto = result.getString("profile_photo");
                
@@ -87,6 +88,7 @@ public class StudentService {
                         profilePhoto
                 );
                 student.setUserId(userId);
+                student.setPassword(password);
                 studentList.add(student);
             }
             
@@ -211,7 +213,7 @@ public class StudentService {
         String query =
            "SELECT " +
            // User Table (U)
-           "U.id AS user_id, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
+           "U.id AS user_id, U.password, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
            // ROLE Table (R) - NEW COLUMNS ADDED HERE
            "R.role_name, " + // Use R.role_name instead of U.role_name
            // Student Table (S)
@@ -243,6 +245,7 @@ public class StudentService {
                 int userId = result.getInt("user_id");
                 String firstName = result.getString("first_name");
                 String lastName = result.getString("last_name");
+                String password = result.getString("password");
                 String username = result.getString("username");
                 int isActive = result.getInt("student_active"); 
                 String profilePhoto = result.getString("profile_photo");
@@ -275,6 +278,7 @@ public class StudentService {
                         profilePhoto
                 );
                 student.setUserId(userId);
+                student.setPassword(password);
                 studentList.add(student);
             }
             } catch (Exception e) {
@@ -290,7 +294,7 @@ public class StudentService {
         Student student = new Student();
         String query =
         "SELECT " +
-        "U.id AS user_id, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
+        "U.id AS user_id, U.password, U.first_name, U.last_name, U.username, U.isActive AS user_active, U.role_id, " +
         "R.role_name, " +
         "S.program_id, S.year_level, S.gender, S.birth_date, S.address, S.contact_number, S.profile_photo, S.isActive AS student_active, " +
         "P.program_code, P.program_name, P.description " +
@@ -318,6 +322,7 @@ public class StudentService {
                      String firstName = result.getString("first_name");
                      String lastName = result.getString("last_name");
                      String username = result.getString("username");
+                     String password = result.getString("password");
                      int isActive = result.getInt("student_active"); 
                      String profilePhoto = result.getString("profile_photo");
 
@@ -348,6 +353,7 @@ public class StudentService {
                              username,        
                              profilePhoto
                      );
+                     student.setPassword(password);
                      student.setUserId(userId);
                  }
             } catch (Exception e) {

@@ -37,9 +37,11 @@ import studentmanagementsystem.model.SessionManager;
 import studentmanagementsystem.model.StudentGradeData;
 import studentmanagementsystem.model.Student;
 import studentmanagementsystem.model.Program;
+import studentmanagementsystem.model.User;
 import studentmanagementsystem.services.GradeService;
 import studentmanagementsystem.services.StudentService;
 import java.sql.Date;
+import studentmanagementsystem.services.UserService;
 
 /**
  * FXML Controller class
@@ -192,19 +194,23 @@ public class StudentDashboardController implements Initializable {
     @FXML
     private void handleEdit(ActionEvent event) {
         Student student = studentService.getStudentById(SessionManager.getUserId());
-        String username = SessionManager.getUser().getUsername();
-        Role role = SessionManager.getUser().getRole();
-        String firstName = SessionManager.getUser().getFirstName();
-        String lastName = SessionManager.getUser().getLastName();
+        UserService userService = new UserService();
+        User user = userService.getUserById(SessionManager.getUserId());
+        
+        String username = user.getUsername();
+        Role role = user.getRole();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
         Program  program = student.getProgram();
         Date birthDate = student.getBirthDate();
         String address = student.getAddress();
         String contact = student.getContactNumber();
         String profilePhoto = student.getProfilePhoto();
-        String password = SessionManager.getUser().getPassword();
+        String password = user.getPassword();
+        int yearLevel = student.getYearLevel();
         int isActive = student.getIsActive();
               
-        Student currentStudent = new Student(role, program, 0, username, birthDate, address, contact, isActive, firstName, lastName, username, profilePhoto);
+        Student currentStudent = new Student(role, program, yearLevel, username, birthDate, address, contact, isActive, firstName, lastName, username, profilePhoto);
         currentStudent.setUserId(SessionManager.getUserId());
         currentStudent.setPassword(password);
         

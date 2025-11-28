@@ -241,5 +241,45 @@ public class UserService {
             return false;
         }
     }
+    
+    public User getUserById(int ID) {
+            User user = null;
 
+            String query =
+                "SELECT * FROM user AS U " +
+                "INNER JOIN role AS R ON U.role_id = R.id " +
+                "WHERE U.id = ?";
+
+            try (Connection connectDB = connection.getConnection();
+                PreparedStatement preparedStatement = connectDB.prepareStatement(query)
+            ) {
+
+                preparedStatement.setInt(1, ID);
+
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    while (result.next()) {
+                        int roleId = result.getInt("role_id");
+                        String roleName = result.getString("role_name");
+                        Role role = new Role(roleId, roleName);
+
+                        int userID = result.getInt("id");
+                        String firstName = result.getString("first_name");
+                        String passWord = result.getString("password");
+                        String lastName = result.getString("last_name");
+                        String userName = result.getString("username");
+                        int isActive = result.getInt("isActive");
+                        Date createdAt = result.getDate("created_at");
+
+                        user = new User(userName, passWord, role, firstName, lastName, isActive);
+                        user.setUserId(userID);
+                        user.setCreatedAt(createdAt);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return  null;
+            } 
+
+            return user;
+    }
 }
