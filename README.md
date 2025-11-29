@@ -128,7 +128,7 @@ Below is a preview screenshot of the project interface.
 #### [ Admin-Manage-Users ]
 
 <img width="1617" height="842" alt="manage-users-details" src="https://github.com/user-attachments/assets/1843f6fc-04f3-4293-a577-6f3c13456f6e" />
-<img width="1365" height="763" alt="manage-users" src="https://github.com/user-attachments/assets/e4269bda-edb1-42fa-8034-ece7a38cf574" />
+<img width="1365" height="794" alt="manage-users" src="https://github.com/user-attachments/assets/bdd92e49-a0be-4fe1-9c27-44f3a6297a40" />
 
 
 ---
