@@ -47,7 +47,7 @@ The system was built using the following technologies:
 
 ## Database Design
 
-The system uses a relational database structured in MySQL. The database includes tables for user, students, teachers, subjects, programs, roles, teacgher_subject and  grades.
+The system uses a relational database structured in MySQL. The database includes tables for user, students, teachers, subjects, programs, roles, teacher_subject and  grades.
 
 **Database Diagram:**
 
