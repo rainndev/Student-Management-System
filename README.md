@@ -51,7 +51,7 @@ The system uses a relational database structured in MySQL. The database includes
 
 **Database Diagram:**
 
-<img width="1313" height="789" alt="image" src="https://github.com/user-attachments/assets/0de988fc-5b66-4a86-b199-df1c0dbbd0a1" />
+<img width="1850" height="724" alt="db-design" src="https://github.com/user-attachments/assets/fb5f0c3e-57d6-4138-b476-a086c790cf4e" />
 
 ---
 
